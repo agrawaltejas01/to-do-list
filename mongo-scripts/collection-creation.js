@@ -1,4 +1,4 @@
-use toDoList
+use toDoList;
 
 db.createCollection("user", {
     validator :
@@ -122,11 +122,10 @@ db.user.insertOne(
 
 db.userTasks.insertOne(
     {
-        username : "Tejas",
+        _id : "Tejas",
         task : 
         [
-            {
-                _id : ObjectId(),
+            {                
                 title : "Implement To-do list",
                 description : "None",
                 dueDate : new Date("2020-06-01"),
@@ -140,11 +139,10 @@ db.userTasks.insertOne(
 
 db.userTasks.insertOne(
     {
-        username : "Sagar",
+        _id : "Sagar",
         task : 
         [
-            {
-                _id : ObjectId(),
+            {                
                 title : "Implement To-do list",
                 description : "None",
                 dueDate : new Date("2020-06-01"),

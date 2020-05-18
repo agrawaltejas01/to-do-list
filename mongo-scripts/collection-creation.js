@@ -39,86 +39,86 @@ db.user.insertOne(
     }
 )
 
-db.createCollection("userTaks", {
-    validator :
-    {
-        $jsonSchema : 
-        {
-            bsonType : "array",
-            description : "must be an array",
+// db.createCollection("userTasks", {
+//     validator :
+//     {
+//         $jsonSchema : 
+//         {
+//             bsonType : "array",
+//             description : "must be an array",
 
-            items : 
-            {
-                bsonType : "object",
-                required : ['username'],
-                properties : 
-                {
-                    username : 
-                    {
-                        bsonType : 'string',
-                        description : 'username must be string and required'
-                    },
+//             items : 
+//             {
+//                 bsonType : "object",
+//                 required : ['username'],
+//                 properties : 
+//                 {
+//                     username : 
+//                     {
+//                         bsonType : 'string',
+//                         description : 'username must be string and required'
+//                     },
 
-                    task :
-                    {
-                        bsonType : 'array',
-                        description : 'must be an array',
+//                     task :
+//                     {
+//                         bsonType : 'array',
+//                         description : 'must be an array',
 
-                        items : 
-                        {
-                            bsonType : 'object',
-                            required : ['_id', 'title', 'description', 'dueDate', 'priority', 'label', 'archive'],
-                            properties :
-                            {
-                                _id : 
-                                {
-                                    bsonType : "objectId",
-                                    description : "must be an objectId and required"
-                                },
+//                         items : 
+//                         {
+//                             bsonType : 'object',
+//                             required : ['_id', 'title', 'description', 'dueDate', 'priority', 'label', 'archive'],
+//                             properties :
+//                             {
+//                                 _id : 
+//                                 {
+//                                     bsonType : "objectId",
+//                                     description : "must be an objectId and required"
+//                                 },
 
-                                title :
-                                {
-                                    bsonType : 'string',
-                                    description : 'title must be string and required'
-                                },
+//                                 title :
+//                                 {
+//                                     bsonType : 'string',
+//                                     description : 'title must be string and required'
+//                                 },
 
-                                description :
-                                {
-                                    bsonType : 'string',
-                                    description : 'description must be string and required'
-                                },
+//                                 description :
+//                                 {
+//                                     bsonType : 'string',
+//                                     description : 'description must be string and required'
+//                                 },
 
-                                dueDate:
-                                {
-                                    bsonType : 'date',
-                                    description : 'dueDate must be date and required'
-                                },
+//                                 dueDate:
+//                                 {
+//                                     bsonType : 'date',
+//                                     description : 'dueDate must be date and required'
+//                                 },
 
-                                priority:
-                                {
-                                    bsonType : 'int',
-                                    description : 'priority must be int and required'
-                                },
+//                                 priority:
+//                                 {
+//                                     bsonType : 'int',
+//                                     description : 'priority must be int and required'
+//                                 },
 
-                                label:
-                                {
-                                    bsonType : 'string',
-                                    description : 'label must be string and required'
-                                },
+//                                 label:
+//                                 {
+//                                     bsonType : 'string',
+//                                     description : 'label must be string and required'
+//                                 },
 
-                                archive:
-                                {
-                                    bsonType : 'bool',
-                                    description : 'archive must be bool and required'
-                                },
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-})
+//                                 archive:
+//                                 {
+//                                     bsonType : 'bool',
+//                                     description : 'archive must be bool and required'
+//                                 },
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// })
 
 db.userTasks.insertOne(
     {

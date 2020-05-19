@@ -7,12 +7,14 @@ import { UserService } from '../store/service/user.service';
 
 // Component
 import { PanelComponent } from './panel/panel.component';
+import { AddTaskComponent } from './add-task/add-task.component';
 
 
 @NgModule({
   declarations: 
   [
-    PanelComponent
+    PanelComponent,
+    AddTaskComponent
   ],
 
   imports: 

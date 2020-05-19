@@ -4,6 +4,7 @@ var mongo = require('mongoose');
 const app = express()
 
 user = require('../schema/user-schema')
+userTasks = require('../schema/userTasks-schema')
 
 app.use(bodyParser.json())
 
@@ -40,6 +41,30 @@ app.use(function (req, res, next) {
 app.post("/findUser", function(req, res)
 {
     user.findOne(
+        {
+            _id : req.body.username
+        },
+
+        function(err, data)
+        {
+            if(err)
+            {
+                console.log(err);
+                res.send(err);
+            }
+            
+            else
+            {
+                console.log("data reciecved in findUser \n" + data);
+                res.send(data);
+            }
+        }
+    );
+})
+
+app.post("/getUserTasks", function(req, res)
+{
+    userTasks.findOne(
         {
             _id : req.body.username
         },

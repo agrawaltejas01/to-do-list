@@ -8,7 +8,7 @@ export class taskSchema
     archive : Boolean;
 }
 
-export class userTaskSchema
+export class userTasksSchema
 {
     _id : String;
     username : String;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { userSchema } from '../schema/user-schema' 
+import { userTasksSchema } from '../schema/userTasks-schema';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,13 @@ export class UserService
     findUser(username)
     {
         return this.http.post<userSchema>(this.baseUrl + 'findUser', {
+            username
+        })
+    }
+
+    getUserTasks(username)
+    {
+        return this.http.post<userTasksSchema>(this.baseUrl + 'getUserTasks', {
             username
         })
     }

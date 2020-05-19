@@ -1,0 +1,14 @@
+<ul class="nav nav-tabs mt-5 border-top">
+    <div *ngFor = "let label of userTasksLabelList">       
+        <li class="nav-item">
+            <a        
+            class="nav-link"
+            ngClass = "currentTab == label ? 'active' : ">
+            {{label}}
+            </a>
+        </li>
+    </div>
+</ul>
+
+<h4>{{userTasks?._id}}</h4>
+<h4>{{userTasks?.task[0]?.title}}</h4>

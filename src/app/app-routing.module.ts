@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+// Component
 import { AppComponent } from './app.component';
+import { PanelComponent } from './app-panel/panel/panel.component';
 
 
 
 const routes: Routes = [  
   {
     path : "**",
-    component : AppComponent
+    component : PanelComponent
   }
 ];
 

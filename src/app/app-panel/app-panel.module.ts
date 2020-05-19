@@ -9,6 +9,8 @@ import { UserService } from '../store/service/user.service';
 import { PanelComponent } from './panel/panel.component';
 import { TaskListComponent } from './task-list/task-list.component';
 
+// fontAwsome
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: 
@@ -20,7 +22,8 @@ import { TaskListComponent } from './task-list/task-list.component';
   imports: 
   [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,  
+    FontAwesomeModule,  
   ],
 
   exports : 

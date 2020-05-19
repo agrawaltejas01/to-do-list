@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs mt-5 border-top">
+<ul class="nav nav-tabs mt-5 border-top" style="cursor: pointer;">
     <li (click)="changeTab('All')" class="nav-item">
         <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'All' }">
             All
@@ -13,14 +13,10 @@
     </div>
 </ul>
 
-<div class="tab-content">
-
-    <div *ngIf="currentTab == 'All'" class="tab-pane fade show active" id="All">
-        All
-    </div>
+<div class="tab-content">    
 
     <div *ngFor="let label of userTasksLabelList">
-        <div *ngIf="currentTab == label" class="tab-pane fade show active" id="{{label}}">
+        <div *ngIf="currentTab == label" class="tab-pane fade show active" id="tabContent{{label}}">
             <app-task-list                 
                 [userTasks] = 'userTasks'
                 [label] = 'label'
@@ -28,6 +24,16 @@
                  [dueDate] = 'null'>    
             </app-task-list>
         </div>
+    </div>
+
+    <div *ngIf="currentTab == 'All'" class="tab-pane fade show active" id="All">
+        <!-- <app-task-list                 
+                [userTasks] = 'userTasks'
+                [label] = 'noLabel'
+                [priority] = '-1'        
+                 [dueDate] = 'null'>   
+                 {{userTasks}}
+            </app-task-list> -->
     </div>
 
 </div>

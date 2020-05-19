@@ -5,6 +5,12 @@ import { userTasksSchema } from 'src/app/store/schema/userTasks-schema';
 import { taskSchema } from 'src/app/store/schema/userTasks-schema';
 import { element } from 'protractor';
 
+// font awsome
+import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { faSquare } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faFlag } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-task-list',
@@ -13,39 +19,57 @@ import { element } from 'protractor';
 })
 export class TaskListComponent implements OnInit 
 {
-  
-  @Input() public userTasks : userTasksSchema
-  @Input() public label : String
-  @Input() public priority : Number
-  @Input() public dueDate : Date
-  
-   date : any;
-   month : any;
-   year : any;
 
-  taskList : taskSchema[] = [];
-  temp : taskSchema[] = [];
-  
+  @Input() public userTasks: userTasksSchema
+  @Input() public label: String
+  @Input() public priority: Number
+  @Input() public dueDate: Date
+
+  date: any;
+  month: any;
+  year: any;
+
+  taskList: taskSchema[] = [];
+
+  // font awsome
+  faCheckSquare = faCheckSquare;
+  faSquare = faSquare;
+  faCheckCircle = faCheckCircle;
+  faFlag = faFlag;
+
+  taskSelected: Boolean = false;
+  taskStatus: Number = 0;
+  taskPriority: Number = 2;
+
   constructor() 
-  { 
-
+  {    
   }
 
   ngOnInit(): void 
-  { 
-    // console.log(this.dueDate)
+  {     
+    this.taskList = [];
+
+    
     this.date = new Date(this.dueDate).getDate()
     this.month = new Date(this.dueDate).getMonth()
     this.year = new Date(this.dueDate).getFullYear()
 
-    console.log(this.date + this.month + this.year)
+    
     this.getTasksOfFilter()
   }
-  
+
   getTasksOfFilter() 
   {
+
+    // Check if no filter applied
+    if(this.label == "none" && this.priority == -1 && this.dueDate == null)
+    {
+      this.taskList = this.userTasks.task;
+      return;
+    }
+
     // check if label has to be applied
-    if (this.label != "") 
+    if (this.label != "none") 
     {
       this.userTasks.task.forEach(element =>
       {
@@ -82,9 +106,9 @@ export class TaskListComponent implements OnInit
             this.taskList.splice(index,1);
             index--;
           }
-          
+
         }
-          
+
       }
     }
 
@@ -122,11 +146,27 @@ export class TaskListComponent implements OnInit
             this.taskList.splice(index,1);
             index--;
           }
-          
+
         }
-          
+
       }     
     }
-        
+
+  }
+
+
+  selectTask(index)
+  {
+    this.taskSelected = !this.taskSelected
+  }
+
+  toggleTaskStatus(index, status)
+  {
+    this.taskStatus = status;
+  }
+
+  toggleTaskPriority(index, priority)
+  {
+    this.taskList[index].priority = priority
   }
 }

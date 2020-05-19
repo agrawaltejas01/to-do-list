@@ -17,12 +17,19 @@ export class PanelComponent implements OnInit
   userTasksLabelList: String[] = [];
 
   currentTab = 'All';
+  // userTaskDuplicate : userTasksSchema = null;
+  noLabel = 'none';
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) 
+  { 
+    this.getUserTasks(this.username);
+  }
 
   ngOnInit(): void
   {
-    this.getUserTasks(this.username);
+    console.log(this.userTasks);
+    // this.getUserTasks(this.username);
+    console.log(this.userTasks);
   }
 
   getUserTasks(username)
@@ -31,6 +38,7 @@ export class PanelComponent implements OnInit
     this.userService.getUserTasks(username).subscribe((data) =>
     {
       this.userTasks = data;
+      // this.userTaskDuplicate = this.userTasks;
 
       // Create labels list from all available labels in user tasks
       this.userTasks.task.forEach((element) =>
@@ -45,5 +53,7 @@ export class PanelComponent implements OnInit
   {
     // console.log(label);
     this.currentTab = label;
+    // this.userTaskDuplicate = null;
+    // this.userTaskDuplicate = this.userTasks;
   }
 }

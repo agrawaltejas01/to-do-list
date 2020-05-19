@@ -1,0 +1,37 @@
+.status-circle
+{
+    transform: scale(1.5,1.5);
+    margin-right: 3%;
+}
+
+
+#taskInComplete, .highPriority
+{
+    color:red
+}
+
+#taskInProgress, .mediumPriority
+{
+    color: orange;
+}
+
+#taskComplete, .lowPriority
+{
+    color: lightgreen;
+}
+
+#checkedSquared, #unCheckedSquared, .checkSquare
+{
+    transform: scale(1.5,1.5);
+    margin-right: 3%;
+}
+
+.title
+{
+    width: 30%;
+}
+
+.dueDate
+{
+    width: 20%;
+}

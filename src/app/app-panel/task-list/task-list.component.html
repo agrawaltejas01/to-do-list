@@ -1,3 +1,72 @@
-<div *ngFor = "let task of taskList">
-    <h1>{{task?.title}}</h1>
+<div *ngFor="let task of taskList; let i = index">
+    <div class="card">
+        <div class="card-body">
+
+
+
+            <div class="form-inline">
+                <div class="checkSquare">
+                    <div *ngIf="taskSelected">
+                        <fa-icon (click)="selectTask(i)" id="checkedSquared" [icon]='faCheckSquare' title="select">
+                        </fa-icon>
+                    </div>
+
+                    <div *ngIf="!taskSelected">
+                        <fa-icon (click)="selectTask(i)" id="unheckedSquared" [icon]='faSquare' title="select">
+                        </fa-icon>
+                    </div>
+                </div>
+
+                <div class="status-circle">
+                    <div *ngIf="taskStatus == 0">
+                        <fa-icon (click)="toggleTaskStatus(i,1)" id="taskInComplete" [icon]='faCheckCircle'
+                            title="Task Pendin"></fa-icon>
+                    </div>
+
+                    <div *ngIf="taskStatus == 1 ">
+                        <fa-icon (click)="toggleTaskStatus(i,2)" id="taskInProgress" [icon]='faCheckCircle'
+                            title="Task In Progress"></fa-icon>
+                    </div>
+
+                    <div *ngIf="taskStatus == 2">
+                        <fa-icon (click)="toggleTaskStatus(i,0)" id="taskComplete" [icon]='faCheckCircle'
+                            title="Task Completed"></fa-icon>
+                    </div>
+                </div>
+
+                <span class="title">
+                    <div *ngIf="task?.title.length < 30; else truncateTitle">
+                        {{task?.title}}
+                    </div>
+
+                    <ng-template #truncateTitle>
+                        {{task?.title | slice:0:30}}...
+                    </ng-template>
+                </span>
+
+                <span class="dueDate">
+                    {{task?.dueDate | date}}
+                </span>
+
+                <span class="priority">
+                    <div *ngIf="task?.priority == 1" class="highPriority" title="High Priority Task"
+                        (click)="toggleTaskPriority(i,2)">
+                        <fa-icon [icon]='faFlag'></fa-icon>
+                    </div>
+
+                    <div *ngIf="task?.priority == 2" class="mediumPriority" title="Normal Priority Task"
+                        (click)="toggleTaskPriority(i,3)">
+                        <fa-icon [icon]='faFlag'></fa-icon>
+                    </div>
+
+                    <div *ngIf="task?.priority == 3" class="lowPriority" title="Low Priority Task"
+                        (click)="toggleTaskPriority(i,1)">
+                        <fa-icon [icon]='faFlag'></fa-icon>
+                    </div>
+                </span>
+
+            </div>
+
+        </div>
+    </div>
 </div>

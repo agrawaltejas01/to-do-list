@@ -7,12 +7,14 @@ import { UserService } from '../store/service/user.service';
 
 // Component
 import { PanelComponent } from './panel/panel.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 
 @NgModule({
   declarations: 
   [
-    PanelComponent
+    PanelComponent,
+    TaskListComponent
   ],
 
   imports: 
@@ -23,7 +25,8 @@ import { PanelComponent } from './panel/panel.component';
 
   exports : 
   [
-    PanelComponent
+    PanelComponent,
+    TaskListComponent
   ],
 
   providers :

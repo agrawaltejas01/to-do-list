@@ -8,6 +8,7 @@ import { UserService } from '../store/service/user.service';
 // Component
 import { PanelComponent } from './panel/panel.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { AddTaskComponent } from './add-task/add-task.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { TaskListComponent } from './task-list/task-list.component';
   [
     PanelComponent,
     TaskListComponent
+    AddTaskComponent
   ],
 
   imports: 

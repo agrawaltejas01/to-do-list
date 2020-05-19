@@ -15,8 +15,8 @@ import { AddTaskComponent } from './add-task/add-task.component';
   declarations: 
   [
     PanelComponent,
-    TaskListComponent
-    AddTaskComponent
+    TaskListComponent,
+    AddTaskComponent,
   ],
 
   imports: 

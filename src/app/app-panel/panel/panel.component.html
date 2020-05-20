@@ -1,9 +1,5 @@
 <ul class="nav nav-tabs mt-5 border-top" style="cursor: pointer;">
-    <li (click)="changeTab('All')" class="nav-item">
-        <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'All' }">
-            All
-        </a>
-    </li>
+    
     <div *ngFor="let label of userTasksLabelList">
         <li (click)="changeTab(label)" class="nav-item">
             <a class="nav-link" [ngClass]="{ 'active' : currentTab == label }">
@@ -11,6 +7,11 @@
             </a>
         </li>
     </div>
+    <li (click)="changeTab('All')" class="nav-item">
+        <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'All' }">
+            All
+        </a>
+    </li>
 </ul>
 
 <div class="tab-content">    

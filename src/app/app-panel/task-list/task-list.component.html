@@ -4,31 +4,31 @@
 
 
 
-            <div class="form-inline">
+            <div class="form-inline">                
                 <div class="checkSquare">
-                    <div *ngIf="taskSelected">
+                    <div *ngIf="taskSelected[i]">
                         <fa-icon (click)="selectTask(i)" id="checkedSquared" [icon]='faCheckSquare' title="select">
                         </fa-icon>
                     </div>
 
-                    <div *ngIf="!taskSelected">
+                    <div *ngIf="!taskSelected[i]">
                         <fa-icon (click)="selectTask(i)" id="unheckedSquared" [icon]='faSquare' title="select">
                         </fa-icon>
                     </div>
                 </div>
 
                 <div class="status-circle">
-                    <div *ngIf="taskStatus == 0">
+                    <div *ngIf="task?.status == 0">
                         <fa-icon (click)="toggleTaskStatus(i,1)" id="taskInComplete" [icon]='faCheckCircle'
                             title="Task Pendin"></fa-icon>
                     </div>
 
-                    <div *ngIf="taskStatus == 1 ">
+                    <div *ngIf="task?.status == 1 ">
                         <fa-icon (click)="toggleTaskStatus(i,2)" id="taskInProgress" [icon]='faCheckCircle'
                             title="Task In Progress"></fa-icon>
                     </div>
 
-                    <div *ngIf="taskStatus == 2">
+                    <div *ngIf="task?.status == 2">
                         <fa-icon (click)="toggleTaskStatus(i,0)" id="taskComplete" [icon]='faCheckCircle'
                             title="Task Completed"></fa-icon>
                     </div>

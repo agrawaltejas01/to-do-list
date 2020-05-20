@@ -125,15 +125,47 @@ db.userTasks.insertOne(
         _id : "Tejas",
         task : 
         [
-            {                
-                title : "Implement To-do list",
-                description : "None",
-                dueDate : new Date("2020-06-01"),
-                priority : 1,
-                label : 'Group',
-                archive : false
-            }
-        ]
+            {
+                _id : ObjectId(),
+                priority: 1,
+                label: 'Group',
+                archive: false,
+                title: 'Implement To-do list',
+                description: 'None',
+                dueDate: new Date("2020-06-01"),
+                status : 0
+              },
+              {
+                _id : ObjectId(),
+                priority: 1,
+                label: 'Group',
+                archive: false,
+                title: 'Test everything',
+                description: 'Testing',
+                dueDate: new Date("2020-05-29"),
+                status : 0
+              },
+              {
+                _id : ObjectId(),
+                priority: 2,
+                label: 'Group',
+                archive: false,
+                title: 'Test Date filter',
+                description: 'Testing',
+                dueDate: new Date("2020-05-29"),
+                status : 0
+              },
+              {
+                _id : ObjectId(),
+                priority: 3,
+                label: 'Personal',
+                archive: false,
+                title: 'Netflix',
+                description: 'Finish HOC',
+                dueDate: new Date("2020-05-30"),
+                status : 0
+              }
+            ]
     }
 )
 
@@ -142,13 +174,15 @@ db.userTasks.insertOne(
         _id : "Sagar",
         task : 
         [
-            {                
+            {    
+                _id : ObjectId(),            
                 title : "Implement To-do list",
                 description : "None",
                 dueDate : new Date("2020-06-01"),
                 priority : 1,
                 label : 'Group',
-                archive : false
+                archive : false,
+                status : 0
             }
         ]
     }

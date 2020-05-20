@@ -37,32 +37,32 @@ export class TaskListComponent implements OnInit
   faCheckCircle = faCheckCircle;
   faFlag = faFlag;
 
-  taskSelected: Boolean = false;
+  taskSelected: Boolean[] = [false];
   taskStatus: Number = 0;
   taskPriority: Number = 2;
 
   constructor() 
-  {    
+  {
   }
 
   ngOnInit(): void 
-  {     
+  {
     this.taskList = [];
 
-    
+
     this.date = new Date(this.dueDate).getDate()
     this.month = new Date(this.dueDate).getMonth()
     this.year = new Date(this.dueDate).getFullYear()
 
-    
-    this.getTasksOfFilter()
-  }
+
+    this.getTasksOfFilter()    
+  }  
 
   getTasksOfFilter() 
   {
 
     // Check if no filter applied
-    if(this.label == "none" && this.priority == -1 && this.dueDate == null)
+    if (this.label == "none" && this.priority == -1 && this.dueDate == null)
     {
       this.taskList = this.userTasks.task;
       return;
@@ -73,37 +73,37 @@ export class TaskListComponent implements OnInit
     {
       this.userTasks.task.forEach(element =>
       {
-        if(element.label == this.label) 
+        if (element.label == this.label) 
         {
           this.taskList.push(element);
-        }          
+        }
       })
     }
 
     // check if priority has to be applied
-    if(this.priority != -1)
+    if (this.priority != -1)
     {
       // check if label has been applied
-      if(this.taskList.length == 0) 
+      if (this.taskList.length == 0) 
       {
         // label has not been applied
         // traverse userTasks
         this.userTasks.task.forEach(element =>
+        {
+          if (element.priority == this.priority) 
           {
-            if(element.priority == this.priority) 
-            {
-              this.taskList.push(element);
-            }          
-          })
+            this.taskList.push(element);
+          }
+        })
       }
 
-      else if(this.taskList.length > 0) 
-      {        
+      else if (this.taskList.length > 0) 
+      {
         for (let index = 0; index < this.taskList.length; index++) 
-        {          
-          if(this.taskList[index].priority != this.priority)
+        {
+          if (this.taskList[index].priority != this.priority)
           {
-            this.taskList.splice(index,1);
+            this.taskList.splice(index, 1);
             index--;
           }
 
@@ -113,43 +113,43 @@ export class TaskListComponent implements OnInit
     }
 
     // check if dueDate has to be applied
-    if((this.dueDate != null))
+    if ((this.dueDate != null))
     {
       // check if label or priority has been applied
-      if(this.taskList.length == 0) 
+      if (this.taskList.length == 0) 
       {
         // label or priority has not been applied
         // traverse userTasks
         this.userTasks.task.forEach(element =>
+        {
+          if (
+            new Date(element.dueDate).getDate() == this.date &&
+            new Date(element.dueDate).getMonth() == this.month &&
+            new Date(element.dueDate).getFullYear() == this.year
+          ) 
           {
-            if(
-              new Date(element.dueDate).getDate() == this.date &&
-              new Date(element.dueDate).getMonth() == this.month &&
-              new Date(element.dueDate).getFullYear() == this.year
-              ) 
-            {
-              this.taskList.push(element);
-            }          
-          })
+            this.taskList.push(element);
+          }
+        })
       }
 
-      else if(this.taskList.length > 0) 
-      {        
+      else if (this.taskList.length > 0) 
+      {
         for (let index = 0; index < this.taskList.length; index++) 
-        {          
-          if(
+        {
+          if (
             new Date(this.taskList[index].dueDate).getMonth() != this.month ||
             new Date(this.taskList[index].dueDate).getFullYear() != this.year ||
             new Date(this.taskList[index].dueDate).getDate() != this.date
-            )
+          )
           {
-            this.taskList.splice(index,1);
+            this.taskList.splice(index, 1);
             index--;
           }
 
         }
 
-      }     
+      }
     }
 
   }
@@ -157,12 +157,12 @@ export class TaskListComponent implements OnInit
 
   selectTask(index)
   {
-    this.taskSelected = !this.taskSelected
+    this.taskSelected[index] = !this.taskSelected[index]
   }
 
   toggleTaskStatus(index, status)
   {
-    this.taskStatus = status;
+    this.taskList[index].status = status;
   }
 
   toggleTaskPriority(index, priority)

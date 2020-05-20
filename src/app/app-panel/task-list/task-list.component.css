@@ -24,6 +24,7 @@
 {
     transform: scale(1.5,1.5);
     margin-right: 3%;
+    color: lightgrey;
 }
 
 .title
@@ -34,4 +35,11 @@
 .dueDate
 {
     width: 20%;
+}
+
+
+#nothingHereIcon
+{
+    color: #FF7F00;
+    transform: scale(1.5,1.5);
 }

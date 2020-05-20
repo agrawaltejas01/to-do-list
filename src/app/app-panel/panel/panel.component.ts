@@ -16,19 +16,22 @@ export class PanelComponent implements OnInit
   userTasks: userTasksSchema = null;
   userTasksLabelList: String[] = [];
 
+  allDataAvailable : Boolean = false;
+
   currentTab = 'All';
   // userTaskDuplicate : userTasksSchema = null;
-  noLabel = 'abc';
+  noLabel = 'none';
 
   constructor(private userService: UserService) 
   { 
-    this.getUserTasks(this.username);
+    this.allDataAvailable = false;
   }
 
   ngOnInit(): void
   {
+    this.allDataAvailable = false;
     console.log(this.userTasks);
-    // this.getUserTasks(this.username);
+    this.getUserTasks(this.username);
     console.log(this.userTasks);
   }
 
@@ -47,13 +50,14 @@ export class PanelComponent implements OnInit
           this.userTasksLabelList.push(element.label);
       });
     });
+
+    this.allDataAvailable = true;
   }
 
   changeTab(label)
   {
     // console.log(label);
     this.currentTab = label;
-    // this.userTaskDuplicate = null;
-    // this.userTaskDuplicate = this.userTasks;
+    
   }
 }

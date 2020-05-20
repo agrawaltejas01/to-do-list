@@ -1,3 +1,14 @@
+<div *ngIf = "!taskList.length">
+    <div class="card  align-items-center">
+        <div class="card-body">
+            <fa-icon id="nothingHereIcon" [icon]='faSmileBeam' title="select">
+            </fa-icon>            
+            Nothing Here
+        </div>
+    </div>    
+</div>
+
+
 <div *ngFor="let task of taskList; let i = index">
     <div class="card">
         <div class="card-body">
@@ -19,12 +30,12 @@
 
                 <div class="status-circle">
                     <div *ngIf="task?.status == 0">
-                        <fa-icon (click)="toggleTaskStatus(i,1)" id="taskInComplete" [icon]='faCheckCircle'
+                        <fa-icon (click)="toggleTaskStatus(i,1)" id="taskInComplete" [icon]='faExclamationCircle'
                             title="Task Pendin"></fa-icon>
                     </div>
 
                     <div *ngIf="task?.status == 1 ">
-                        <fa-icon (click)="toggleTaskStatus(i,2)" id="taskInProgress" [icon]='faCheckCircle'
+                        <fa-icon (click)="toggleTaskStatus(i,2)" id="taskInProgress" [icon]='faSpinner'
                             title="Task In Progress"></fa-icon>
                     </div>
 

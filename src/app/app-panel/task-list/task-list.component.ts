@@ -1,9 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+// Store
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/state/app.state';
+
 // Service
 import { userTasksSchema } from 'src/app/store/schema/userTasks-schema';
 import { taskSchema } from 'src/app/store/schema/userTasks-schema';
-import { element } from 'protractor';
+import * as TaskActions from '../../store/actions/task-actions';
 
 // font awsome
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
@@ -41,22 +46,36 @@ export class TaskListComponent implements OnInit
   taskStatus: Number = 0;
   taskPriority: Number = 2;
 
-  constructor() 
+  // store
+  appTaskList : Observable<taskSchema[]>;
+
+  constructor( private store : Store<AppState>) 
   {
+    this.appTaskList = store.select('task');
   }
 
   ngOnInit(): void 
   {
-    this.taskList = [];
-
-
-    this.date = new Date(this.dueDate).getDate()
-    this.month = new Date(this.dueDate).getMonth()
-    this.year = new Date(this.dueDate).getFullYear()
+    // Initialize everything
+    this.init();
 
 
     this.getTasksOfFilter()    
   }  
+
+  init()
+  {
+    // initialize taskList
+    this.taskList = [];
+
+    // get date from input dueDate
+    this.date = new Date(this.dueDate).getDate()
+    this.month = new Date(this.dueDate).getMonth()
+    this.year = new Date(this.dueDate).getFullYear()
+
+    // initialize appTaskList
+    this.store.dispatch(new TaskActions.RemoveAllTask());
+  }
 
   getTasksOfFilter() 
   {
@@ -157,7 +176,13 @@ export class TaskListComponent implements OnInit
 
   selectTask(index)
   {
-    this.taskSelected[index] = !this.taskSelected[index]
+    this.taskSelected[index] = !this.taskSelected[index];
+
+    if(this.taskSelected[index])
+      this.store.dispatch(new TaskActions.AddTask(this.taskList[index]));
+    
+    else
+      this.store.dispatch(new TaskActions.RemoveTask(this.taskList[index]._id));
   }
 
   toggleTaskStatus(index, status)

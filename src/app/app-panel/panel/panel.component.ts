@@ -18,7 +18,7 @@ export class PanelComponent implements OnInit
 
   currentTab = 'All';
   // userTaskDuplicate : userTasksSchema = null;
-  noLabel = 'none';
+  noLabel = 'abc';
 
   constructor(private userService: UserService) 
   { 

@@ -8,6 +8,7 @@ import { UserService } from '../store/service/user.service';
 // Component
 import { PanelComponent } from './panel/panel.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { AddTaskComponent } from './add-task/add-task.component';
 
 // fontAwsome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -16,7 +17,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: 
   [
     PanelComponent,
-    TaskListComponent
+    TaskListComponent,
+    AddTaskComponent,
   ],
 
   imports: 

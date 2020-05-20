@@ -1,0 +1,45 @@
+<div class="card">
+    <h5 class="card-header">Add New Task</h5>
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+              <label for="tasktitle">Title : </label>
+              <input class="form-control form-control-lg" id="tasktitle" type="text" placeholder="Enter Title">
+            </div>
+            <div class="form-group">
+              <label for="taskdescription">Description : </label>
+              <textarea class="form-control" id="taskdescription" placeholder="Enter Description" rows="3" ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="taskduedate">Due Date : </label>
+              <input class="form-control" id="taskduedate" type="date">
+            </div>
+            <div class="form-group">
+              <label for="taskpriority">Priority : </label>
+              <select class="custom-select" id="taskpriority">
+                <option value="1">High</option>
+                <option value="2" selected>Normal</option>
+                <option value="3">Low</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="tasklabel">Label : </label>
+                <select class="custom-select" id="tasklabel">
+                  <option value="Personal" selected>Personal</option>
+                  <option value="Work">Work</option>
+                  <option value="Shopping">Shopping</option>
+                  <option value="other">other</option>
+                </select>
+                &nbsp;
+                <div class="input-group mb-3" id="newtaskdiv">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon3">Add New Label</span>
+                    </div>
+                    <input type="text" class="form-control" id="tasknewlabel" aria-describedby="basic-addon3">
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Add New Task</button>
+          </form>
+    </div>
+</div>

@@ -3,3 +3,22 @@
     color: blue;
     background-color: whitesmoke;
 }
+.operationsButtonsGroup
+{
+    /* float: right; */
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
+
+.operationsButtons
+{
+    border: 0px;
+    background: transparent;
+}
+
+#disabledOperationButton
+{
+    cursor: not-allowed;
+    color: grey;
+}

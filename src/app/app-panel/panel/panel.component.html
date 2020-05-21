@@ -1,12 +1,26 @@
-<app-add-task
-    *ngIf="addTaskPage"
-    (toggleAddTaskPage)="toggleAddTaskPage($event)"    
->
-</app-add-task>
-<main *ngIf="!addTaskPage">
-    <button class="btn btn-primary" >Add task</button>
+<div *ngIf="allDataAvailable">
+    <div class="operationsButtonsGroup float-right mb-3">
+        <button class="operationsButtons mr-5">
+            <fa-icon [icon]='faPlus' title="select">
+            </fa-icon>
+        </button>
+        <button [disabled]="!(appTaskList | async)?.length" class="operationsButtons mr-5">
+            <fa-icon [icon]='faTrash' title="select">
+            </fa-icon>
+        </button>
+        <button [disabled]="!(appTaskList | async)?.length" class="operationsButtons mr-5">
+            <fa-icon [icon]='faArchive' title="select">
+            </fa-icon>
+        </button>
+    </div>
+
     <ul class="nav nav-tabs mt-5 border-top" style="cursor: pointer;">
-        
+
+        <li (click)="changeTab('All')" class="nav-item">
+            <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'All' }">
+                All
+            </a>
+        </li>
         <div *ngFor="let label of userTasksLabelList">
             <li (click)="changeTab(label)" class="nav-item">
                 <a class="nav-link" [ngClass]="{ 'active' : currentTab == label }">
@@ -14,39 +28,42 @@
                 </a>
             </li>
         </div>
-        <li (click)="changeTab('All')" class="nav-item">
-            <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'All' }">
-                All
+        <li (click)="changeTab('Archive')" class="nav-item">
+            <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'Archive' }">
+                Archive
             </a>
         </li>
     </ul>
 
-    <div class="tab-content">    
+    <div class="tab-content">
 
         <div *ngFor="let label of userTasksLabelList">
             <div *ngIf="currentTab == label" class="tab-pane fade show active" id="tabContent{{label}}">
-                <app-task-list                 
-                    [userTasks] = 'userTasks'
-                    [label] = 'label'
-                    [priority] = '-1'        
-                    [dueDate] = 'null'>    
+                <app-task-list [userTasks]='userTasks' [label]='label' [priority]='-1' [dueDate]='null'
+                    [archive]='false'>
                 </app-task-list>
             </div>
         </div>
 
         <div *ngIf="currentTab == 'All'" class="tab-pane fade show active" id="All">
-            <app-task-list
-                *ngIf="userTasks!=null"                 
-                    [userTasks] = 'userTasks'
-                    [label] = 'noLabel'
-                    [priority] = '-1'        
-                    [dueDate] = 'null'>   
-                    {{userTasks}}
+            <div *ngIf="userTasks != null">
+                <app-task-list [userTasks]='userTasks' [label]='noLabel' [priority]='-1' [dueDate]='null'
+                    [archive]='false'>
                 </app-task-list>
+            </div>
+        </div>
+
+        <div *ngIf="currentTab == 'Archive'" class="tab-pane fade show active" id="Archive">
+            <div *ngIf="userTasks != null">
+                <app-task-list [userTasks]='userTasks' [label]='noLabel' [priority]='-1' [dueDate]='null'
+                    [archive]='true'>
+                </app-task-list>
+            </div>
         </div>
 
     </div>
-</main>
+</div>
+
 <!-- send 
     null in dueDate 
     -1 in priority

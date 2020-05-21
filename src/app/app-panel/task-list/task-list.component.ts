@@ -1,15 +1,25 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+// Store
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/state/app.state';
+import * as TaskActions from '../../store/actions/task-actions';
+
 // Service
 import { userTasksSchema } from 'src/app/store/schema/userTasks-schema';
 import { taskSchema } from 'src/app/store/schema/userTasks-schema';
-import { element } from 'protractor';
+
 
 // font awsome
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faFlag } from '@fortawesome/free-solid-svg-icons';
+import { faSmileBeam} from '@fortawesome/free-solid-svg-icons';
+
 
 
 @Component({
@@ -24,6 +34,7 @@ export class TaskListComponent implements OnInit
   @Input() public label: String
   @Input() public priority: Number
   @Input() public dueDate: Date
+  @Input() public archive: Boolean
 
   date: any;
   month: any;
@@ -34,35 +45,52 @@ export class TaskListComponent implements OnInit
   // font awsome
   faCheckSquare = faCheckSquare;
   faSquare = faSquare;
+  faSpinner = faSpinner;
+  faExclamationCircle = faExclamationCircle;
   faCheckCircle = faCheckCircle;
   faFlag = faFlag;
+  faSmileBeam = faSmileBeam;
 
   taskSelected: Boolean[] = [false];
   taskStatus: Number = 0;
   taskPriority: Number = 2;
 
-  constructor() 
+  // store
+  appTaskList : Observable<taskSchema[]>;
+
+  constructor( private store : Store<AppState>) 
   {
+    this.appTaskList = store.select('task');
   }
 
   ngOnInit(): void 
   {
-    this.taskList = [];
-
-
-    this.date = new Date(this.dueDate).getDate()
-    this.month = new Date(this.dueDate).getMonth()
-    this.year = new Date(this.dueDate).getFullYear()
+    // Initialize everything
+    this.init();
 
 
     this.getTasksOfFilter()    
   }  
 
+  init()
+  {
+    // initialize taskList
+    this.taskList = [];
+
+    // get date from input dueDate
+    this.date = new Date(this.dueDate).getDate()
+    this.month = new Date(this.dueDate).getMonth()
+    this.year = new Date(this.dueDate).getFullYear()
+
+    // initialize appTaskList
+    this.store.dispatch(new TaskActions.RemoveAllTask());
+  }
+
   getTasksOfFilter() 
   {
 
     // Check if no filter applied
-    if (this.label == "none" && this.priority == -1 && this.dueDate == null)
+    if (this.label == "none" && this.priority == -1 && this.dueDate == null && this.archive == false)
     {
       this.taskList = this.userTasks.task;
       return;
@@ -99,6 +127,8 @@ export class TaskListComponent implements OnInit
 
       else if (this.taskList.length > 0) 
       {
+        // label has been applied
+        // traverse taskList
         for (let index = 0; index < this.taskList.length; index++) 
         {
           if (this.taskList[index].priority != this.priority)
@@ -135,6 +165,8 @@ export class TaskListComponent implements OnInit
 
       else if (this.taskList.length > 0) 
       {
+        // label has been applied
+        // traverse taskList
         for (let index = 0; index < this.taskList.length; index++) 
         {
           if (
@@ -152,12 +184,52 @@ export class TaskListComponent implements OnInit
       }
     }
 
+    // check if archive has to be applied
+    if(this.archive != false)
+    {
+      // check if label or priority or dueDate has been applied
+      if (this.taskList.length == 0) 
+      {
+        // label or priority or dueDate has not been applied
+        // traverse userTasks
+        this.userTasks.task.forEach(element =>
+        {
+          if (element.archive) 
+          {
+            this.taskList.push(element);
+          }
+        })
+      }
+
+      else if (this.taskList.length > 0) 
+      {
+        // label has been applied
+        // traverse taskList
+        for (let index = 0; index < this.taskList.length; index++) 
+        {
+          if (! this.taskList[index].archive)
+          {
+            this.taskList.splice(index, 1);
+            index--;
+          }
+
+        }
+
+      }
+    }
+
   }
 
 
   selectTask(index)
   {
-    this.taskSelected[index] = !this.taskSelected[index]
+    this.taskSelected[index] = !this.taskSelected[index];
+
+    if(this.taskSelected[index])
+      this.store.dispatch(new TaskActions.AddTask(this.taskList[index]));
+    
+    else
+      this.store.dispatch(new TaskActions.RemoveTask(this.taskList[index]._id));
   }
 
   toggleTaskStatus(index, status)

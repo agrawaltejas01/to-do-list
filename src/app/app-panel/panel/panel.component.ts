@@ -1,9 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
+// Store
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/state/app.state';
+import * as TaskActions from '../../store/actions/task-actions';
+
 // Service
 import { UserService } from 'src/app/store/service/user.service';
 import { userSchema } from 'src/app/store/schema/user-schema';
-import { userTasksSchema } from 'src/app/store/schema/userTasks-schema';
+import { userTasksSchema, taskSchema } from 'src/app/store/schema/userTasks-schema';
+
+// font awsome
+import { faArchive } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-panel',
@@ -15,21 +27,33 @@ export class PanelComponent implements OnInit
   username: String = 'Tejas';
   userTasks: userTasksSchema = null;
   userTasksLabelList: String[] = [];
-  addTaskPage: Boolean = false;
-  currentTab = 'All';
-  // userTaskDuplicate : userTasksSchema = null;
+
+  allDataAvailable : Boolean = false;
+
+  currentTab = 'All';  
   noLabel = 'none';
 
-  constructor(private userService: UserService) 
+  // font awsome
+  faArchive = faArchive;
+  faTrash = faTrash;
+  faPlus = faPlus;
+
+  // store
+  appTaskList : Observable<taskSchema[]>;
+
+  constructor(private userService: UserService,
+              private store : Store<AppState>) 
   { 
-    this.getUserTasks(this.username);
+    this.allDataAvailable = false;
+    this.appTaskList = store.select('task');
   }
 
   ngOnInit(): void
   {
-    console.log(this.userTasks);
-    // this.getUserTasks(this.username);
-    console.log(this.userTasks);
+    this.allDataAvailable = false;
+    // console.log(this.userTasks);
+    this.getUserTasks(this.username);
+    // console.log(this.userTasks);
   }
 
   getUserTasks(username)
@@ -47,14 +71,15 @@ export class PanelComponent implements OnInit
           this.userTasksLabelList.push(element.label);
       });
     });
+
+    this.allDataAvailable = true;
   }
 
   changeTab(label)
   {
     // console.log(label);
     this.currentTab = label;
-    // this.userTaskDuplicate = null;
-    // this.userTaskDuplicate = this.userTasks;
+    
   }
 
   addUserTask(newtask)

@@ -1,6 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 var mongo = require('mongoose');
+var ObjectId = require('mongodb').ObjectID;
+
 const app = express()
 
 user = require('../schema/user-schema')
@@ -81,6 +83,41 @@ app.post("/getUserTasks", function(req, res)
             {
                 console.log("data reciecved in findUser \n" + data);
                 res.send(data);
+            }
+        }
+    );
+})
+
+app.post("/addUserTask", function(req, res)
+{
+    // console.log("Requested to add USer task");
+    var id = new ObjectId();
+    req.body.task._id=id;
+    
+    // console.log(req.body);
+    userTasks.update(
+        {
+            _id : req.body.username
+        },
+        {
+            $push:
+            {
+                task : req.body.task,          
+            }
+        }
+        ,
+        function(err, data)
+        {
+            if(err)
+            {
+                console.log(err);
+                res.send(false);
+            }
+            
+            else
+            {
+                console.log("task added in addUserTask \n" + data);
+                res.send(true);
             }
         }
     );

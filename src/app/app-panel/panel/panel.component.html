@@ -1,45 +1,52 @@
-
-<ul class="nav nav-tabs mt-5 border-top" style="cursor: pointer;">
-    
-    <div *ngFor="let label of userTasksLabelList">
-        <li (click)="changeTab(label)" class="nav-item">
-            <a class="nav-link" [ngClass]="{ 'active' : currentTab == label }">
-                {{label}}
+<app-add-task
+    *ngIf="addTaskPage"
+    (toggleAddTaskPage)="toggleAddTaskPage($event)"    
+>
+</app-add-task>
+<main *ngIf="!addTaskPage">
+    <button class="btn btn-primary" >Add task</button>
+    <ul class="nav nav-tabs mt-5 border-top" style="cursor: pointer;">
+        
+        <div *ngFor="let label of userTasksLabelList">
+            <li (click)="changeTab(label)" class="nav-item">
+                <a class="nav-link" [ngClass]="{ 'active' : currentTab == label }">
+                    {{label}}
+                </a>
+            </li>
+        </div>
+        <li (click)="changeTab('All')" class="nav-item">
+            <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'All' }">
+                All
             </a>
         </li>
-    </div>
-    <li (click)="changeTab('All')" class="nav-item">
-        <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'All' }">
-            All
-        </a>
-    </li>
-</ul>
+    </ul>
 
-<div class="tab-content">    
+    <div class="tab-content">    
 
-    <div *ngFor="let label of userTasksLabelList">
-        <div *ngIf="currentTab == label" class="tab-pane fade show active" id="tabContent{{label}}">
-            <app-task-list                 
-                [userTasks] = 'userTasks'
-                [label] = 'label'
-                [priority] = '-1'        
-                 [dueDate] = 'null'>    
-            </app-task-list>
+        <div *ngFor="let label of userTasksLabelList">
+            <div *ngIf="currentTab == label" class="tab-pane fade show active" id="tabContent{{label}}">
+                <app-task-list                 
+                    [userTasks] = 'userTasks'
+                    [label] = 'label'
+                    [priority] = '-1'        
+                    [dueDate] = 'null'>    
+                </app-task-list>
+            </div>
         </div>
+
+        <div *ngIf="currentTab == 'All'" class="tab-pane fade show active" id="All">
+            <app-task-list
+                *ngIf="userTasks!=null"                 
+                    [userTasks] = 'userTasks'
+                    [label] = 'noLabel'
+                    [priority] = '-1'        
+                    [dueDate] = 'null'>   
+                    {{userTasks}}
+                </app-task-list>
+        </div>
+
     </div>
-
-    <div *ngIf="currentTab == 'All'" class="tab-pane fade show active" id="All">
-        <!-- <app-task-list                 
-                [userTasks] = 'userTasks'
-                [label] = 'noLabel'
-                [priority] = '-1'        
-                 [dueDate] = 'null'>   
-                 {{userTasks}}
-            </app-task-list> -->
-    </div>
-
-</div>
-
+</main>
 <!-- send 
     null in dueDate 
     -1 in priority

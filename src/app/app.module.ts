@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 // Modules
 import { AppPanelModule } from "./app-panel/app-panel.module"
@@ -14,7 +15,8 @@ import { from } from 'rxjs';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AppPanelModule,    
+    AppPanelModule,  
+    FormsModule,  
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -32,4 +32,11 @@ export class UserService
             username
         })
     }
+
+    addUserTask(userTaskBody)
+    {
+        return this.http.post<boolean>(this.baseUrl + 'addUserTask',
+            userTaskBody
+        )
+    }
 }

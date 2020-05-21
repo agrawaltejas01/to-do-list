@@ -15,7 +15,7 @@ export class PanelComponent implements OnInit
   username: String = 'Tejas';
   userTasks: userTasksSchema = null;
   userTasksLabelList: String[] = [];
-
+  addTaskPage: Boolean = false;
   currentTab = 'All';
   // userTaskDuplicate : userTasksSchema = null;
   noLabel = 'none';
@@ -55,5 +55,20 @@ export class PanelComponent implements OnInit
     this.currentTab = label;
     // this.userTaskDuplicate = null;
     // this.userTaskDuplicate = this.userTasks;
+  }
+
+  addUserTask(newtask)
+  {
+    //push newly created task to ui
+    this.userTasks.task.push(newtask);
+
+    //update labels on ui
+    if(this.userTasksLabelList.indexOf(newtask.label) === -1)
+          this.userTasksLabelList.push(newtask.label);
+  }
+
+  toggleAddTaskPage($event : any)
+  {
+    this.addTaskPage = !this.addTaskPage;
   }
 }

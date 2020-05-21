@@ -12,6 +12,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
 
 // fontAwsome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: 
@@ -26,6 +27,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CommonModule,
     HttpClientModule,  
     FontAwesomeModule,  
+    FormsModule,
+    ReactiveFormsModule
   ],
 
   exports : 

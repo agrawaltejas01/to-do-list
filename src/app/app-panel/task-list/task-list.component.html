@@ -31,7 +31,7 @@
                 <div class="status-circle">
                     <div *ngIf="task?.status == 0">
                         <fa-icon (click)="toggleTaskStatus(i,1)" id="taskInComplete" [icon]='faExclamationCircle'
-                            title="Task Pendin"></fa-icon>
+                            title="Task Pending"></fa-icon>
                     </div>
 
                     <div *ngIf="task?.status == 1 ">

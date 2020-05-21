@@ -4,11 +4,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/state/app.state';
+import * as TaskActions from '../../store/actions/task-actions';
 
 // Service
 import { userTasksSchema } from 'src/app/store/schema/userTasks-schema';
 import { taskSchema } from 'src/app/store/schema/userTasks-schema';
-import * as TaskActions from '../../store/actions/task-actions';
+
 
 // font awsome
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';

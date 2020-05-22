@@ -82,18 +82,4 @@ export class PanelComponent implements OnInit
     
   }
 
-  addUserTask(newtask)
-  {
-    //push newly created task to ui
-    this.userTasks.task.push(newtask);
-
-    //update labels on ui
-    if(this.userTasksLabelList.indexOf(newtask.label) === -1)
-          this.userTasksLabelList.push(newtask.label);
-  }
-
-  toggleAddTaskPage($event : any)
-  {
-    this.addTaskPage = !this.addTaskPage;
-  }
 }

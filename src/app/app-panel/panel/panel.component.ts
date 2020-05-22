@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // Store
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/state/app.state';
 import * as TaskActions from '../../store/actions/task-actions';
@@ -10,11 +10,14 @@ import * as TaskActions from '../../store/actions/task-actions';
 import { UserService } from 'src/app/store/service/user.service';
 import { userSchema } from 'src/app/store/schema/user-schema';
 import { userTasksSchema, taskSchema } from 'src/app/store/schema/userTasks-schema';
+import { SelectTaskService } from 'src/app/store/service/select-task.service';
 
 // font awsome
 import { faArchive } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { retry } from 'rxjs/operators';
+
 
 
 @Component({
@@ -28,9 +31,11 @@ export class PanelComponent implements OnInit
   userTasks: userTasksSchema = null;
   userTasksLabelList: String[] = [];
 
-  allDataAvailable : Boolean = false;
+  userTaskDuplicate : userTasksSchema;
 
-  currentTab = 'All';  
+  allDataAvailable: Boolean = false;
+
+  currentTab = 'All';
   noLabel = 'none';
 
   // font awsome
@@ -39,29 +44,43 @@ export class PanelComponent implements OnInit
   faPlus = faPlus;
 
   // store
-  appTaskList : Observable<taskSchema[]>;
+  appTaskList$: Observable<taskSchema[]>;
+  appTaskList: taskSchema[] = [];
+  observableSub: Subscription;
 
   constructor(private userService: UserService,
-              private store : Store<AppState>) 
-  { 
+    private store: Store<AppState>,
+    public taskSelectedService: SelectTaskService) 
+  {
     this.allDataAvailable = false;
-    this.appTaskList = store.select('task');
+    this.appTaskList$ = store.select('task');    
   }
 
   ngOnInit(): void
   {
     this.allDataAvailable = false;
     // console.log(this.userTasks);
-    this.getUserTasks(this.username);
-    // console.log(this.userTasks);
+    this.getUserTasks(this.username);    
   }
+
 
   getUserTasks(username)
   {
     // Get all user tasks at a time
     this.userService.getUserTasks(username).subscribe((data) =>
-    {
+    {      
+
       this.userTasks = data;
+      // this.userTaskDuplicate = this.userTasks;
+
+      // this.userTasks.task[1].archive = true;  
+
+      console.log(this.userTasks);
+      console.log(data);
+      
+      
+      console.log("In Panel Component");
+      console.log(this.userTasks);
       // this.userTaskDuplicate = this.userTasks;
 
       // Create labels list from all available labels in user tasks
@@ -76,9 +95,40 @@ export class PanelComponent implements OnInit
   }
 
   changeTab(label)
-  {
-    // console.log(label);
+  {    
     this.currentTab = label;
+    // this.userTasks = this.userTaskDuplicate
+  }
+
+  archiveTasks()
+  {
+    let idToBeArchived: String[] = [];
     
+    // traverse appTaskList$
+    this.observableSub = this.appTaskList$.subscribe(element =>     
+    {      
+
+      element.forEach(task =>
+        {
+          idToBeArchived.push(task._id);
+
+        })      
+    });
+    
+    // call API to archive tasks
+    this.userService.archiveTask(this.username, idToBeArchived).subscribe(result =>
+      {
+        console.log(result);
+      });
+
+    // unsubscribe observable service after operation
+    this.observableSub.unsubscribe();
+
+    // empty store after operation
+    this.store.dispatch(new TaskActions.RemoveAllTask());
+
+    // un select all tasks after operation
+    this.taskSelectedService.unSelectAllTask()
+
   }
 }

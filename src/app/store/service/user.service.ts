@@ -32,4 +32,12 @@ export class UserService
             username
         })
     }
+
+    archiveTask(username : String, idToBeArchived : String[])
+    {
+        return this.http.post<Boolean>(this.baseUrl + 'archiveTask', {
+            username,
+            idToBeArchived
+        })
+    }
 }

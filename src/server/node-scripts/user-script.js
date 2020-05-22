@@ -86,4 +86,45 @@ app.post("/getUserTasks", function(req, res)
     );
 })
 
+app.post("/archiveTask", function(req, res)
+{   
+    console.log("Inside To Be Archived Function");    
+    userTasks.findById(req.body.username).then(result =>
+        {
+            task = result.task;
+            dataToBeUpdated = {}
+            for(let i = 0; i < task.length; i++ )
+            {
+                if(req.body.idToBeArchived.includes(String(task[i]._id)))
+                {
+                    console.log("Found at " + i);
+                    dataToBeUpdated['task.'+i+'.archive'] = !task[i].archive;
+                    console.log(dataToBeUpdated);
+                }
+            }
+
+            userTasks.updateOne(
+                {
+                    _id : req.body.username
+                },
+
+                {
+                    $set : dataToBeUpdated
+                },
+
+                function(err, result)
+                {
+                    if(err)
+                    {
+                        console.log("Error in To Be Archived Function");
+                        console.log(err);
+                        res.send(false);
+                    }
+
+                    else
+                        res.send(true);
+                }
+            )
+        })
+})
 app.listen(8080, () => console.log("Api is running"));

@@ -17,12 +17,12 @@
 
             <div class="form-inline">                
                 <div class="checkSquare">
-                    <div *ngIf="taskSelected[i]">
+                    <div *ngIf="taskSelectedService.taskSelected[i]">
                         <fa-icon (click)="selectTask(i)" id="checkedSquared" [icon]='faCheckSquare' title="select">
                         </fa-icon>
                     </div>
 
-                    <div *ngIf="!taskSelected[i]">
+                    <div *ngIf="!taskSelectedService.taskSelected[i]">
                         <fa-icon (click)="selectTask(i)" id="unheckedSquared" [icon]='faSquare' title="select">
                         </fa-icon>
                     </div>
@@ -82,7 +82,7 @@
     </div>
 
     <ul>
-        <li *ngFor="let task of appTaskList | async">
+        <li *ngFor="let task of appTaskList$ | async">
             {{task?.title}}
         </li>
     </ul>

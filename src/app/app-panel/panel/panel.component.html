@@ -1,18 +1,18 @@
 <div *ngIf="allDataAvailable">
-    <div class="operationsButtonsGroup float-right mb-3">
+     <div class="operationsButtonsGroup float-right mb-3">
         <button class="operationsButtons mr-5">
             <fa-icon [icon]='faPlus' title="select">
             </fa-icon>
         </button>
-        <button [disabled]="!(appTaskList | async)?.length" class="operationsButtons mr-5">
+        <button [disabled]="!(appTaskList$ | async)?.length" class="operationsButtons mr-5">
             <fa-icon [icon]='faTrash' title="select">
             </fa-icon>
         </button>
-        <button [disabled]="!(appTaskList | async)?.length" class="operationsButtons mr-5">
-            <fa-icon [icon]='faArchive' title="select">
+        <button [disabled]="!(appTaskList$ | async)?.length" class="operationsButtons mr-5">
+            <fa-icon (click) = "archiveTasks()" [icon]='faArchive' title="select">
             </fa-icon>
         </button>
-    </div>
+    </div> 
 
     <ul class="nav nav-tabs mt-5 border-top" style="cursor: pointer;">
 

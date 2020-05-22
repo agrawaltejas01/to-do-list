@@ -9,6 +9,7 @@ import * as TaskActions from '../../store/actions/task-actions';
 // Service
 import { userTasksSchema } from 'src/app/store/schema/userTasks-schema';
 import { taskSchema } from 'src/app/store/schema/userTasks-schema';
+import { SelectTaskService } from 'src/app/store/service/select-task.service';
 
 
 // font awsome
@@ -18,7 +19,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faFlag } from '@fortawesome/free-solid-svg-icons';
-import { faSmileBeam} from '@fortawesome/free-solid-svg-icons';
+import { faSmileBeam } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -51,26 +52,28 @@ export class TaskListComponent implements OnInit
   faFlag = faFlag;
   faSmileBeam = faSmileBeam;
 
-  taskSelected: Boolean[] = [false];
+  taskSelected: Boolean[] = [];
   taskStatus: Number = 0;
   taskPriority: Number = 2;
 
   // store
-  appTaskList : Observable<taskSchema[]>;
+  appTaskList$: Observable<taskSchema[]>;
 
-  constructor( private store : Store<AppState>) 
+  constructor(private store: Store<AppState>,
+    public taskSelectedService: SelectTaskService) 
   {
-    this.appTaskList = store.select('task');
+    this.appTaskList$ = store.select('task');
+    // this.taskSelected =  taskSelectedService.taskSelected;
   }
 
   ngOnInit(): void 
   {
     // Initialize everything
     this.init();
+    // console.log(this.userTasks);
 
-
-    this.getTasksOfFilter()    
-  }  
+    this.getTasksOfFilter()
+  }
 
   init()
   {
@@ -82,7 +85,7 @@ export class TaskListComponent implements OnInit
     this.month = new Date(this.dueDate).getMonth()
     this.year = new Date(this.dueDate).getFullYear()
 
-    // initialize appTaskList
+    // initialize appTaskList$
     this.store.dispatch(new TaskActions.RemoveAllTask());
   }
 
@@ -92,8 +95,26 @@ export class TaskListComponent implements OnInit
     // Check if no filter applied
     if (this.label == "none" && this.priority == -1 && this.dueDate == null && this.archive == false)
     {
-      this.taskList = this.userTasks.task;
-      return;
+      // this.taskList = this.userTasks.task;
+      this.userTasks.task.forEach(element => 
+      {
+        if(!element.archive)
+          this.taskList.push(element); 
+      });
+      // return;
+
+      console.log("Before archive filter")
+
+    }    
+
+    // check if archive has to be applied
+    else if (this.label == "none" && this.priority == -1 && this.dueDate == null && this.archive == true)
+    {
+      this.userTasks.task.forEach(element =>
+      {
+        if (element.archive == true)
+          this.taskList.push(element);
+      })
     }
 
     // check if label has to be applied
@@ -184,50 +205,28 @@ export class TaskListComponent implements OnInit
       }
     }
 
-    // check if archive has to be applied
-    if(this.archive != false)
+    if(this.archive == false)
     {
-      // check if label or priority or dueDate has been applied
-      if (this.taskList.length == 0) 
-      {
-        // label or priority or dueDate has not been applied
-        // traverse userTasks
-        this.userTasks.task.forEach(element =>
+      // remove archived from taskList
+      for (let index = 0; index < this.taskList.length; index++) 
         {
-          if (element.archive) 
-          {
-            this.taskList.push(element);
-          }
-        })
-      }
-
-      else if (this.taskList.length > 0) 
-      {
-        // label has been applied
-        // traverse taskList
-        for (let index = 0; index < this.taskList.length; index++) 
-        {
-          if (! this.taskList[index].archive)
+          if (this.taskList[index].archive)
           {
             this.taskList.splice(index, 1);
             index--;
           }
-
         }
-
-      }
     }
 
-  }
-
+  }  
 
   selectTask(index)
   {
-    this.taskSelected[index] = !this.taskSelected[index];
+    this.taskSelectedService.taskSelected[index] = !this.taskSelectedService.taskSelected[index];
 
-    if(this.taskSelected[index])
+    if (this.taskSelectedService.taskSelected[index])
       this.store.dispatch(new TaskActions.AddTask(this.taskList[index]));
-    
+
     else
       this.store.dispatch(new TaskActions.RemoveTask(this.taskList[index]._id));
   }

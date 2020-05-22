@@ -1,6 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 var mongo = require('mongoose');
+var ObjectId = require('mongodb').ObjectID;
+
 const app = express()
 
 user = require('../schema/user-schema')
@@ -127,4 +129,40 @@ app.post("/archiveTask", function(req, res)
             )
         })
 })
+
+app.post("/addUserTask", function(req, res)
+{
+    // console.log("Requested to add USer task");
+    var id = new ObjectId();
+    req.body.task._id=id;
+    
+    // console.log(req.body);
+    userTasks.update(
+        {
+            _id : req.body.username
+        },
+        {
+            $push:
+            {
+                task : req.body.task,          
+            }
+        }
+        ,
+        function(err, data)
+        {
+            if(err)
+            {
+                console.log(err);
+                res.send(false);
+            }
+            
+            else
+            {
+                console.log("task added in addUserTask \n" + data);
+                res.send(true);
+            }
+        }
+    );
+})
+
 app.listen(8080, () => console.log("Api is running"));

@@ -40,4 +40,11 @@ export class UserService
             idToBeArchived
         })
     }
+    
+    addUserTask(userTaskBody)
+    {
+        return this.http.post<boolean>(this.baseUrl + 'addUserTask',
+            userTaskBody
+        )
+    }
 }

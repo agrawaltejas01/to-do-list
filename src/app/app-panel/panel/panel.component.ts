@@ -120,4 +120,5 @@ export class PanelComponent implements OnInit
     this.taskSelectedService.unSelectAllTask()
 
   }
+
 }

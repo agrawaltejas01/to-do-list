@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Component
 import { AppComponent } from './app.component';
 import { PanelComponent } from './app-panel/panel/panel.component';
+import { AddTaskComponent } from './app-panel/add-task/add-task.component';
 
 
 

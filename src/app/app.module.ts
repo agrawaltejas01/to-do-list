@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 // import { routes } from './app-routing.module';
 
@@ -22,6 +23,7 @@ import { from } from 'rxjs';
     BrowserModule,
     AppRoutingModule,
     AppPanelModule,  
+    FormsModule,  
     StoreModule.forRoot({
       task : reducer
     })  

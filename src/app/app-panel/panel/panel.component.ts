@@ -59,7 +59,7 @@ export class PanelComponent implements OnInit
   ngOnInit(): void
   {
     this.allDataAvailable = false;
-    // console.log(this.userTasks);
+    
     this.getUserTasks(this.username);    
   }
 
@@ -70,18 +70,7 @@ export class PanelComponent implements OnInit
     this.userService.getUserTasks(username).subscribe((data) =>
     {      
 
-      this.userTasks = data;
-      // this.userTaskDuplicate = this.userTasks;
-
-      // this.userTasks.task[1].archive = true;  
-
-      console.log(this.userTasks);
-      console.log(data);
-      
-      
-      console.log("In Panel Component");
-      console.log(this.userTasks);
-      // this.userTaskDuplicate = this.userTasks;
+      this.userTasks = data;      
 
       // Create labels list from all available labels in user tasks
       this.userTasks.task.forEach((element) =>
@@ -118,7 +107,7 @@ export class PanelComponent implements OnInit
     // call API to archive tasks
     this.userService.archiveTask(this.username, idToBeArchived).subscribe(result =>
       {
-        console.log(result);
+        // console.log(result);
       });
 
     // unsubscribe observable service after operation

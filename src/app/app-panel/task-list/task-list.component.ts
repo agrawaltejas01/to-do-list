@@ -100,10 +100,7 @@ export class TaskListComponent implements OnInit
       {
         if(!element.archive)
           this.taskList.push(element); 
-      });
-      // return;
-
-      console.log("Before archive filter")
+      });            
 
     }    
 

@@ -4,12 +4,12 @@
             <fa-icon [icon]='faPlus' title="select">
             </fa-icon>
         </button>
-        <button [disabled]="!(appTaskList$ | async)?.length" class="operationsButtons mr-5">
+        <button (click) = "deleteTasks()" [disabled]="!(appTaskList$ | async)?.length" class="operationsButtons mr-5">
             <fa-icon [icon]='faTrash' title="select">
             </fa-icon>
         </button>
-        <button [disabled]="!(appTaskList$ | async)?.length" class="operationsButtons mr-5">
-            <fa-icon (click) = "archiveTasks()" [icon]='faArchive' title="select">
+        <button  (click) = "archiveTasks()" [disabled]="!(appTaskList$ | async)?.length" class="operationsButtons mr-5">
+            <fa-icon [icon]='faArchive' title="select">
             </fa-icon>
         </button>
     </div> 

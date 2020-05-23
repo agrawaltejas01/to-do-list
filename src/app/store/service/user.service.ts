@@ -40,6 +40,15 @@ export class UserService
             idToBeArchived
         })
     }
+
+    deleteTask(username : String, idToBeDeleted : String[])
+    {
+        console.log(idToBeDeleted);
+        return this.http.post<Boolean>(this.baseUrl + 'deleteTask', {
+            username,
+            idToBeDeleted
+        })
+    }
     
     addUserTask(userTaskBody)
     {

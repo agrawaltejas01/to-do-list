@@ -17,6 +17,7 @@ import { faArchive } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { retry } from 'rxjs/operators';
+import { TaskListService } from 'src/app/store/service/task-list.service';
 
 
 
@@ -47,10 +48,12 @@ export class PanelComponent implements OnInit
   appTaskList$: Observable<taskSchema[]>;
   appTaskList: taskSchema[] = [];
   observableSub: Subscription;
+  taskList: taskSchema[];
 
   constructor(private userService: UserService,
     private store: Store<AppState>,
-    public taskSelectedService: SelectTaskService) 
+    public taskSelectedService: SelectTaskService,
+    private taskListService: TaskListService) 
   {
     this.allDataAvailable = false;
     this.appTaskList$ = store.select('task');    
@@ -67,7 +70,7 @@ export class PanelComponent implements OnInit
   getUserTasks(username)
   {
     // Get all user tasks at a time
-    this.userService.getUserTasks(username).subscribe((data) =>
+    this.userService.getUserTasks(username).subscribe((data : userTasksSchema) =>
     {      
 
       this.userTasks = data;      
@@ -78,15 +81,33 @@ export class PanelComponent implements OnInit
         if (this.userTasksLabelList.indexOf(element.label) === -1)
           this.userTasksLabelList.push(element.label);
       });
+
+      this.taskList = this.taskListService.getTasksOfFilter('none', -1, null, false, data);
     });
 
     this.allDataAvailable = true;
+   
   }
 
   changeTab(label)
-  {    
+  { 
     this.currentTab = label;
-    // this.userTasks = this.userTaskDuplicate
+
+    let priority : Number = -1;
+    let dueDate : Date = null;
+    let archive : Boolean = false;
+    
+    
+    if(label == 'All')  
+      label = 'none';
+    
+    if(label == 'Archive')
+    {
+      label = 'none';
+      archive = true;
+    }
+
+    this.taskList = this.taskListService.getTasksOfFilter(label, priority, dueDate, archive, this.userTasks);
   }
 
   archiveTasks()

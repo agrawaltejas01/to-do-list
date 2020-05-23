@@ -32,15 +32,8 @@ import { faSmileBeam } from '@fortawesome/free-solid-svg-icons';
 })
 export class TaskListComponent implements OnInit 
 {
-
-  @Input() public userTasks: userTasksSchema
-  @Input() public label: String
-  @Input() public priority: Number
-  @Input() public dueDate: Date
-  @Input() public archive: Boolean
-
-
-  taskList: taskSchema[] = [];
+  
+  @Input() taskList: taskSchema[] = [];  
 
   // font awsome
   faCheckSquare = faCheckSquare;
@@ -62,14 +55,11 @@ export class TaskListComponent implements OnInit
     public taskSelectedService: SelectTaskService,
     private taskListService: TaskListService) 
   {
-    this.appTaskList$ = store.select('task');
-    // this.taskSelected =  taskSelectedService.taskSelected;
+    this.appTaskList$ = store.select('task');    
   }
 
   ngOnInit(): void 
-  {
-
-    this.taskList = this.taskListService.getTasksOfFilter(this.label, this.priority, this.dueDate, this.archive, this.userTasks)
+  {    
 
   }    
 

@@ -35,32 +35,7 @@
         </li>
     </ul>
 
-    <div class="tab-content">
-
-        <!-- <div *ngFor="let label of userTasksLabelList">
-            <div *ngIf="currentTab == label" class="tab-pane fade show active" id="tabContent{{label}}">
-                <app-task-list [userTasks]='userTasks' [label]='label' [priority]='-1' [dueDate]='null'
-                    [archive]='false'>
-                </app-task-list>
-            </div>
-        </div>
-
-        <div *ngIf="currentTab == 'All'" class="tab-pane fade show active" id="All">
-            <div *ngIf="userTasks != null">
-                <app-task-list [userTasks]='userTasks' [label]='noLabel' [priority]='-1' [dueDate]='null'
-                    [archive]='false'>
-                </app-task-list>
-            </div>
-        </div>
-
-        <div *ngIf="currentTab == 'Archive'" class="tab-pane fade show active" id="Archive">
-            <div *ngIf="userTasks != null">
-                <app-task-list [userTasks]='userTasks' [label]='noLabel' [priority]='-1' [dueDate]='null'
-                    [archive]='true'>
-                </app-task-list>
-            </div>
-        </div> -->
-
+    <div class="tab-content">        
         <div *ngFor="let label of userTasksLabelList">
             <div *ngIf="currentTab == label" class="tab-pane fade show active" id="tabContent{{label}}">
                 <app-task-list [taskList] = "taskList">

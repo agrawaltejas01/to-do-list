@@ -10,6 +10,8 @@ import * as TaskActions from '../../store/actions/task-actions';
 import { userTasksSchema } from 'src/app/store/schema/userTasks-schema';
 import { taskSchema } from 'src/app/store/schema/userTasks-schema';
 import { SelectTaskService } from 'src/app/store/service/select-task.service';
+import { TaskListService } from 'src/app/store/service/task-list.service';
+
 
 
 // font awsome
@@ -37,9 +39,6 @@ export class TaskListComponent implements OnInit
   @Input() public dueDate: Date
   @Input() public archive: Boolean
 
-  date: any;
-  month: any;
-  year: any;
 
   taskList: taskSchema[] = [];
 
@@ -60,7 +59,8 @@ export class TaskListComponent implements OnInit
   appTaskList$: Observable<taskSchema[]>;
 
   constructor(private store: Store<AppState>,
-    public taskSelectedService: SelectTaskService) 
+    public taskSelectedService: SelectTaskService,
+    private taskListService: TaskListService) 
   {
     this.appTaskList$ = store.select('task');
     // this.taskSelected =  taskSelectedService.taskSelected;
@@ -68,154 +68,10 @@ export class TaskListComponent implements OnInit
 
   ngOnInit(): void 
   {
-    // Initialize everything
-    this.init();
-    // console.log(this.userTasks);
 
-    this.getTasksOfFilter()
-  }
+    this.taskList = this.taskListService.getTasksOfFilter(this.label, this.priority, this.dueDate, this.archive, this.userTasks)
 
-  init()
-  {
-    // initialize taskList
-    this.taskList = [];
-
-    // get date from input dueDate
-    this.date = new Date(this.dueDate).getDate()
-    this.month = new Date(this.dueDate).getMonth()
-    this.year = new Date(this.dueDate).getFullYear()
-
-    // initialize appTaskList$
-    this.store.dispatch(new TaskActions.RemoveAllTask());
-  }
-
-  getTasksOfFilter() 
-  {
-
-    // Check if no filter applied
-    if (this.label == "none" && this.priority == -1 && this.dueDate == null && this.archive == false)
-    {
-      // this.taskList = this.userTasks.task;
-      this.userTasks.task.forEach(element => 
-      {
-        if(!element.archive)
-          this.taskList.push(element); 
-      });            
-
-    }    
-
-    // check if archive has to be applied
-    else if (this.label == "none" && this.priority == -1 && this.dueDate == null && this.archive == true)
-    {
-      this.userTasks.task.forEach(element =>
-      {
-        if (element.archive == true)
-          this.taskList.push(element);
-      })
-    }
-
-    // check if label has to be applied
-    if (this.label != "none") 
-    {
-      this.userTasks.task.forEach(element =>
-      {
-        if (element.label == this.label) 
-        {
-          this.taskList.push(element);
-        }
-      })
-    }
-
-    // check if priority has to be applied
-    if (this.priority != -1)
-    {
-      // check if label has been applied
-      if (this.taskList.length == 0) 
-      {
-        // label has not been applied
-        // traverse userTasks
-        this.userTasks.task.forEach(element =>
-        {
-          if (element.priority == this.priority) 
-          {
-            this.taskList.push(element);
-          }
-        })
-      }
-
-      else if (this.taskList.length > 0) 
-      {
-        // label has been applied
-        // traverse taskList
-        for (let index = 0; index < this.taskList.length; index++) 
-        {
-          if (this.taskList[index].priority != this.priority)
-          {
-            this.taskList.splice(index, 1);
-            index--;
-          }
-
-        }
-
-      }
-    }
-
-    // check if dueDate has to be applied
-    if ((this.dueDate != null))
-    {
-      // check if label or priority has been applied
-      if (this.taskList.length == 0) 
-      {
-        // label or priority has not been applied
-        // traverse userTasks
-        this.userTasks.task.forEach(element =>
-        {
-          if (
-            new Date(element.dueDate).getDate() == this.date &&
-            new Date(element.dueDate).getMonth() == this.month &&
-            new Date(element.dueDate).getFullYear() == this.year
-          ) 
-          {
-            this.taskList.push(element);
-          }
-        })
-      }
-
-      else if (this.taskList.length > 0) 
-      {
-        // label has been applied
-        // traverse taskList
-        for (let index = 0; index < this.taskList.length; index++) 
-        {
-          if (
-            new Date(this.taskList[index].dueDate).getMonth() != this.month ||
-            new Date(this.taskList[index].dueDate).getFullYear() != this.year ||
-            new Date(this.taskList[index].dueDate).getDate() != this.date
-          )
-          {
-            this.taskList.splice(index, 1);
-            index--;
-          }
-
-        }
-
-      }
-    }
-
-    if(this.archive == false)
-    {
-      // remove archived from taskList
-      for (let index = 0; index < this.taskList.length; index++) 
-        {
-          if (this.taskList[index].archive)
-          {
-            this.taskList.splice(index, 1);
-            index--;
-          }
-        }
-    }
-
-  }  
+  }    
 
   selectTask(index)
   {

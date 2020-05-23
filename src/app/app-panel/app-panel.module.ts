@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Services
 import { UserService } from '../store/service/user.service';
+import { TaskListService } from '../store/service/task-list.service';
+import { SelectTaskService } from '../store/service/select-task.service';
+
 
 // Component
 import { PanelComponent } from './panel/panel.component';
@@ -12,8 +16,6 @@ import { AddTaskComponent } from './add-task/add-task.component';
 
 // fontAwsome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SelectTaskService } from '../store/service/select-task.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: 
@@ -41,7 +43,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers :
   [
     UserService,
-    SelectTaskService
+    SelectTaskService,
+    TaskListService
   ]
 })
 export class AppPanelModule { }

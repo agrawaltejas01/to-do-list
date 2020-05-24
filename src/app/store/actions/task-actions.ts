@@ -5,6 +5,7 @@ import { taskSchema } from '../schema/userTasks-schema';
 export const ADD_TASK = '[TASKSCHEMA] Add'
 export const REMOVE_TASK = '[TASKSCHEMA] Remove'
 export const REMOVE_ALL_TASK = '[TASKSCHEMA] RemoveAll'
+export const ARCHIVE_TASK = '[TASKSCHEMA] Archive'
 
 export class AddTask implements Action
 {
@@ -36,5 +37,15 @@ export class RemoveAllTask implements Action
     }
 }
 
+export class ArchiveTask implements Action
+{
+    readonly type = ARCHIVE_TASK
 
-export type Actions = AddTask | RemoveTask | RemoveAllTask
+    constructor (public payload : String)
+    {
+        
+    }
+}
+
+
+export type Actions = AddTask | RemoveTask | RemoveAllTask | ArchiveTask

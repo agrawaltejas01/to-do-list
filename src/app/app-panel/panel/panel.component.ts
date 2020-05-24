@@ -121,6 +121,7 @@ export class PanelComponent implements OnInit
       element.forEach(task =>
         {
           idToBeArchived.push(task._id);
+          // this.store.dispatch(new TaskActions.ArchiveTask(task._id));
 
         })      
     });

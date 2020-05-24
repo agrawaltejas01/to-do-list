@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { taskSchema } from '../schema/userTasks-schema';
 import * as TaskActions from '../actions/task-actions';
 
-const initialState: taskSchema = 
+const initialState: taskSchema =
 {
     _id: 'abc',
     title: 'Initial State task',
@@ -17,32 +17,47 @@ const initialState: taskSchema =
 
 function removeFromState(state, id)
 {
-    return state.filter(function(element)
+    return state.filter(function (element)
     {
         return element._id != id;
     })
 }
 
-export function reducer(state : taskSchema[] = [], action : TaskActions.Actions)
+function archiveTask(state, id)
 {
-    switch(action.type)
+    state.forEach(element => 
+    {
+        if(element._id == id)
+            element.archive = !element.archive;
+    });
+
+    return state;
+}
+
+export function reducer(state: taskSchema[] = [], action: TaskActions.Actions)
+{
+    switch (action.type)
     {
         case TaskActions.ADD_TASK:
 
             // check for duplications
-            if(state.indexOf(action.payload) === -1)
+            if (state.indexOf(action.payload) === -1)
                 return [...state, action.payload];
-            
+
             else return state;
-        
-        case TaskActions.REMOVE_TASK:            
+
+        case TaskActions.REMOVE_TASK:
             state = removeFromState(state, action.payload)
             return state;
-        
+
         case TaskActions.REMOVE_ALL_TASK:
             state = [];
             return state;
-            
+
+        case TaskActions.ARCHIVE_TASK:
+            state = archiveTask(state, action.payload)
+            return state;
+
 
         default:
             return state;

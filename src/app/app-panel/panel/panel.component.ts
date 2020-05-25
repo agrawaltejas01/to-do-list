@@ -138,31 +138,30 @@ export class PanelComponent implements OnInit
   {
     let idToBeDeleted: String[] = [];
     
-  //   // traverse appTaskList$
-  //   this.observableSub = this.appTaskList$.subscribe(element =>     
-  //   {      
-
-  //     element.forEach(task =>
-  //       {
-  //         idToBeDeleted.push(task._id);
-
-  //       })      
-  //   });
+    this.taskSelectedService.appTaskList.forEach(task =>
+    {
+      idToBeDeleted.push(task._id);        
+    })
     
-  //   // call API to archive tasks
-  //   this.userService.deleteTask(this.username, idToBeDeleted).subscribe(result =>
-  //     {
-  //       // console.log(result);
-  //     });
+    this.userService.deleteTask(this.username, idToBeDeleted).subscribe(result =>
+      {
+        // console.log(result);
+        if(result)
+        {
+          this.userTasks.task.forEach(element => 
+          {
+            if (idToBeDeleted.indexOf(element._id) > -1 )
+              element.archive = ! element.archive;
+          });
 
-  //   // unsubscribe observable service after operation
-  //   this.observableSub.unsubscribe();
+          this.changeTab(this.currentTab);
+        }
+      });
 
-  //   // empty store after operation
-  //   this.store.dispatch(new TaskActions.RemoveAllTask());
+    this.taskSelectedService.initAppTaskList()
 
-  //   // un select all tasks after operation
-  //   this.taskSelectedService.unSelectAllTask()
+    // un select all tasks after operation
+    this.taskSelectedService.unSelectAllTask()
   }
 
 }

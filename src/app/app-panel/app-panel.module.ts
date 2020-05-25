@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../store/service/user.service';
 import { TaskListService } from '../store/service/task-list.service';
 import { SelectTaskService } from '../store/service/select-task.service';
+import { UserTasksService } from '../store/service/user-tasks-service';
+
 
 
 // Component
@@ -44,7 +46,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   [
     UserService,
     SelectTaskService,
-    TaskListService
+    TaskListService,
+    UserTasksService
   ]
 })
 export class AppPanelModule { }

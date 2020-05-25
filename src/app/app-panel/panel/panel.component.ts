@@ -6,6 +6,7 @@ import { UserService } from 'src/app/store/service/user.service';
 import { userSchema } from 'src/app/store/schema/user-schema';
 import { userTasksSchema, taskSchema } from 'src/app/store/schema/userTasks-schema';
 import { SelectTaskService } from 'src/app/store/service/select-task.service';
+import { UserTasksService } from 'src/app/store/service/user-tasks-service';
 
 // font awsome
 import { faArchive } from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +17,7 @@ import { TaskListService } from 'src/app/store/service/task-list.service';
 
 
 
+
 @Component({
   selector: 'app-panel',
   templateUrl: './panel.component.html',
@@ -23,9 +25,9 @@ import { TaskListService } from 'src/app/store/service/task-list.service';
 })
 export class PanelComponent implements OnInit
 {
-  username: String = 'Tejas';
+  username: string = 'Tejas';
   userTasks: userTasksSchema = null;
-  userTasksLabelList: String[] = [];
+  userTasksLabelList: string[] = [];
 
   userTaskDuplicate : userTasksSchema;
 
@@ -45,7 +47,8 @@ export class PanelComponent implements OnInit
 
   constructor(private userService: UserService,    
     public taskSelectedService: SelectTaskService,
-    private taskListService: TaskListService) 
+    private taskListService: TaskListService,
+    public userTasksService :   UserTasksService  ) 
   {
     this.allDataAvailable = false;     
   }
@@ -64,16 +67,20 @@ export class PanelComponent implements OnInit
     this.userService.getUserTasks(username).subscribe((data : userTasksSchema) =>
     {      
 
-      this.userTasks = data;      
+      // this.userTasksService.userTasks = data;      
+      this.userTasksService.userTasks = data;
+      // console.log(this.userTasksService.userTasks.task);
 
       // Create labels list from all available labels in user tasks
-      this.userTasks.task.forEach((element) =>
+      this.userTasksService.userTasks.task.forEach((element) =>
       {
         if (this.userTasksLabelList.indexOf(element.label) === -1)
           this.userTasksLabelList.push(element.label);
       });
 
       this.taskList = this.taskListService.getTasksOfFilter('none', -1, null, false, data);
+      console.log(this.taskList);
+      // console.log(this.userTasksService.userTasks.task);
     });
 
     this.allDataAvailable = true;
@@ -84,7 +91,7 @@ export class PanelComponent implements OnInit
   { 
     this.currentTab = label;
 
-    let priority : Number = -1;
+    let priority : number = -1;
     let dueDate : Date = null;
     let archive : Boolean = false;
     
@@ -98,12 +105,12 @@ export class PanelComponent implements OnInit
       archive = true;
     }
 
-    this.taskList = this.taskListService.getTasksOfFilter(label, priority, dueDate, archive, this.userTasks);
+    this.taskList = this.taskListService.getTasksOfFilter(label, priority, dueDate, archive, this.userTasksService.userTasks);
   }
 
   archiveTasks()
   {
-    let idToBeArchived: String[] = [];
+    let idToBeArchived: string[] = [];
     
     // traverse appTaskList$
     this.taskSelectedService.appTaskList.forEach(task =>
@@ -116,12 +123,8 @@ export class PanelComponent implements OnInit
       {
         // console.log(result);
         if(result)
-        {
-          this.userTasks.task.forEach(element => 
-          {
-            if (idToBeArchived.indexOf(element._id) > -1 )
-              element.archive = ! element.archive;
-          });
+        {          
+          this.userTasksService.archiveTask(idToBeArchived);
 
           this.changeTab(this.currentTab);
         }
@@ -136,7 +139,7 @@ export class PanelComponent implements OnInit
 
   deleteTasks()
   {
-    let idToBeDeleted: String[] = [];
+    let idToBeDeleted: string[] = [];
     
     this.taskSelectedService.appTaskList.forEach(task =>
     {
@@ -148,11 +151,7 @@ export class PanelComponent implements OnInit
         // console.log(result);
         if(result)
         {
-          this.userTasks.task.forEach(element => 
-          {
-            if (idToBeDeleted.indexOf(element._id) > -1 )
-              element.archive = ! element.archive;
-          });
+          this.userTasksService.deleteTask(idToBeDeleted);
 
           this.changeTab(this.currentTab);
         }

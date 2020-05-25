@@ -43,8 +43,8 @@ export class TaskListComponent implements OnInit
   faSmileBeam = faSmileBeam;
 
   taskSelected: Boolean[] = [];
-  taskStatus: Number = 0;
-  taskPriority: Number = 2;
+  taskStatus: number = 0;
+  taskPriority: number = 2;
 
   // store
   appTaskList$: Observable<taskSchema[]>;

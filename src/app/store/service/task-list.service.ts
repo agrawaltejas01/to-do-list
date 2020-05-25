@@ -21,7 +21,7 @@ export class TaskListService
         this.taskList = [];
     }
 
-    getTasksOfFilter(label: String, priority: Number, 
+    getTasksOfFilter(label: string, priority: number, 
                     dueDate: Date, archive: Boolean, userTasks: userTasksSchema) 
     {
         this.init();

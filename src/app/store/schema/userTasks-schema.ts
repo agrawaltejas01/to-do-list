@@ -1,18 +1,18 @@
 export class taskSchema
 {   
-    _id : String;
-    title : String;
-    description : String;
+    _id : string;
+    title : string;
+    description : string;
     dueDate : Date;
-    priority : Number;
-    label : String;
+    priority : number;
+    label : string;
     archive : Boolean;
-    status : Number;
+    status : number;
 }
 
 export class userTasksSchema
 {
-    _id : String;
-    username : String;
+    _id : string;
+    username : string;
     task : taskSchema[];
 }

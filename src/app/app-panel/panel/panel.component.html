@@ -44,14 +44,14 @@
         </div>
 
         <div *ngIf="currentTab == 'All'" class="tab-pane fade show active" id="All">
-            <div *ngIf="userTasks != null">
+            <div *ngIf="userTasksService.userTasks != null">
                 <app-task-list [taskList] = "taskList">
                 </app-task-list>
             </div>
         </div>
 
         <div *ngIf="currentTab == 'Archive'" class="tab-pane fade show active" id="Archive">
-            <div *ngIf="userTasks != null">
+            <div *ngIf="userTasksService.userTasks != null">
                 <app-task-list [taskList] = "taskList">
                 </app-task-list>
             </div>

@@ -30,7 +30,7 @@ export class SelectTaskService
         this.appTaskList = [];
     }
 
-    removeFromAppTaskList(id : String)
+    removeFromAppTaskList(id : string)
     {
         for (let index = 0; index < this.appTaskList.length; index++) 
         {
@@ -43,7 +43,7 @@ export class SelectTaskService
         }
     }
 
-    // archivetask(id : String)
+    // archivetask(id : string)
     // {
     //     for(let index = 0)
     // }

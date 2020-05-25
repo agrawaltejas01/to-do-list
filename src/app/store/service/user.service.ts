@@ -12,7 +12,7 @@ import { userTasksSchema } from '../schema/userTasks-schema';
 
 export class UserService
 {
-    baseUrl : String;
+    baseUrl : string;
 
     constructor(private http : HttpClient)
     {
@@ -33,7 +33,7 @@ export class UserService
         })
     }
 
-    archiveTask(username : String, idToBeArchived : String[])
+    archiveTask(username : string, idToBeArchived : string[])
     {
         return this.http.post<Boolean>(this.baseUrl + 'archiveTask', {
             username,
@@ -41,7 +41,7 @@ export class UserService
         })
     }
 
-    deleteTask(username : String, idToBeDeleted : String[])
+    deleteTask(username : string, idToBeDeleted : string[])
     {
         console.log(idToBeDeleted);
         return this.http.post<Boolean>(this.baseUrl + 'deleteTask', {

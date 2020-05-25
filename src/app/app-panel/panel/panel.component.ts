@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-// Store
-import { Observable, Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../store/state/app.state';
-import * as TaskActions from '../../store/actions/task-actions';
 
 // Service
 import { UserService } from 'src/app/store/service/user.service';
@@ -44,19 +39,15 @@ export class PanelComponent implements OnInit
   faTrash = faTrash;
   faPlus = faPlus;
 
-  // store
-  appTaskList$: Observable<taskSchema[]>;
-  appTaskList: taskSchema[] = [];
-  observableSub: Subscription;
+  // store  
+  appTaskList: taskSchema[] = [];  
   taskList: taskSchema[];
 
-  constructor(private userService: UserService,
-    private store: Store<AppState>,
+  constructor(private userService: UserService,    
     public taskSelectedService: SelectTaskService,
     private taskListService: TaskListService) 
   {
-    this.allDataAvailable = false;
-    this.appTaskList$ = store.select('task');    
+    this.allDataAvailable = false;     
   }
 
   ngOnInit(): void
@@ -115,28 +106,28 @@ export class PanelComponent implements OnInit
     let idToBeArchived: String[] = [];
     
     // traverse appTaskList$
-    this.observableSub = this.appTaskList$.subscribe(element =>     
-    {      
-
-      element.forEach(task =>
-        {
-          idToBeArchived.push(task._id);
-          // this.store.dispatch(new TaskActions.ArchiveTask(task._id));
-
-        })      
-    });
+    this.taskSelectedService.appTaskList.forEach(task =>
+      {
+        idToBeArchived.push(task._id);        
+      })
     
     // call API to archive tasks
     this.userService.archiveTask(this.username, idToBeArchived).subscribe(result =>
       {
         // console.log(result);
+        if(result)
+        {
+          this.userTasks.task.forEach(element => 
+          {
+            if (idToBeArchived.indexOf(element._id) > -1 )
+              element.archive = ! element.archive;
+          });
+
+          this.changeTab(this.currentTab);
+        }
       });
 
-    // unsubscribe observable service after operation
-    this.observableSub.unsubscribe();
-
-    // empty store after operation
-    this.store.dispatch(new TaskActions.RemoveAllTask());
+    this.taskSelectedService.initAppTaskList()
 
     // un select all tasks after operation
     this.taskSelectedService.unSelectAllTask()
@@ -147,31 +138,31 @@ export class PanelComponent implements OnInit
   {
     let idToBeDeleted: String[] = [];
     
-    // traverse appTaskList$
-    this.observableSub = this.appTaskList$.subscribe(element =>     
-    {      
+  //   // traverse appTaskList$
+  //   this.observableSub = this.appTaskList$.subscribe(element =>     
+  //   {      
 
-      element.forEach(task =>
-        {
-          idToBeDeleted.push(task._id);
+  //     element.forEach(task =>
+  //       {
+  //         idToBeDeleted.push(task._id);
 
-        })      
-    });
+  //       })      
+  //   });
     
-    // call API to archive tasks
-    this.userService.deleteTask(this.username, idToBeDeleted).subscribe(result =>
-      {
-        // console.log(result);
-      });
+  //   // call API to archive tasks
+  //   this.userService.deleteTask(this.username, idToBeDeleted).subscribe(result =>
+  //     {
+  //       // console.log(result);
+  //     });
 
-    // unsubscribe observable service after operation
-    this.observableSub.unsubscribe();
+  //   // unsubscribe observable service after operation
+  //   this.observableSub.unsubscribe();
 
-    // empty store after operation
-    this.store.dispatch(new TaskActions.RemoveAllTask());
+  //   // empty store after operation
+  //   this.store.dispatch(new TaskActions.RemoveAllTask());
 
-    // un select all tasks after operation
-    this.taskSelectedService.unSelectAllTask()
+  //   // un select all tasks after operation
+  //   this.taskSelectedService.unSelectAllTask()
   }
 
 }

@@ -3,8 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 // Store
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../store/state/app.state';
-import * as TaskActions from '../../store/actions/task-actions';
 
 // Service
 import { userTasksSchema } from 'src/app/store/schema/userTasks-schema';
@@ -51,11 +49,10 @@ export class TaskListComponent implements OnInit
   // store
   appTaskList$: Observable<taskSchema[]>;
 
-  constructor(private store: Store<AppState>,
+  constructor(
     public taskSelectedService: SelectTaskService,
     private taskListService: TaskListService) 
-  {
-    this.appTaskList$ = store.select('task');    
+  {      
   }
 
   ngOnInit(): void 
@@ -68,10 +65,12 @@ export class TaskListComponent implements OnInit
     this.taskSelectedService.taskSelected[index] = !this.taskSelectedService.taskSelected[index];
 
     if (this.taskSelectedService.taskSelected[index])
-      this.store.dispatch(new TaskActions.AddTask(this.taskList[index]));
+      // this.store.dispatch(new TaskActions.AddTask(this.taskList[index]));
+      this.taskSelectedService.insertInAppTaskList(this.taskList[index]);
 
     else
-      this.store.dispatch(new TaskActions.RemoveTask(this.taskList[index]._id));
+      // this.store.dispatch(new TaskActions.RemoveTask(this.taskList[index]._id));
+      this.taskSelectedService.removeFromAppTaskList(this.taskList[index]._id);
   }
 
   toggleTaskStatus(index, status)

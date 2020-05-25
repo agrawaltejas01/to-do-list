@@ -4,10 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 
-// import { routes } from './app-routing.module';
-
-import { StoreModule } from '@ngrx/store';
-import { reducer } from './store/reducer/task-reducer'; 
 
 // Modules
 import { AppPanelModule } from "./app-panel/app-panel.module"
@@ -23,10 +19,7 @@ import { from } from 'rxjs';
     BrowserModule,
     AppRoutingModule,
     AppPanelModule,  
-    FormsModule,  
-    StoreModule.forRoot({
-      task : reducer
-    })  
+    FormsModule,       
   ],
   providers: [],
   bootstrap: [AppComponent]

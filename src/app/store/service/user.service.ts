@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { userSchema } from '../schema/user-schema' 
-import { userTasksSchema } from '../schema/userTasks-schema';
+import { userTasksSchema, taskSchema } from '../schema/userTasks-schema';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,7 @@ export class UserService
 
     deleteTask(username : string, idToBeDeleted : string[])
     {
-        console.log(idToBeDeleted);
+        // console.log(idToBeDeleted);
         return this.http.post<Boolean>(this.baseUrl + 'deleteTask', {
             username,
             idToBeDeleted
@@ -55,5 +55,23 @@ export class UserService
         return this.http.post<boolean>(this.baseUrl + 'addUserTask',
             userTaskBody
         )
+    }
+
+    changeTaskStatus(username : string, taskId : string, status : number)
+    {
+        return this.http.post<Boolean>(this.baseUrl + 'changeTaskStatus', {
+            username,
+            taskId,
+            status
+        })
+    }
+
+    changeTaskPriority(username : string, taskId : string, priority : number)
+    {
+        return this.http.post<Boolean>(this.baseUrl + 'changeTaskPriority', {
+            username,
+            taskId,
+            priority
+        })
     }
 }

@@ -156,9 +156,9 @@ app.post("/deleteTask", function (req, res)
             },
 
             {
-                $pullAll: 
+                $pullAll:
                 {
-                    _id : dataToBeDeleted
+                    _id: dataToBeDeleted
                 }
             },
 
@@ -249,6 +249,94 @@ app.post("/addUserTask", function (req, res)
             }
         }
     );
+})
+
+app.post("/changeTaskStatus", function (req, res)
+{
+    userTasks.findById(req.body.username).then(result =>
+    {
+        console.log("Inside Changing status")
+        task = result.task;
+        dataToBeUpdated = {};
+
+        for (let index = 0; index < task.length; index++) 
+        {
+            const element = task[index];
+            if (element._id == req.body.taskId)
+            {
+                console.log("Found at " + index);
+                dataToBeUpdated['task.' + index + '.status'] = req.body.status;
+                console.log(dataToBeUpdated);
+            }
+        }
+
+        userTasks.updateOne(
+            {
+                _id: req.body.username
+            },
+
+            {
+                $set: dataToBeUpdated
+            },
+
+            function (err, result)
+            {
+                if (err)
+                {
+                    console.log("Error in Change Status Function");
+                    console.log(err);
+                    res.send(false);
+                }
+
+                else
+                    res.send(true);
+            }
+        )
+    })
+})
+
+app.post("/changeTaskPriority", function (req, res)
+{
+    userTasks.findById(req.body.username).then(result =>
+    {
+        console.log("Inside Changing priority")
+        task = result.task;
+        dataToBeUpdated = {};
+
+        for (let index = 0; index < task.length; index++) 
+        {
+            const element = task[index];
+            if (element._id == req.body.taskId)
+            {
+                console.log("Found at " + index);
+                dataToBeUpdated['task.' + index + '.priority'] = req.body.priority;
+                console.log(dataToBeUpdated);
+            }
+        }
+
+        userTasks.updateOne(
+            {
+                _id: req.body.username
+            },
+
+            {
+                $set: dataToBeUpdated
+            },
+
+            function (err, result)
+            {
+                if (err)
+                {
+                    console.log("Error in Change Priority Function");
+                    console.log(err);
+                    res.send(false);
+                }
+
+                else
+                    res.send(true);
+            }
+        )
+    })
 })
 
 app.listen(8080, () => console.log("Api is running"));

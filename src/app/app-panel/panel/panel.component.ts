@@ -25,7 +25,7 @@ import { TaskListService } from 'src/app/store/service/task-list.service';
 })
 export class PanelComponent implements OnInit
 {
-  username: string = 'Tejas';
+  
   userTasks: userTasksSchema = null;
   userTasksLabelList: string[] = [];
 
@@ -57,7 +57,7 @@ export class PanelComponent implements OnInit
   {
     this.allDataAvailable = false;
     
-    this.getUserTasks(this.username);    
+    this.getUserTasks(this.userTasksService.username);    
   }
 
 
@@ -119,7 +119,7 @@ export class PanelComponent implements OnInit
       })
     
     // call API to archive tasks
-    this.userService.archiveTask(this.username, idToBeArchived).subscribe(result =>
+    this.userService.archiveTask(this.userTasksService.username, idToBeArchived).subscribe(result =>
       {
         // console.log(result);
         if(result)
@@ -146,7 +146,7 @@ export class PanelComponent implements OnInit
       idToBeDeleted.push(task._id);        
     })
     
-    this.userService.deleteTask(this.username, idToBeDeleted).subscribe(result =>
+    this.userService.deleteTask(this.userTasksService.username, idToBeDeleted).subscribe(result =>
       {
         // console.log(result);
         if(result)

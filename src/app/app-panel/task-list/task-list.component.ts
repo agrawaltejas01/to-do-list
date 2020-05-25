@@ -9,7 +9,8 @@ import { userTasksSchema } from 'src/app/store/schema/userTasks-schema';
 import { taskSchema } from 'src/app/store/schema/userTasks-schema';
 import { SelectTaskService } from 'src/app/store/service/select-task.service';
 import { TaskListService } from 'src/app/store/service/task-list.service';
-
+import { UserService } from 'src/app/store/service/user.service';
+import { UserTasksService } from 'src/app/store/service/user-tasks-service';
 
 
 // font awsome
@@ -30,8 +31,8 @@ import { faSmileBeam } from '@fortawesome/free-solid-svg-icons';
 })
 export class TaskListComponent implements OnInit 
 {
-  
-  @Input() taskList: taskSchema[] = [];  
+
+  @Input() taskList: taskSchema[] = [];
 
   // font awsome
   faCheckSquare = faCheckSquare;
@@ -49,16 +50,17 @@ export class TaskListComponent implements OnInit
   // store
   appTaskList$: Observable<taskSchema[]>;
 
-  constructor(
+  constructor(private userService: UserService,
     public taskSelectedService: SelectTaskService,
-    private taskListService: TaskListService) 
-  {      
+    private taskListService: TaskListService,
+    public userTasksService: UserTasksService) 
+  {
   }
 
   ngOnInit(): void 
-  {    
+  {
 
-  }    
+  }
 
   selectTask(index)
   {
@@ -76,10 +78,30 @@ export class TaskListComponent implements OnInit
   toggleTaskStatus(index, status)
   {
     this.taskList[index].status = status;
+
+    this.userService.changeTaskStatus(this.userTasksService.username, this.taskList[index]._id, status)
+      .subscribe(result =>
+      {
+        if (result)
+        {
+          console.log("chamge task status successful");
+          this.userTasksService.changeTaskStatus(this.taskList[index]._id, status);
+        }
+      })
   }
 
   toggleTaskPriority(index, priority)
   {
-    this.taskList[index].priority = priority
+    this.taskList[index].priority = priority;
+
+    this.userService.changeTaskPriority(this.userTasksService.username, this.taskList[index]._id, priority)
+      .subscribe(result =>
+      {
+        if (result)
+        {
+          console.log("chamge task priority successful");
+          this.userTasksService.changeTaskPriority(this.taskList[index]._id, priority);
+        }
+      })
   }
 }

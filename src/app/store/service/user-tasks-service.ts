@@ -9,28 +9,24 @@ import { taskSchema, userTasksSchema } from '../schema/userTasks-schema';
 
 export class UserTasksService
 {
+    username: string = 'Tejas';
     userTasks: userTasksSchema = null;
 
-    changeTaskStatus(id : string)
+    changeTaskStatus(id : string, status : number)
     {
         this.userTasks.task.forEach(task =>
             {
                 if(task._id == id)
-                    task.status = (task.status + 1) % 3;
+                    task.status = status;
             })
     }
 
-    changeTaskPriority(id : string)
+    changeTaskPriority(id : string, priority : number)
     {
         this.userTasks.task.forEach(task =>
             {
                 if(task._id == id)
-                {
-                    if(task.priority != 3)
-                        task.priority = task.priority + 1;
-                    
-                    else task.priority = 1;
-                }
+                    task.priority = priority;
             })
     }
 

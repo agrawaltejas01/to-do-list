@@ -220,6 +220,19 @@ export class TaskListService
             }
         }
 
+        if (archive == true)
+        {
+            // remove non archived from this.taskList
+            for (let index = 0; index < this.taskList.length; index++) 
+            {
+                if (!this.taskList[index].archive)
+                {
+                    this.taskList.splice(index, 1);
+                    index--;
+                }
+            }
+        }
+
         return this.taskList;
 
     }

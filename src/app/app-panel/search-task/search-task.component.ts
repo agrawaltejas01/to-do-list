@@ -30,13 +30,18 @@ export class SearchTaskComponent implements OnInit
 
   ngOnInit(): void 
   {
+    this.resetForm()
+  }
+
+  resetForm()
+  {
     this.searchTaskForm = this.formBuilder.group(
       {
         taskLabel: "",
         taskTitle: "",
-        taskPriority: 2,
+        taskPriority: -1,
         taskDueDate: null,
-        taskStatus: 0,
+        taskStatus: -1,
         taskArchive: false,
       }
     );
@@ -46,9 +51,9 @@ export class SearchTaskComponent implements OnInit
   {
     let title: string = 'none';
     let label: string = 'none';
-    let priority: number = 2;
+    let priority: number = -1;
     let dueDate: Date = null;
-    let status: number = 1;
+    let status: number = -1;
     let archive: Boolean = false;
 
     if (this.searchTaskForm.value.taskTitle != "")
@@ -58,9 +63,13 @@ export class SearchTaskComponent implements OnInit
       label = this.searchTaskForm.value.taskLabel;
 
     priority = this.searchTaskForm.value.taskPriority;
-
-    // if (this.searchTaskForm.value.taskDueDate.length)
-    //   dueDate = new Date(this.searchTaskForm.value.taskDueDate);
+    
+    if (this.searchTaskForm.value.taskDueDate)
+    {
+      dueDate = new Date(this.searchTaskForm.value.taskDueDate);
+      dueDate.setDate(dueDate.getDate() + 1);
+    }
+    // dueDate = this.searchTaskForm.value.taskDueDate;
 
     status = this.searchTaskForm.value.taskStatus;
     archive = this.searchTaskForm.value.taskArchive;

@@ -23,13 +23,15 @@
                 <div class="form-group col-md-4">
                     <label for="taskLabel">Label : </label>
                     <select formControlName="taskLabel" class="form-control" id="taskLabel">
-                        <option *ngFor="let label of userTasksLabelList" value="label">{{label}}</option>
+                        <option value="" selected>All</option>
+                        <option *ngFor="let label of userTasksLabelList" value="{{label}}">{{label}}</option>
                     </select>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="taskPriority">Priority : </label>
                     <select formControlName="taskPriority" class="form-control" id="taskPriority">
+                        <option value="-1" selected>All</option>
                         <option value="1">High</option>
                         <option value="2" selected>Normal</option>
                         <option value="3">Low</option>
@@ -39,6 +41,7 @@
                 <div class="form-group col-md-4">
                     <label for="taskStatus">Status : </label>
                     <select formControlName="taskStatus" class="form-control" id="taskStatus">
+                        <option value="-1" selected>All</option>
                         <option value="0">Incomplete</option>
                         <option value="1" selected>In Progress</option>
                         <option value="2">Completed</option>
@@ -56,6 +59,8 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Search Task</button>
+            <button type="button" (click)="resetForm()" class="btn btn-secondary ml-5">Reset</button>
+
         </form>
 
     </div>

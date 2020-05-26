@@ -21,13 +21,13 @@ export class TaskListService
         this.taskList = [];
     }
 
-    getTasksOfFilter(label: string, priority: number, 
+    getTasksOfFilter(label: string, priority: number, status : number,
                     dueDate: Date, archive: Boolean, userTasks: userTasksSchema) 
     {
         this.init();
 
         // Check if no filter applied
-        if (label == "none" && priority == -1 && dueDate == null && archive == false)
+        if (label == "none" && priority == -1 && status == -1 && dueDate == null && archive == false)
         {
             // this.taskList = userTasks.task;
             userTasks.task.forEach(element => 
@@ -39,7 +39,7 @@ export class TaskListService
         }
 
         // check if archive has to be applied
-        else if (label == "none" && priority == -1 && dueDate == null && archive == true)
+        else if (label == "none" && priority == -1 && status == -1 && dueDate == null && archive == true)
         {
             userTasks.task.forEach(element =>
             {
@@ -94,6 +94,39 @@ export class TaskListService
             }
         }
 
+        if (status != -1)
+        {
+            // check if label pr priority has been applied
+            if (this.taskList.length == 0) 
+            {
+                // label or priority has not been applied
+                // traverse userTasks
+                userTasks.task.forEach(element =>
+                {
+                    if (element.status == status) 
+                    {
+                        this.taskList.push(element);
+                    }
+                })
+            }
+
+            else if (this.taskList.length > 0) 
+            {
+                // label or priority has been applied
+                // traverse this.taskList
+                for (let index = 0; index < this.taskList.length; index++) 
+                {
+                    if (this.taskList[index].status != status)
+                    {
+                        this.taskList.splice(index, 1);
+                        index--;
+                    }
+
+                }
+
+            }
+        }
+
         // check if dueDate has to be applied
         if ((dueDate != null))
         {
@@ -101,10 +134,10 @@ export class TaskListService
             let year = new Date(dueDate).getMonth()
             let date = new Date(dueDate).getFullYear()
 
-            // check if label or priority has been applied
+            // check if label or priority or status has been applied
             if (this.taskList.length == 0) 
             {
-                // label or priority has not been applied
+                // label or priority or status has not been applied
                 // traverse userTasks
                 userTasks.task.forEach(element =>
                 {
@@ -121,7 +154,7 @@ export class TaskListService
 
             else if (this.taskList.length > 0) 
             {
-                // label has been applied
+                // label or priority or status has been applied
                 // traverse this.taskList
                 for (let index = 0; index < this.taskList.length; index++) 
                 {

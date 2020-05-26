@@ -14,6 +14,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { retry } from 'rxjs/operators';
 import { TaskListService } from 'src/app/store/service/task-list.service';
+import { AddTaskPageService } from 'src/app/store/service/add-task-page-service';
 
 
 
@@ -48,7 +49,8 @@ export class PanelComponent implements OnInit
   constructor(private userService: UserService,
     public taskSelectedService: SelectTaskService,
     private taskListService: TaskListService,
-    public userTasksService: UserTasksService) 
+    public userTasksService: UserTasksService,
+    public addTaskPageService: AddTaskPageService) 
   {
     this.allDataAvailable = false;
   }

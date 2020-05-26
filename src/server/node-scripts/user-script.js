@@ -239,13 +239,13 @@ app.post("/addUserTask", function (req, res)
             if (err)
             {
                 console.log(err);
-                res.send(false);
+                res.send(err);
             }
-
             else
             {
-                console.log("task added in addUserTask \n" + data);
-                res.send(true);
+                // console.log("task added in addUserTask \n" + data);
+                // console.log(req.body.task);
+                res.send(req.body.task._id);
             }
         }
     );

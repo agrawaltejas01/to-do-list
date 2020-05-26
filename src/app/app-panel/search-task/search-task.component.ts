@@ -32,6 +32,7 @@ export class SearchTaskComponent implements OnInit
   {
     this.searchTaskForm = this.formBuilder.group(
       {
+        taskLabel: "Personal",
         taskTitle: "",
         taskPriority: 2,
         taskDueDate: "",
@@ -47,8 +48,16 @@ export class SearchTaskComponent implements OnInit
     let priority : number = 2;
     let dueDate : Date = null;
     let status : number = 1;
-    let archive : Boolean = false
-    if(this.searchTaskForm.value.taskTitle != "")
-      label = this.searchTaskForm.value.taskTitle;
+    let archive : Boolean = false;
+
+    if(this.searchTaskForm.value.taskLabel != "")
+      label = this.searchTaskForm.value.taskLabel;
+    
+    priority = this.searchTaskForm.value.taskPriority;
+    dueDate = this.searchTaskForm.value.taskDueDate;
+    status = this.searchTaskForm.value.taskStatus;
+    archive = this.searchTaskForm.value.taskArchive;
+
+    this.taskList = this.taskListService.getTasksOfFilter(label, priority, status, dueDate, archive, this.userTasksService.userTasks);
   }
 }

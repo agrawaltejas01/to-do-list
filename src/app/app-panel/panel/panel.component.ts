@@ -25,11 +25,11 @@ import { TaskListService } from 'src/app/store/service/task-list.service';
 })
 export class PanelComponent implements OnInit
 {
-  
+
   userTasks: userTasksSchema = null;
   userTasksLabelList: string[] = [];
 
-  userTaskDuplicate : userTasksSchema;
+  userTaskDuplicate: userTasksSchema;
 
   allDataAvailable: Boolean = false;
 
@@ -42,33 +42,33 @@ export class PanelComponent implements OnInit
   faPlus = faPlus;
 
   // store  
-  appTaskList: taskSchema[] = [];  
+  appTaskList: taskSchema[] = [];
   taskList: taskSchema[];
 
-  constructor(private userService: UserService,    
+  constructor(private userService: UserService,
     public taskSelectedService: SelectTaskService,
     private taskListService: TaskListService,
-    public userTasksService :   UserTasksService  ) 
+    public userTasksService: UserTasksService) 
   {
-    this.allDataAvailable = false;     
+    this.allDataAvailable = false;
   }
 
   ngOnInit(): void
   {
     this.allDataAvailable = false;
-    
-    this.getUserTasks(this.userTasksService.username);    
+
+    this.getUserTasks(this.userTasksService.username);
   }
 
 
   getUserTasks(username)
   {
     // Get all user tasks at a time
-    this.userService.getUserTasks(username).subscribe((data : userTasksSchema) =>
-    {      
+    this.userService.getUserTasks(username).subscribe((data: userTasksSchema) =>
+    {
 
       // this.userTasksService.userTasks = data;      
-      this.userTasksService.userTasks = data;            
+      this.userTasksService.userTasks = data;
 
       this.userTasksService.getTaskLabel();
       this.userTasksLabelList = this.userTasksService.userTasksLabelList;
@@ -80,23 +80,23 @@ export class PanelComponent implements OnInit
     });
 
     this.allDataAvailable = true;
-   
+
   }
 
   changeTab(label)
-  { 
+  {
     this.currentTab = label;
 
-    let priority : number = -1;
-    let status : number = -1;
-    let dueDate : Date = null;
-    let archive : Boolean = false;
-    
-    
-    if(label == 'All')  
+    let priority: number = -1;
+    let status: number = -1;
+    let dueDate: Date = null;
+    let archive: Boolean = false;
+
+
+    if (label == 'All')
       label = 'none';
-    
-    if(label == 'Archive')
+
+    if (label == 'Archive')
     {
       label = 'none';
       archive = true;
@@ -112,24 +112,24 @@ export class PanelComponent implements OnInit
   archiveTasks()
   {
     let idToBeArchived: string[] = [];
-    
+
     // traverse appTaskList$
     this.taskSelectedService.appTaskList.forEach(task =>
-      {
-        idToBeArchived.push(task._id);        
-      })
-    
+    {
+      idToBeArchived.push(task._id);
+    })
+
     // call API to archive tasks
     this.userService.archiveTask(this.userTasksService.username, idToBeArchived).subscribe(result =>
+    {
+      // console.log(result);
+      if (result)
       {
-        // console.log(result);
-        if(result)
-        {          
-          this.userTasksService.archiveTask(idToBeArchived);
+        this.userTasksService.archiveTask(idToBeArchived);
 
-          this.changeTab(this.currentTab);
-        }
-      });
+        this.changeTab(this.currentTab);
+      }
+    });
 
     this.taskSelectedService.initAppTaskList()
 
@@ -141,22 +141,22 @@ export class PanelComponent implements OnInit
   deleteTasks()
   {
     let idToBeDeleted: string[] = [];
-    
+
     this.taskSelectedService.appTaskList.forEach(task =>
     {
-      idToBeDeleted.push(task._id);        
+      idToBeDeleted.push(task._id);
     })
-    
-    this.userService.deleteTask(this.userTasksService.username, idToBeDeleted).subscribe(result =>
-      {
-        // console.log(result);
-        if(result)
-        {
-          this.userTasksService.deleteTask(idToBeDeleted);
 
-          this.changeTab(this.currentTab);
-        }
-      });
+    this.userService.deleteTask(this.userTasksService.username, idToBeDeleted).subscribe(result =>
+    {
+      // console.log(result);
+      if (result)
+      {
+        this.userTasksService.deleteTask(idToBeDeleted);
+
+        this.changeTab(this.currentTab);
+      }
+    });
 
     this.taskSelectedService.initAppTaskList()
 

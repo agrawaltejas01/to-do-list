@@ -218,12 +218,12 @@ app.post("/deleteTask", function (req, res)
 
 app.post("/addUserTask", function (req, res)
 {
-    // console.log("Requested to add USer task");
+    //  console.log("Requested to add USer task");
     var id = new ObjectId();
     req.body.task._id = id;
 
-    // console.log(req.body);
-    userTasks.update(
+    //  console.log(req.body);
+    userTasks.updateOne(
         {
             _id: req.body.username
         },

@@ -74,7 +74,8 @@ export class PanelComponent implements OnInit
       this.userTasksLabelList = this.userTasksService.userTasksLabelList;
 
       console.log(data);
-      this.taskList = this.taskListService.getTasksOfFilter('none', -1, -1, null, false, data);
+      this.taskList = this.taskListService.getTasksOfFilter('none', 'none', -1, 
+              -1, null, false, data);
       console.log(this.taskList);
       // console.log(this.userTasksService.userTasks.task);
     });
@@ -87,6 +88,7 @@ export class PanelComponent implements OnInit
   {
     this.currentTab = label;
 
+    let title: string = 'none'
     let priority: number = -1;
     let status: number = -1;
     let dueDate: Date = null;
@@ -106,7 +108,8 @@ export class PanelComponent implements OnInit
     this.taskSelectedService.initAppTaskList()
     this.taskSelectedService.unSelectAllTask()
 
-    this.taskList = this.taskListService.getTasksOfFilter(label, priority, status, dueDate, archive, this.userTasksService.userTasks);
+    this.taskList = this.taskListService.getTasksOfFilter(title, label, priority, 
+      status, dueDate, archive, this.userTasksService.userTasks);
   }
 
   archiveTasks()

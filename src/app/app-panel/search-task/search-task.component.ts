@@ -32,32 +32,47 @@ export class SearchTaskComponent implements OnInit
   {
     this.searchTaskForm = this.formBuilder.group(
       {
-        taskLabel: "Personal",
+        taskLabel: "",
         taskTitle: "",
         taskPriority: 2,
-        taskDueDate: "",
+        taskDueDate: null,
         taskStatus: 0,
-        taskArchive : false,
+        taskArchive: false,
       }
     );
   }
 
   searchTask()
   {
-    let label : string = 'none';
-    let priority : number = 2;
-    let dueDate : Date = null;
-    let status : number = 1;
-    let archive : Boolean = false;
+    let title: string = 'none';
+    let label: string = 'none';
+    let priority: number = 2;
+    let dueDate: Date = null;
+    let status: number = 1;
+    let archive: Boolean = false;
 
-    if(this.searchTaskForm.value.taskLabel != "")
+    if (this.searchTaskForm.value.taskTitle != "")
+      title = this.searchTaskForm.value.taskTitle;
+
+    if (this.searchTaskForm.value.taskLabel != "")
       label = this.searchTaskForm.value.taskLabel;
-    
+
     priority = this.searchTaskForm.value.taskPriority;
-    dueDate = this.searchTaskForm.value.taskDueDate;
+
+    // if (this.searchTaskForm.value.taskDueDate.length)
+    //   dueDate = new Date(this.searchTaskForm.value.taskDueDate);
+
     status = this.searchTaskForm.value.taskStatus;
     archive = this.searchTaskForm.value.taskArchive;
 
-    this.taskList = this.taskListService.getTasksOfFilter(label, priority, status, dueDate, archive, this.userTasksService.userTasks);
+    console.log(title);
+    console.log(label);
+    console.log(priority);
+    console.log(status);
+    console.log(dueDate);
+    console.log(archive);    
+
+    this.taskList = this.taskListService.getTasksOfFilter(title, label, priority,
+      status, dueDate, archive, this.userTasksService.userTasks);
   }
 }

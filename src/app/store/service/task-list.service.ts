@@ -21,13 +21,14 @@ export class TaskListService
         this.taskList = [];
     }
 
-    getTasksOfFilter(label: string, priority: number, status : number,
-                    dueDate: Date, archive: Boolean, userTasks: userTasksSchema) 
+    getTasksOfFilter(title: string, label: string, priority: number, status: number,
+        dueDate: Date, archive: Boolean, userTasks: userTasksSchema) 
     {
         this.init();
 
         // Check if no filter applied
-        if (label == "none" && priority == -1 && status == -1 && dueDate == null && archive == false)
+        if (title == 'none' && label == "none" && priority == -1 &&
+            status == -1 && dueDate == null && archive == false)
         {
             // this.taskList = userTasks.task;
             userTasks.task.forEach(element => 
@@ -39,7 +40,8 @@ export class TaskListService
         }
 
         // check if archive has to be applied
-        else if (label == "none" && priority == -1 && status == -1 && dueDate == null && archive == true)
+        else if (title == 'none' && label == "none" && priority == -1
+            && status == -1 && dueDate == null && archive == true)
         {
             userTasks.task.forEach(element =>
             {
@@ -48,16 +50,48 @@ export class TaskListService
             })
         }
 
-        // check if label has to be applied
-        if (label != "none") 
+        // check if title has to be applied
+        if (title != "none")
         {
             userTasks.task.forEach(element =>
             {
-                if (element.label == label) 
+                if (element.title == title) 
                 {
                     this.taskList.push(element);
                 }
             })
+        }
+
+        // check if label has to be applied
+        if (label != "none") 
+        {
+            // check if title has been applied
+            if (this.taskList.length == 0)
+            {
+                userTasks.task.forEach(element =>
+                {
+                    if (element.label == label) 
+                    {
+                        this.taskList.push(element);
+                    }
+                })
+            }
+
+            else if (this.taskList.length > 0) 
+            {
+                // title has been applied
+                // traverse this.taskList
+                for (let index = 0; index < this.taskList.length; index++) 
+                {
+                    if (this.taskList[index].label != label)
+                    {
+                        this.taskList.splice(index, 1);
+                        index--;
+                    }
+
+                }
+
+            }
         }
 
         // check if priority has to be applied
@@ -142,9 +176,9 @@ export class TaskListService
                 userTasks.task.forEach(element =>
                 {
                     if (
-                        new Date(element.dueDate).getDate() ==  month &&
-                        new Date(element.dueDate).getMonth() ==  year &&
-                        new Date(element.dueDate).getFullYear() ==  date
+                        new Date(element.dueDate).getDate() == month &&
+                        new Date(element.dueDate).getMonth() == year &&
+                        new Date(element.dueDate).getFullYear() == date
                     ) 
                     {
                         this.taskList.push(element);

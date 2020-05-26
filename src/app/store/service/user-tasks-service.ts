@@ -11,51 +11,61 @@ export class UserTasksService
 {
     username: string = 'Tejas';
     userTasks: userTasksSchema = null;
+    userTasksLabelList: string[] = [];
 
-    changeTaskStatus(id : string, status : number)
+    getTaskLabel()
     {
-        this.userTasks.task.forEach(task =>
-            {
-                if(task._id == id)
-                    task.status = status;
-            })
+        this.userTasks.task.forEach((element) =>
+        {
+            if (this.userTasksLabelList.indexOf(element.label) === -1)
+                this.userTasksLabelList.push(element.label);
+        });
     }
 
-    changeTaskPriority(id : string, priority : number)
+    changeTaskStatus(id: string, status: number)
     {
         this.userTasks.task.forEach(task =>
-            {
-                if(task._id == id)
-                    task.priority = priority;
-            })
+        {
+            if (task._id == id)
+                task.status = status;
+        })
     }
 
-    archiveTask(idToBeArchived : string[])
+    changeTaskPriority(id: string, priority: number)
     {
         this.userTasks.task.forEach(task =>
-            {
-                if(idToBeArchived.indexOf(task._id) > -1)
-                {
-                    task.archive = !task.archive;
-                }
-            })
+        {
+            if (task._id == id)
+                task.priority = priority;
+        })
     }
 
-    deleteTask(idToBeDeleted : string[])
+    archiveTask(idToBeArchived: string[])
+    {
+        this.userTasks.task.forEach(task =>
+        {
+            if (idToBeArchived.indexOf(task._id) > -1)
+            {
+                task.archive = !task.archive;
+            }
+        })
+    }
+
+    deleteTask(idToBeDeleted: string[])
     {
         for (let index = 0; index < this.userTasks.task.length; index++) 
         {
-            if(idToBeDeleted.indexOf(this.userTasks.task[index]._id) > -1)
+            if (idToBeDeleted.indexOf(this.userTasks.task[index]._id) > -1)
             {
                 this.userTasks.task.splice(index, 1);
                 index--;
             }
-            
+
         }
     }
 
-    addTask(task : taskSchema)
+    addTask(task: taskSchema)
     {
-        this.userTasks.task.push(task);        
+        this.userTasks.task.push(task);
     }
 }

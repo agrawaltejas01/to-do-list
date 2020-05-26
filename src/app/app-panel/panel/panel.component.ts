@@ -68,15 +68,10 @@ export class PanelComponent implements OnInit
     {      
 
       // this.userTasksService.userTasks = data;      
-      this.userTasksService.userTasks = data;
-      // console.log(this.userTasksService.userTasks.task);
+      this.userTasksService.userTasks = data;            
 
-      // Create labels list from all available labels in user tasks
-      this.userTasksService.userTasks.task.forEach((element) =>
-      {
-        if (this.userTasksLabelList.indexOf(element.label) === -1)
-          this.userTasksLabelList.push(element.label);
-      });
+      this.userTasksService.getTaskLabel();
+      this.userTasksLabelList = this.userTasksService.userTasksLabelList;
 
       this.taskList = this.taskListService.getTasksOfFilter('none', -1, null, false, data);
       console.log(this.taskList);

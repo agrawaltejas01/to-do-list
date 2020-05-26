@@ -60,6 +60,9 @@
     </div>
 </div>
 
+<div *ngIf="userTasksService.userTasks != null">
+<app-search-task>   </app-search-task>
+</div>
 <!-- send 
     null in dueDate 
     -1 in priority

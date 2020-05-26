@@ -9,12 +9,11 @@ import { TaskListService } from '../store/service/task-list.service';
 import { SelectTaskService } from '../store/service/select-task.service';
 import { UserTasksService } from '../store/service/user-tasks-service';
 
-
-
 // Component
 import { PanelComponent } from './panel/panel.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { SearchTaskComponent } from './search-task/search-task.component';
 
 // fontAwsome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -25,6 +24,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PanelComponent,
     TaskListComponent,
     AddTaskComponent,
+    SearchTaskComponent,
   ],
 
   imports: 
@@ -39,7 +39,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   exports : 
   [
     PanelComponent,
-    TaskListComponent
+    TaskListComponent,
+    SearchTaskComponent,
   ],
 
   providers :

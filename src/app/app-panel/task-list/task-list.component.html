@@ -11,7 +11,7 @@
 
 <div *ngFor="let task of taskList; let i = index">
     <div class="card">
-        <div class="card-body">
+        <div class="card-body" data-toggle="collapse" attr.data-target="#description-{{task?._id}}" attr.aria-controls="description-{{task?._id}}">
 
 
 
@@ -76,9 +76,19 @@
                     </div>
                 </span>
 
+            </div>  
+            
+            <div class="collapse" attr.id="description-{{task?._id}}">
+                <div class="card card-body border-0">
+                    {{task?.description}}
+                </div>
             </div>
 
         </div>
     </div>
 
+</div>
+
+<div *ngFor = "let task of taskList; let i = index" class="collapse" attr.id="description-{{task?._id}}">
+    
 </div>

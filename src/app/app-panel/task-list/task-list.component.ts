@@ -47,6 +47,8 @@ export class TaskListComponent implements OnInit
   taskStatus: number = 0;
   taskPriority: number = 2;
 
+  isExpanded : Boolean = false;
+
   // store
   appTaskList$: Observable<taskSchema[]>;
 

@@ -7,13 +7,16 @@ import { userSchema } from 'src/app/store/schema/user-schema';
 import { userTasksSchema, taskSchema } from 'src/app/store/schema/userTasks-schema';
 import { SelectTaskService } from 'src/app/store/service/select-task.service';
 import { UserTasksService } from 'src/app/store/service/user-tasks-service';
+import { TaskListService } from 'src/app/store/service/task-list.service';
+
 
 // font awsome
 import { faArchive } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 import { retry } from 'rxjs/operators';
-import { TaskListService } from 'src/app/store/service/task-list.service';
 
 
 
@@ -26,7 +29,8 @@ import { TaskListService } from 'src/app/store/service/task-list.service';
 export class PanelComponent implements OnInit
 {
 
-  userTasks: userTasksSchema = null;
+  
+  searchTaskToggle : Boolean = false;
   userTasksLabelList: string[] = [];
 
   userTaskDuplicate: userTasksSchema;
@@ -40,6 +44,7 @@ export class PanelComponent implements OnInit
   faArchive = faArchive;
   faTrash = faTrash;
   faPlus = faPlus;
+  faSearch = faSearch;
 
   // store  
   appTaskList: taskSchema[] = [];
@@ -165,6 +170,11 @@ export class PanelComponent implements OnInit
 
     // un select all tasks after operation
     this.taskSelectedService.unSelectAllTask()
+  }
+
+  searchTask()
+  {
+    this.searchTaskToggle = !this.searchTaskToggle;
   }
 
 }

@@ -3,7 +3,7 @@
     color: blue;
     background-color: whitesmoke;
 }
-.operationsButtonsGroup
+.operations-buttons-group
 {
     /* float: right; */
     position: absolute;
@@ -11,7 +11,16 @@
     right: 2%;
 }
 
-.operationsButtons
+.search-task
+{
+    /* float: right; */
+    position: absolute;
+    top: 2%;
+    left: 2%;
+}
+
+
+.operations-buttons
 {
     border: 0px;
     background: transparent;
@@ -21,4 +30,9 @@
 {
     cursor: not-allowed;
     color: grey;
+}
+
+.search-task, hr
+{
+    color: blue;
 }

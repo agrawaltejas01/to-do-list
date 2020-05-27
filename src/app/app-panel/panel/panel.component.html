@@ -1,76 +1,81 @@
-<div *ngIf="allDataAvailable">
-    <div class="search-task mb-3">
-        <button class="operations-buttons mr-5">
-            <fa-icon (click)="searchTask()" [icon]='faSearch' title="Search Task">
-            </fa-icon>
+<main *ngIf="!this.addTaskPageService.getAddTaskPage()">
+    <div *ngIf="allDataAvailable">
+        <div class="search-task mb-3">
+            <button class="operations-buttons mr-5">
+                <fa-icon (click)="searchTask()" [icon]='faSearch' title="Search Task">
+                </fa-icon>
 
-            <div *ngIf="userTasksService.userTasks != null && searchTaskToggle">
-                <app-search-task> </app-search-task>
-            </div>
+                <div *ngIf="userTasksService.userTasks != null && searchTaskToggle">
+                    <app-search-task> </app-search-task>
+                </div>
 
-        </button>
-    </div>
-    <div class="operations-buttons-group float-right mb-3">
-        <!--  -->
+            </button>
+        </div>
+        <div class="operations-buttons-group float-right mb-3">
+            <!--  -->
 
-        <button class="operations-buttons mr-5" (click)="this.addTaskPageService.toggleAddTaskPage()">
-            <fa-icon [icon]='faPlus' title="Add Task">
-            </fa-icon>
-        </button>
-        <button (click)="deleteTasks()" [disabled]="!this.taskSelectedService.appTaskList.length"
-            class="operations-buttons mr-5">
-            <fa-icon [icon]='faTrash' title="Delete Task">
-            </fa-icon>
-        </button>
-        <button (click)="archiveTasks()" [disabled]="!this.taskSelectedService.appTaskList.length"
-            class="operations-buttons mr-5">
-            <fa-icon [icon]='faArchive' title="Archive Task">
-            </fa-icon>
-        </button>
-    </div>
+            <button class="operations-buttons mr-5" (click)="this.addTaskPageService.toggleAddTaskPage()">
+                <fa-icon [icon]='faPlus' title="Add Task">
+                </fa-icon>
+            </button>
+            <button (click)="deleteTasks()" [disabled]="!this.taskSelectedService.appTaskList.length"
+                class="operations-buttons mr-5">
+                <fa-icon [icon]='faTrash' title="Delete Task">
+                </fa-icon>
+            </button>
+            <button (click)="archiveTasks()" [disabled]="!this.taskSelectedService.appTaskList.length"
+                class="operations-buttons mr-5">
+                <fa-icon [icon]='faArchive' title="Archive Task">
+                </fa-icon>
+            </button>
+        </div>
 
-    <ul class="nav nav-tabs mt-5 border-top" style="cursor: pointer;">
+        <ul class="nav nav-tabs mt-5 border-top" style="cursor: pointer;">
 
-        <li (click)="changeTab('All')" class="nav-item">
-            <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'All' }">
-                All
-            </a>
-        </li>
-        <div *ngFor="let label of userTasksLabelList">
-            <li (click)="changeTab(label)" class="nav-item">
-                <a class="nav-link" [ngClass]="{ 'active' : currentTab == label }">
-                    {{label}}
+            <li (click)="changeTab('All')" class="nav-item">
+                <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'All' }">
+                    All
                 </a>
             </li>
-        </div>
-        <li (click)="changeTab('Archive')" class="nav-item">
-            <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'Archive' }">
-                Archive
-            </a>
-        </li>
-    </ul>
-
-    <div class="tab-content">
-        <div *ngFor="let label of userTasksLabelList">
-            <div *ngIf="currentTab == label" class="tab-pane fade show active" id="tabContent{{label}}">
-                <app-task-list [taskList]="taskList">
-                </app-task-list>
+            <div *ngFor="let label of userTasksLabelList">
+                <li (click)="changeTab(label)" class="nav-item">
+                    <a class="nav-link" [ngClass]="{ 'active' : currentTab == label }">
+                        {{label}}
+                    </a>
+                </li>
             </div>
-        </div>
+            <li (click)="changeTab('Archive')" class="nav-item">
+                <a class="nav-link" [ngClass]="{ 'active' : currentTab == 'Archive' }">
+                    Archive
+                </a>
+            </li>
+        </ul>
 
-        <div *ngIf="currentTab == 'All'" class="tab-pane fade show active" id="All">
-            <div *ngIf="userTasksService.userTasks != null">
-                <app-task-list [taskList]="taskList">
-                </app-task-list>
+        <div class="tab-content">
+            <div *ngFor="let label of userTasksLabelList">
+                <div *ngIf="currentTab == label" class="tab-pane fade show active" id="tabContent{{label}}">
+                    <app-task-list [taskList]="taskList">
+                    </app-task-list>
+                </div>
             </div>
-        </div>
 
-        <div *ngIf="currentTab == 'Archive'" class="tab-pane fade show active" id="Archive">
-            <div *ngIf="userTasksService.userTasks != null">
-                <app-task-list [taskList]="taskList">
-                </app-task-list>
+            <div *ngIf="currentTab == 'All'" class="tab-pane fade show active" id="All">
+                <div *ngIf="userTasksService.userTasks != null">
+                    <app-task-list [taskList]="taskList">
+                    </app-task-list>
+                </div>
             </div>
-        </div>
 
+            <div *ngIf="currentTab == 'Archive'" class="tab-pane fade show active" id="Archive">
+                <div *ngIf="userTasksService.userTasks != null">
+                    <app-task-list [taskList]="taskList">
+                    </app-task-list>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
+</main>
+<app-add-task *ngIf="this.addTaskPageService.getAddTaskPage()">
+
+</app-add-task>

@@ -133,7 +133,7 @@ app.post("/archiveTask", function (req, res)
 
 app.post("/deleteTask", function (req, res)
 {
-    console.log("Inside To Be Archived Function");
+    console.log("Inside Delete Function");
     userTasks.findById(req.body.username).then(result =>
     {
         task = result.task;
@@ -150,18 +150,24 @@ app.post("/deleteTask", function (req, res)
             }
         }
         console.log("Value of dataToBeDeleted : \n" + dataToBeDeleted);
-        userTasks.updateOne(
+        userTasks.updateMany(
             {
                 _id: req.body.username
             },
 
             {
-                $pullAll:
+                $pull:
                 {
-                    _id: dataToBeDeleted
+                    "task":
+                    {
+                        _id:
+                        {
+                            $in : dataToBeDeleted
+                        }
+                    }
                 }
             },
-
+            
             function (err, result)
             {
                 if (err)
@@ -173,6 +179,7 @@ app.post("/deleteTask", function (req, res)
 
                 else
                 {
+                    console.log(result);
                     res.send(true);
                 }
             }

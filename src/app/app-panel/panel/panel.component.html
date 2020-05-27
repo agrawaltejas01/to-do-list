@@ -1,15 +1,17 @@
 <main *ngIf="!this.addTaskPageService.getAddTaskPage()">
     <div *ngIf="allDataAvailable">
         <div class="search-task mb-3">
-            <button class="operations-buttons mr-5">
-                <fa-icon (click)="searchTask()" [icon]='faSearch' title="Search Task">
+            <button class="operations-buttons mr-3">
+
+                <fa-icon class="search-task-icon" (click)="searchTask()" [icon]='faSearch' title="Search Task">
                 </fa-icon>
-
-                <div *ngIf="userTasksService.userTasks != null && searchTaskToggle">
-                    <app-search-task> </app-search-task>
-                </div>
-
             </button>
+            <!-- <div class="search-task-body" *ngIf="userTasksService.userTasks != null"> -->
+                <div class="search-task-body" *ngIf="userTasksService.userTasks != null && searchTaskToggle">
+                <app-search-task> </app-search-task>
+            </div>
+
+
         </div>
         <div class="operations-buttons-group float-right mb-3">
             <!--  -->

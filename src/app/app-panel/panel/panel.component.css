@@ -11,12 +11,14 @@
     right: 2%;
 }
 
-.search-task
+.search-task-body
 {
-    /* float: right; */
-    position: absolute;
-    top: 2%;
-    left: 2%;
+    
+}
+
+.search-task-icon
+{
+    margin-left: -2%;
 }
 
 

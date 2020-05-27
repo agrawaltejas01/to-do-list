@@ -45,6 +45,7 @@ export class SearchTaskComponent implements OnInit
         taskArchive: false,
       }
     );
+    this.taskList = null;
   }
 
   searchTask()

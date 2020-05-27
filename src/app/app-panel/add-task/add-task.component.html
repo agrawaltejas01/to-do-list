@@ -1,5 +1,10 @@
 <div class="card">
-    <h5 class="card-header">Add New Task</h5>
+    <div  class="card-header">  
+      <h5 style="display: inline;">Add New Task</h5>
+      <button type="button" class="close" aria-label="Close" style="float: right;" (click)="this.addTaskPageService.toggleAddTaskPage()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
     <div class="card-body">
         <!-- <form #formObject="ngForm" (ngSubmit)="submitTask(formObject)" > -->
           <form [formGroup]="addTaskForm" (ngSubmit)="submitTask()">

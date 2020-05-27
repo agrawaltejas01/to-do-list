@@ -8,6 +8,7 @@ import { userTasksSchema, taskSchema } from 'src/app/store/schema/userTasks-sche
 import { SelectTaskService } from 'src/app/store/service/select-task.service';
 import { UserTasksService } from 'src/app/store/service/user-tasks-service';
 import { TaskListService } from 'src/app/store/service/task-list.service';
+import { AddTaskPageService } from 'src/app/store/service/add-task-page-service';
 
 
 // font awsome
@@ -17,6 +18,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import { retry } from 'rxjs/operators';
+
+
 
 
 
@@ -53,7 +56,8 @@ export class PanelComponent implements OnInit
   constructor(private userService: UserService,
     public taskSelectedService: SelectTaskService,
     private taskListService: TaskListService,
-    public userTasksService: UserTasksService) 
+    public userTasksService: UserTasksService,
+    public addTaskPageService: AddTaskPageService) 
   {
     this.allDataAvailable = false;
   }

@@ -52,7 +52,7 @@ export class UserService
     
     addUserTask(userTaskBody)
     {
-        return this.http.post<boolean>(this.baseUrl + 'addUserTask',
+        return this.http.post<any>(this.baseUrl + 'addUserTask',
             userTaskBody
         )
     }

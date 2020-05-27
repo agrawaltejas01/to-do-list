@@ -218,12 +218,12 @@ app.post("/deleteTask", function (req, res)
 
 app.post("/addUserTask", function (req, res)
 {
-    // console.log("Requested to add USer task");
+    //  console.log("Requested to add USer task");
     var id = new ObjectId();
     req.body.task._id = id;
 
-    // console.log(req.body);
-    userTasks.update(
+    //  console.log(req.body);
+    userTasks.updateOne(
         {
             _id: req.body.username
         },
@@ -239,13 +239,13 @@ app.post("/addUserTask", function (req, res)
             if (err)
             {
                 console.log(err);
-                res.send(false);
+                res.send(err);
             }
-
             else
             {
-                console.log("task added in addUserTask \n" + data);
-                res.send(true);
+                // console.log("task added in addUserTask \n" + data);
+                // console.log(req.body.task);
+                res.send(req.body.task._id);
             }
         }
     );

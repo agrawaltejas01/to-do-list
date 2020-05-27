@@ -17,8 +17,7 @@ export class UserTasksService
     {
         this.userTasks.task.forEach((element) =>
         {
-            if (this.userTasksLabelList.indexOf(element.label) === -1)
-                this.userTasksLabelList.push(element.label);
+           this.addTaskLabel(element)
         });
     }
 
@@ -67,5 +66,12 @@ export class UserTasksService
     addTask(task: taskSchema)
     {
         this.userTasks.task.push(task);
+        this.addTaskLabel(task);
+    }
+
+    addTaskLabel(task: taskSchema)
+    {
+        if (this.userTasksLabelList.indexOf(task.label) === -1)
+            this.userTasksLabelList.push(task.label);
     }
 }

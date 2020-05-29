@@ -9,9 +9,17 @@ import { taskSchema, userTasksSchema } from '../schema/userTasks-schema';
 
 export class UserTasksService
 {
-    username: string = 'Tejas';
+    username : string = "Tejas";
+
+
+    // username: string = null;
     userTasks: userTasksSchema = null;
     userTasksLabelList: string[] = [];
+
+    setUserName(currentUserName : string)
+    {   
+        this.username = currentUserName;
+    }
 
     getTaskLabel()
     {

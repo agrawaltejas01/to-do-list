@@ -1,20 +1,10 @@
 <main *ngIf="!this.addTaskPageService.getAddTaskPage()">
     <div *ngIf="allDataAvailable">
         <div class="search-task mb-3">
-            <button class="operations-buttons mr-3">
-
+            <button class="operations-buttons mr-5">
                 <fa-icon class="search-task-icon" (click)="searchTask()" [icon]='faSearch' title="Search Task">
                 </fa-icon>
             </button>
-            <!-- <div class="search-task-body" *ngIf="userTasksService.userTasks != null"> -->
-                <div class="search-task-body" *ngIf="userTasksService.userTasks != null && searchTaskToggle">
-                <app-search-task> </app-search-task>
-            </div>
-
-
-        </div>
-        <div class="operations-buttons-group float-right mb-3">
-            <!--  -->
 
             <button class="operations-buttons mr-5" (click)="this.addTaskPageService.toggleAddTaskPage()">
                 <fa-icon [icon]='faPlus' title="Add Task">
@@ -30,7 +20,18 @@
                 <fa-icon [icon]='faArchive' title="Archive Task">
                 </fa-icon>
             </button>
-        </div>
+
+            <button class="operations-buttons float-right" (click)="authenticationService.logout()">
+                <fa-icon [icon]='faSignOutAlt' title="Sign Out">
+                </fa-icon>
+            </button>
+
+            <div class="search-task-body" *ngIf="userTasksService.userTasks != null && searchTaskToggle">
+                <app-search-task> </app-search-task>
+            </div>            
+
+
+        </div>        
 
         <ul class="nav nav-tabs mt-5 border-top" style="cursor: pointer;">
 

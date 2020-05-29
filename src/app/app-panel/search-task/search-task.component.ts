@@ -75,12 +75,12 @@ export class SearchTaskComponent implements OnInit
     status = this.searchTaskForm.value.taskStatus;
     archive = this.searchTaskForm.value.taskArchive;
 
-    console.log(title);
-    console.log(label);
-    console.log(priority);
-    console.log(status);
-    console.log(dueDate);
-    console.log(archive);    
+    // console.log(title);
+    // console.log(label);
+    // console.log(priority);
+    // console.log(status);
+    // console.log(dueDate);
+    // console.log(archive);    
 
     this.taskList = this.taskListService.getTasksOfFilter(title, label, priority,
       status, dueDate, archive, this.userTasksService.userTasks);

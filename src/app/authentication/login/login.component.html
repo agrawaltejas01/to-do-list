@@ -1,0 +1,33 @@
+<div class="card-body">
+    <div class="card-header">
+        <h5 style="display: inline;">Login</h5>
+    </div>
+
+    <div class="card-body">
+
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+            <div class="form-group">
+                <label for="username">Username : </label>
+                <input formControlName="username" 
+                  class="form-control form-control-lg" id="username" type="text" placeholder="Enter Username">
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password : </label>
+                <input formControlName="password" 
+                  class="form-control form-control-lg" id="password" type="text" placeholder="Enter Password">
+              </div>
+
+              <button type="submit" class="btn btn-primary">Login</button>
+
+        </form>
+
+        <div *ngIf = "alertService.message != null">
+            <div class="alert alert-danger" role="alert">
+                {{alertService.message}}
+              </div>
+        </div>
+
+    </div>
+</div>

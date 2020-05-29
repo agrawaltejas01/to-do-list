@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 
 // Modules
@@ -19,7 +20,8 @@ import { from } from 'rxjs';
     BrowserModule,
     AppRoutingModule,
     AppPanelModule,  
-    FormsModule,       
+    FormsModule,   
+    AuthenticationModule,    
   ],
   providers: [],
   bootstrap: [AppComponent]

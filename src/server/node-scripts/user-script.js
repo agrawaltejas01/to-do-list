@@ -41,6 +41,41 @@ app.use(function (req, res, next)
     next();
 });
 
+app.post("/authenticateUser", function(req, res)
+{
+    user.findOne(
+        {
+            _id: req.body.username,
+            password : req.body.password
+        },
+
+        function(err, data)
+        {
+            if(err)
+            {
+                console.log("Error in authenticateUser");
+                console.log(err);
+                res.send(err);
+            }
+
+            else
+            {
+                if(data == null)
+                {
+                    console.log("invalid username or password");
+                    res.send(false);
+                }
+
+                else
+                {
+                    console.log("Valid username and password");
+                    res.send(true);
+                }
+            }
+        }
+    );
+})
+
 app.post("/findUser", function (req, res)
 {
     user.findOne(

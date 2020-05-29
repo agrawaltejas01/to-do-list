@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 
 // Service
 import { UserService } from 'src/app/store/service/user.service';
@@ -9,6 +9,7 @@ import { SelectTaskService } from 'src/app/store/service/select-task.service';
 import { UserTasksService } from 'src/app/store/service/user-tasks-service';
 import { TaskListService } from 'src/app/store/service/task-list.service';
 import { AddTaskPageService } from 'src/app/store/service/add-task-page-service';
+import { AuthenticationService } from 'src/app/store/service/authentication.service';
 
 
 // font awsome
@@ -16,8 +17,12 @@ import { faArchive } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { retry } from 'rxjs/operators';
+import { AlertService } from 'src/app/store/service/alert.service';
+
+
 
 
 
@@ -48,6 +53,7 @@ export class PanelComponent implements OnInit
   faTrash = faTrash;
   faPlus = faPlus;
   faSearch = faSearch;
+  faSignOutAlt = faSignOutAlt;
 
   // store  
   appTaskList: taskSchema[] = [];
@@ -57,13 +63,24 @@ export class PanelComponent implements OnInit
     public taskSelectedService: SelectTaskService,
     private taskListService: TaskListService,
     public userTasksService: UserTasksService,
-    public addTaskPageService: AddTaskPageService) 
+    public addTaskPageService: AddTaskPageService,
+    private router : Router,
+    public authenticationService: AuthenticationService,
+    private alertService : AlertService) 
   {
     this.allDataAvailable = false;
+
+    if(this.userTasksService.username == null)
+      this.router.navigate(['login'])
   }
 
   ngOnInit(): void
   {
+    if(this.userTasksService.username == null)
+    {      
+      this.router.navigate(['login'])
+    }
+
     this.allDataAvailable = false;
 
     this.getUserTasks(this.userTasksService.username);

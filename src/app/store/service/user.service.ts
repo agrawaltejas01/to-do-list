@@ -19,6 +19,15 @@ export class UserService
         this.baseUrl = "http://localhost:8080/";
     }
 
+    authenticateUser(username : string, password : string)
+    {
+        // return username as string if successful or null
+        return this.http.post<Boolean>(this.baseUrl + 'authenticateUser', {
+            username,
+            password
+        })
+    }
+
     findUser(username)
     {
         return this.http.post<userSchema>(this.baseUrl + 'findUser', {

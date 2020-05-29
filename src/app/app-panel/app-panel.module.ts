@@ -18,6 +18,8 @@ import { SearchTaskComponent } from './search-task/search-task.component';
 // fontAwsome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddTaskPageService } from '../store/service/add-task-page-service';
+import { AuthenticationService } from '../store/service/authentication.service';
+import { AlertService } from '../store/service/alert.service';
 
 @NgModule({
   declarations: 
@@ -50,7 +52,9 @@ import { AddTaskPageService } from '../store/service/add-task-page-service';
     SelectTaskService,
     TaskListService,
     UserTasksService,
-    AddTaskPageService
+    AddTaskPageService,
+    AuthenticationService,
+    AlertService,
   ]
 })
 export class AppPanelModule { }

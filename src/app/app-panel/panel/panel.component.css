@@ -3,18 +3,6 @@
     color: blue;
     background-color: whitesmoke;
 }
-.operations-buttons-group
-{
-    /* float: right; */
-    position: absolute;
-    top: 2%;
-    right: 2%;
-}
-
-.search-task-body
-{
-    
-}
 
 .search-task-icon
 {

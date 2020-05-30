@@ -44,6 +44,25 @@ export class AuthenticationService
         });
     }
 
+    register(username: string, password: string)
+    {
+        this.userService.registerUser(username, password).subscribe(result =>
+            {
+                if (result)
+                {
+                    this.alertService.removeMessage();
+                    this.userTasksService.setUserName(username);                    
+                    this.router.navigate(['/'])
+                }
+    
+                else
+                {
+                    console.log("Error in resgister");
+                    this.alertService.putMessage("Username already exists")
+                    this.router.navigate(['register'])
+                }
+            });
+    }
 
     logout()
     {        

@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Service
 import { AuthenticationService } from 'src/app/store/service/authentication.service';
-import { Router } from '@angular/router';
-import { UserService } from 'src/app/store/service/user.service';
-import { UserTasksService } from 'src/app/store/service/user-tasks-service';
 import { AlertService } from 'src/app/store/service/alert.service';
 
 @Component({
@@ -13,10 +10,7 @@ import { AlertService } from 'src/app/store/service/alert.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit 
-{
-  validLogin: string = "";
-  password: string = "12345";
-  username: string = "Tejas";
+{  
   loginForm : FormGroup;
 
   constructor(
@@ -44,8 +38,7 @@ export class LoginComponent implements OnInit
 
   
   login()
-  {    
-    // this.authenticationService.login(this.username, this.password);
+  {        
 
     if(!this.loginForm.valid)
     {

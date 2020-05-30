@@ -76,6 +76,33 @@ app.post("/authenticateUser", function(req, res)
     );
 })
 
+
+
+app.post("/registerUser", function(req, res)
+{
+   user.create(
+       {
+           _id : req.body.username,
+           password : req.body.password
+       },
+
+       function(err, data)
+       {
+           if(err)
+           {
+               console.log(err);
+               res.send(false);
+           }
+
+           else
+           {
+            console.log("New user created");
+            res.send(true);
+           }
+       }
+   )
+})
+
 app.post("/findUser", function (req, res)
 {
     user.findOne(
@@ -99,6 +126,7 @@ app.post("/findUser", function (req, res)
         }
     );
 })
+
 
 app.post("/getUserTasks", function (req, res)
 {

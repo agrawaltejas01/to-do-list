@@ -28,6 +28,15 @@ export class UserService
         })
     }
 
+    registerUser(username : string, password : string)
+    {
+        // return username as string if successful or null
+        return this.http.post<Boolean>(this.baseUrl + 'registerUser', {
+            username,
+            password
+        })
+    }
+
     findUser(username)
     {
         return this.http.post<userSchema>(this.baseUrl + 'findUser', {

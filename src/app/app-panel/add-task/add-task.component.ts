@@ -41,12 +41,12 @@ export class AddTaskComponent implements OnInit
     {
       if (!this.addTaskForm.value.tasktitle.valid)
       {
-        alert("Title should not be null");
+        alert("Title and Due Date should not be null");
         return;
       }
       else if (!this.addTaskForm.value.taskduedate.valid)
       {
-        alert("Fill in the due date for the task");
+        alert("Title and Due Date should not be null");
         return;
       }
     }

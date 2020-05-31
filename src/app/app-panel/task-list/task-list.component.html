@@ -1,21 +1,22 @@
-<div *ngIf = "!taskList.length">
+<div *ngIf="!taskList.length">
     <div class="card  align-items-center">
         <div class="card-body">
             <fa-icon id="nothingHereIcon" [icon]='faSmileBeam' title="select">
-            </fa-icon>            
+            </fa-icon>
             Nothing Here
         </div>
-    </div>    
+    </div>
 </div>
 
 
 <div *ngFor="let task of taskList; let i = index">
     <div class="card">
-        <div class="card-body" data-toggle="collapse" attr.data-target="#description-{{task?._id}}" attr.aria-controls="description-{{task?._id}}">
+        <div class="card-body" data-toggle="collapse" attr.data-target="#description-{{task?._id}}"
+            attr.aria-controls="description-{{task?._id}}">
 
 
 
-            <div class="form-inline">                
+            <div class="form-inline">
                 <div class="checkSquare">
                     <div *ngIf="taskSelectedService.taskSelected[i]">
                         <fa-icon (click)="selectTask(i)" id="checkedSquared" [icon]='faCheckSquare' title="select">
@@ -76,11 +77,19 @@
                     </div>
                 </span>
 
-            </div>  
-            
+            </div>
+
             <div class="collapse" attr.id="description-{{task?._id}}">
                 <div class="card card-body border-0">
-                    {{task?.description}}
+
+                    <div *ngIf="task?.description; else noDescription">
+                        {{task?.description}}
+                    </div>
+
+                    <ng-template #noDescription>
+                        No Descrption
+                    </ng-template>
+
                 </div>
             </div>
 
@@ -89,6 +98,6 @@
 
 </div>
 
-<div *ngFor = "let task of taskList; let i = index" class="collapse" attr.id="description-{{task?._id}}">
-    
+<div *ngFor="let task of taskList; let i = index" class="collapse" attr.id="description-{{task?._id}}">
+
 </div>

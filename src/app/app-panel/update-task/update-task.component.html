@@ -1,0 +1,69 @@
+
+<a class="btn" data-toggle="modal" href="#updateTaskModal" id="nh">Launch Modal</a>
+<div class="modal fade" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateTaskModalTitle">Modify Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+        <!-- <form #formObject="ngForm" (ngSubmit)="submitTask(formObject)" > -->
+          <form [formGroup]="updateTaskForm" (ngSubmit)="submitTask()">
+            <!-- <select formControlName="tasklabel" (change)="log(addTaskForm.get('tasklabel').value)">
+              <option *ngFor="let label of labels" [value]="label" >{{label}}</option>
+            </select> -->
+            <div class="form-group">
+              <label for="tasktitle">Title : </label>
+              <input formControlName="tasktitle" 
+                class="form-control form-control-lg" id="tasktitle" type="text" placeholder="Enter Title">
+            </div>
+            <div class="form-group">
+              <label for="taskdescription">Description : </label>
+              <textarea formControlName="taskdescription"
+                class="form-control" id="taskdescription" placeholder="Enter Description" rows="3" ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="taskduedate">Due Date : </label>
+              <input formControlName="taskduedate" 
+                class="form-control" id="taskduedate" type="date" >
+            </div>
+            <div class="form-group">
+              <label for="taskpriority">Priority : </label>
+              <select formControlName="taskpriority"
+                class="custom-select" id="taskpriority">
+                <option *ngFor="let priority of priorities" [value]="priority.value" >{{priority.label}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="tasklabel">Label : </label>
+                <select formControlName="tasklabel" 
+                  class="custom-select" id="tasklabel">
+                  <option *ngFor="let label of labels" [value]="label" >{{label}}</option>
+                </select>
+                &nbsp;
+                <div *ngIf="updateTaskForm.get('tasklabel').value=='other'" 
+                  class="input-group mb-3" id="newtaskdiv">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon3">Add New Label</span>
+                    </div>
+                    <input formControlName="tasknewlabel"  
+                      type="text" class="form-control" id="tasknewlabel" aria-describedby="basic-addon3" placeholder="If left blank Label 'other' will be kept">
+                </div>
+
+            </div>
+            <!-- {{ formObject.value | json}} -->
+            <button type="submit" class="btn btn-primary">Add New Task</button>
+          </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <!-- <button type="button" class="btn btn-primary" type="submit">Save changes</button> -->
+    </div>
+    </div>
+    </div>
+</div>
+

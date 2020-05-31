@@ -409,4 +409,36 @@ app.post("/changeTaskPriority", function (req, res)
     })
 })
 
+app.post("/updateUserTask", function (req, res)
+{
+    userTasks.updateOne(
+        {
+            _id: req.body.username,
+            "task._id":req.body.task._id
+        },
+        {
+            $set:
+            {
+                "task.$": req.body.task,
+            }
+        }
+        ,
+        function (err, data)
+        {
+            if (err)
+            {
+                console.log(err);
+                res.send(err);
+            }
+            else
+            {
+                // console.log("task updated in updateUserTask \n" + data);
+                // console.log(data);
+                // console.log(req.body.task);
+                res.send(true);
+            }
+        }
+    );
+})
+
 app.listen(8080, () => console.log("Api is running"));

@@ -20,6 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddTaskPageService } from '../store/service/add-task-page-service';
 import { AuthenticationService } from '../store/service/authentication.service';
 import { AlertService } from '../store/service/alert.service';
+import { UpdateTaskComponent } from './update-task/update-task.component';
 
 @NgModule({
   declarations: 
@@ -28,6 +29,7 @@ import { AlertService } from '../store/service/alert.service';
     TaskListComponent,
     AddTaskComponent,
     SearchTaskComponent,
+    UpdateTaskComponent,
   ],
 
   imports: 

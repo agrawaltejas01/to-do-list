@@ -1,0 +1,6 @@
+.card-header>h5{
+    display: inline;
+}
+.card-header>h5>button{
+    float: right;
+}

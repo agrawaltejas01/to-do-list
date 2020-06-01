@@ -92,12 +92,17 @@
 
                 </div>
             </div>
-
         </div>
     </div>
 
 </div>
 
-<div *ngFor="let task of taskList; let i = index" class="collapse" attr.id="description-{{task?._id}}">
+<div *ngFor = "let task of taskList; let i = index" class="collapse" attr.id="description-{{task?._id}}">
+    
+</div>
 
+ <!-- Modal For Edit Task --> 
+<div class="modal fade show" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalTitle" aria-hidden="true">
+
+    <app-update-task *ngIf="selectedTaskForUpdate!=null" [task]="selectedTaskForUpdate" ></app-update-task>
 </div>

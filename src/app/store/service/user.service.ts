@@ -92,4 +92,12 @@ export class UserService
             priority
         })
     }
+
+    updateUserTask(userTaskBody)
+    {
+        console.log("In update user user-service");
+        return this.http.post<Boolean>(this.baseUrl + 'updateUserTask',
+            userTaskBody
+        )
+    }
 }

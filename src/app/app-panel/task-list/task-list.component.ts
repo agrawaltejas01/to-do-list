@@ -21,6 +21,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faFlag } from '@fortawesome/free-solid-svg-icons';
 import { faSmileBeam } from '@fortawesome/free-solid-svg-icons';
+import { faPenSquare } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -42,12 +43,14 @@ export class TaskListComponent implements OnInit
   faCheckCircle = faCheckCircle;
   faFlag = faFlag;
   faSmileBeam = faSmileBeam;
+  faPencilSquare = faPenSquare;
 
   taskSelected: Boolean[] = [];
   taskStatus: number = 0;
   taskPriority: number = 2;
 
   isExpanded : Boolean = false;
+  selectedTaskForUpdate : taskSchema = null;
 
   // store
   appTaskList$: Observable<taskSchema[]>;
@@ -64,6 +67,10 @@ export class TaskListComponent implements OnInit
 
   }
 
+  selectTaskForUpdate(task)
+  {
+    this.selectedTaskForUpdate = task;
+  }
   selectTask(index)
   {
     this.taskSelectedService.taskSelected[index] = !this.taskSelectedService.taskSelected[index];

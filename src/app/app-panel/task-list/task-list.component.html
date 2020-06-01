@@ -83,16 +83,15 @@
                     <div class="card-body border-0" style="display: inline;">
                         {{task?.description}}
                     <div style="float:right;">
-                        <button type="button" class="btn" (click)="setUpdateTaskIndex(i)">
+                        <a class="btn" data-toggle="modal" href="#updateTaskModal" (click)="selectTaskForUpdate(task)">
                             <fa-icon  [icon]='faPencilSquare' title="Edit Task">
                             </fa-icon>
-                          </button>
+                        </a>
                     </div>
                 </div>
                     
                 </div>
             </div>
-            <app-update-task *ngIf="updateTaskIndex == i" [task]="task" ></app-update-task>
         </div>
     </div>
 
@@ -102,3 +101,8 @@
     
 </div>
 
+ <!-- Modal For Edit Task --> 
+<div class="modal fade show" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalTitle" aria-hidden="true">
+
+    <app-update-task *ngIf="selectedTaskForUpdate!=null" [task]="selectedTaskForUpdate" ></app-update-task>
+</div>

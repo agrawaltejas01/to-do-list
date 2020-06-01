@@ -1,22 +1,27 @@
 
-<a class="btn" data-toggle="modal" href="#updateTaskModal" id="nh">Launch Modal</a>
-<div class="modal fade" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateTaskModalTitle">Modify Task</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
       
-        <!-- <form #formObject="ngForm" (ngSubmit)="submitTask(formObject)" > -->
-          <form [formGroup]="updateTaskForm" (ngSubmit)="submitTask()">
-            <!-- <select formControlName="tasklabel" (change)="log(addTaskForm.get('tasklabel').value)">
-              <option *ngFor="let label of labels" [value]="label" >{{label}}</option>
-            </select> -->
-            <div class="form-group">
+      <form [formGroup]="updateTaskForm" (ngSubmit)="submitTask()" >
+        
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateTaskModalTitle">Modify Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>   
+        
+        
+
+        <div class="modal-body">
+          <div class="d-flex justify-content-center" *ngIf="isLoading">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <!--Form-->
+          <div *ngIf="!isLoading"> 
+            <div class="form-group" >
               <label for="tasktitle">Title : </label>
               <input formControlName="tasktitle" 
                 class="form-control form-control-lg" id="tasktitle" type="text" placeholder="Enter Title">
@@ -53,17 +58,19 @@
                     <input formControlName="tasknewlabel"  
                       type="text" class="form-control" id="tasknewlabel" aria-describedby="basic-addon3" placeholder="If left blank Label 'other' will be kept">
                 </div>
-
             </div>
-            <!-- {{ formObject.value | json}} -->
-            <button type="submit" class="btn btn-primary">Add New Task</button>
-          </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <!-- <button type="button" class="btn btn-primary" type="submit">Save changes</button> -->
-    </div>
-    </div>
-    </div>
+          </div>
+          <!--Form ends here-->
+        </div>
+
+        <div class="modal-footer" >
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" type="submit" *ngIf="!isLoading">Save changes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" *ngIf="isLoading">Cancel</button>
+        </div>
+     
+      </form>
+    
+  </div>  
 </div>
 

@@ -14,14 +14,24 @@ export class UpdateTaskComponent implements OnInit {
   labels = ["Personal", "Work", "Shopping", "other"];
   priorities = [ { label:"High", value:1 } , { label:"Normal", value:2 } , { label:"Low", value:3 }];
   updateTaskForm: FormGroup;
+  isLoading : Boolean =false;
   constructor(private fb: FormBuilder,
     private userService: UserService,
     ) {
       
      }
-
+  
+  ngOnChanges(){
+    // console.log("update input changes",this.task);
+    this.ngOnInit();
+  }
+  toggleLoading()
+  {
+    this.isLoading = !this.isLoading;
+  }
   ngOnInit(): void
   {
+    this.isLoading=false;
     if(!this.labels.includes(this.task.label)) 
       this.labels.push(this.task.label);
     this.updateTaskForm = this.fb.group({
@@ -36,6 +46,7 @@ export class UpdateTaskComponent implements OnInit {
   }
   submitTask()
   {
+    this.toggleLoading();
     if (!this.updateTaskForm.valid)
     {
       if (!this.updateTaskForm.value.tasktitle.valid)
@@ -77,6 +88,8 @@ export class UpdateTaskComponent implements OnInit {
       else
       {
         console.log("Success fully updated");
+        this.task=newTask;
+        this.ngOnInit();
         // this.task=newTask;
         // this.userTasksService.addTask(newTask);
         // this.addTaskPageService.toggleAddTaskPage();
@@ -86,6 +99,10 @@ export class UpdateTaskComponent implements OnInit {
     // console.log(userTaskBody);
     // console.log(this.updateTaskForm.value);
   
+  }
+  cancelUpdates()
+  {
+    // To be implemented 
   }
 
 }

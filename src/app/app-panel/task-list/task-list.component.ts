@@ -50,7 +50,7 @@ export class TaskListComponent implements OnInit
   taskPriority: number = 2;
 
   isExpanded : Boolean = false;
-  updateTaskIndex : any = null;
+  selectedTaskForUpdate : taskSchema = null;
 
   // store
   appTaskList$: Observable<taskSchema[]>;
@@ -67,9 +67,9 @@ export class TaskListComponent implements OnInit
 
   }
 
-  setUpdateTaskIndex(index)
+  selectTaskForUpdate(task)
   {
-    this.updateTaskIndex = index;
+    this.selectedTaskForUpdate = task;
   }
   selectTask(index)
   {

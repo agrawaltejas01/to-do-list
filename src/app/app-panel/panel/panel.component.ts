@@ -38,8 +38,8 @@ export class PanelComponent implements OnInit
 {
 
   
-  searchTaskToggle : Boolean = false;
-  userTasksLabelList: string[] = [];
+  searchTaskToggle : Boolean = false;  
+  userTasksLabelList = {};
 
   userTaskDuplicate: userTasksSchema;
 
@@ -96,8 +96,7 @@ export class PanelComponent implements OnInit
       // this.userTasksService.userTasks = data;      
       this.userTasksService.userTasks = data;
 
-      this.userTasksService.getTaskLabel();
-      this.userTasksLabelList = this.userTasksService.userTasksLabelList;
+      this.userTasksService.getTaskLabel();      
 
       console.log(data);
       this.taskList = this.taskListService.getTasksOfFilter('none', 'none', -1, 
@@ -176,14 +175,15 @@ export class PanelComponent implements OnInit
       idToBeDeleted.push(task._id);
     })
 
+    let labelWillBeDeleted : Boolean = false;
     this.userService.deleteTask(this.userTasksService.username, idToBeDeleted).subscribe(result =>
     {
       // console.log(result);
       if (result)
       {
-        this.userTasksService.deleteTask(idToBeDeleted);
-
-        this.changeTab(this.currentTab);
+        labelWillBeDeleted = this.userTasksService.deleteTask(idToBeDeleted);
+        
+        labelWillBeDeleted ? this.changeTab('All') : this.changeTab(this.currentTab);
       }
     });
 

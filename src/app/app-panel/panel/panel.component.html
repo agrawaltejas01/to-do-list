@@ -40,10 +40,10 @@
                     All
                 </a>
             </li>
-            <div *ngFor="let label of userTasksLabelList">
-                <li (click)="changeTab(label)" class="nav-item">
-                    <a class="nav-link" [ngClass]="{ 'active' : currentTab == label }">
-                        {{label}}
+            <div *ngFor="let label of userTasksService.userTasksLabelList | keyvalue">
+                <li (click)="changeTab(label.key)" class="nav-item">
+                    <a class="nav-link" [ngClass]="{ 'active' : currentTab == label.key }">
+                        {{label.key}}
                     </a>
                 </li>
             </div>
@@ -55,8 +55,8 @@
         </ul>
 
         <div class="tab-content">
-            <div *ngFor="let label of userTasksLabelList">
-                <div *ngIf="currentTab == label" class="tab-pane fade show active" id="tabContent{{label}}">
+            <div *ngFor="let label of userTasksService.userTasksLabelList | keyvalue">
+                <div *ngIf="currentTab == label.key" class="tab-pane fade show active" id="tabContent{{label.key}}">
                     <app-task-list [taskList]="taskList">
                     </app-task-list>
                 </div>

@@ -21,7 +21,7 @@
                     <label for="taskLabel">Label : </label>
                     <select formControlName="taskLabel" class="form-control" id="taskLabel">
                         <option value="" selected>All</option>
-                        <option *ngFor="let label of userTasksLabelList" value="{{label}}">{{label}}</option>
+                        <option *ngFor="let label of userTasksService.userTasksLabelList | keyvalue" value="{{label.key}}">{{label.key}}</option>
                     </select>
                 </div>
 

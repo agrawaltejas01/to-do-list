@@ -9,15 +9,15 @@ import { taskSchema, userTasksSchema } from '../schema/userTasks-schema';
 
 export class UserTasksService
 {
-    username : string = "Tejas";
+    username: string = "Tejas";
 
 
     // username: string = null;
     userTasks: userTasksSchema = null;
-    userTasksLabelList: string[] = [];
+    userTasksLabelList = {};
 
-    setUserName(currentUserName : string)
-    {   
+    setUserName(currentUserName: string)
+    {
         this.username = currentUserName;
     }
 
@@ -25,7 +25,7 @@ export class UserTasksService
     {
         this.userTasks.task.forEach((element) =>
         {
-           this.addTaskLabel(element)
+            this.addTaskLabel(element)
         });
     }
 
@@ -60,15 +60,20 @@ export class UserTasksService
 
     deleteTask(idToBeDeleted: string[])
     {
+        let labelWillBeDeleted: Boolean = false;
         for (let index = 0; index < this.userTasks.task.length; index++) 
         {
             if (idToBeDeleted.indexOf(this.userTasks.task[index]._id) > -1)
             {
+                // If there is even one label that will be deleted, labelWillBeDeleted will be always be true
+                labelWillBeDeleted =
+                    labelWillBeDeleted ? true : this.checkUnusedLabel(this.userTasks.task[index].label);
                 this.userTasks.task.splice(index, 1);
                 index--;
             }
 
         }
+        return labelWillBeDeleted;
     }
 
     addTask(task: taskSchema)
@@ -79,7 +84,19 @@ export class UserTasksService
 
     addTaskLabel(task: taskSchema)
     {
-        if (this.userTasksLabelList.indexOf(task.label) === -1)
-            this.userTasksLabelList.push(task.label);
+        if (task.label in this.userTasksLabelList)
+            this.userTasksLabelList[task.label] = this.userTasksLabelList[task.label] + 1;
+
+        else
+            this.userTasksLabelList[task.label] = 1;
+    }
+
+    checkUnusedLabel(label: string)
+    {
+        if (this.userTasksLabelList[label] == 1)
+        {
+            delete this.userTasksLabelList[label];
+            return true;
+        }
     }
 }

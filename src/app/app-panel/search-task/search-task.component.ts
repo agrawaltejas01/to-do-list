@@ -24,8 +24,7 @@ export class SearchTaskComponent implements OnInit
     private taskListService: TaskListService,
     public userTasksService: UserTasksService,
     private formBuilder: FormBuilder) 
-  {
-    this.userTasksLabelList = this.userTasksService.userTasksLabelList;
+  {    
   }
 
   ngOnInit(): void 

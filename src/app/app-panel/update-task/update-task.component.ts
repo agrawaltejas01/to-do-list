@@ -75,7 +75,7 @@ export class UpdateTaskComponent implements OnInit {
   ngOnInit(): void
   {
     let currentDefaultDate : Date = new Date(this.task.dueDate);
-    currentDefaultDate.setDate(currentDefaultDate.getDate() - 1);
+    currentDefaultDate.setDate(currentDefaultDate.getDate());
     
     this.isLoading=false;
     this.updateLabels();  

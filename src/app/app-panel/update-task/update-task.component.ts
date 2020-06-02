@@ -74,17 +74,23 @@ export class UpdateTaskComponent implements OnInit {
   }
   ngOnInit(): void
   {
+    let currentDefaultDate : Date = new Date(this.task.dueDate);
+    currentDefaultDate.setDate(currentDefaultDate.getDate() - 1);
+    
     this.isLoading=false;
     this.updateLabels();  
     this.updateTaskForm = this.fb.group({
       tasklabel: [this.task.label] ,
       tasktitle: [this.task.title, Validators.required],
       taskdescription: this.task.description,
-      taskduedate: [this.task.dueDate, Validators.required],
+      
+      taskduedate: [new Date(currentDefaultDate).toISOString().split('T')[0], Validators.required],
+      
       taskpriority: this.task.priority,
-      tasknewlabel: "other",
+      tasknewlabel: "other",      
     });
     // console.log(this.task);
+    console.log(new Date(this.task.dueDate).toISOString().split('T')[0]);
   }
   submitTask()
   {
@@ -93,12 +99,12 @@ export class UpdateTaskComponent implements OnInit {
     {
       if (!this.updateTaskForm.value.tasktitle.valid)
       {
-        alert("Title should not be null");
+        alert("Title or Due Date should not be null");
         return;
       }
       else if (!this.updateTaskForm.value.taskduedate.valid)
       {
-        alert("Fill in the due date for the task");
+        alert("Title or Due Date should not be null");
         return;
       }
     }
@@ -140,9 +146,7 @@ export class UpdateTaskComponent implements OnInit {
         // this.addTaskPageService.toggleAddTaskPage();
       }
     },
-      (error) => console.log("er", error));
-    // console.log(userTaskBody);
-    // console.log(this.updateTaskForm.value);
+      (error) => console.log("er", error));    
   
   }
   cancelUpdates()

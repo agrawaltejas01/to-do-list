@@ -108,7 +108,11 @@
 </div>
 
  <!-- Modal For Edit Task --> 
-<div class="modal fade show" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalTitle" aria-hidden="true">
+<div *ngIf="selectedTaskForUpdate!=null" class="modal fade show" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalTitle" aria-hidden="true">
 
-    <app-update-task *ngIf="selectedTaskForUpdate!=null" [task]="selectedTaskForUpdate" ></app-update-task>
+    <app-update-task *ngIf="selectedTaskForUpdate!=null"
+        [task]="selectedTaskForUpdate"
+        [taskList]="taskList"
+        [currentTab]="currentTab" >
+    </app-update-task>
 </div>

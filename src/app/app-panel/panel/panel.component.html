@@ -57,21 +57,21 @@
         <div class="tab-content">
             <div *ngFor="let label of userTasksService.userTasksLabelList | keyvalue">
                 <div *ngIf="currentTab == label.key" class="tab-pane fade show active" id="tabContent{{label.key}}">
-                    <app-task-list [taskList]="taskList">
+                    <app-task-list [taskList]="taskList" [currentTab]="currentTab">
                     </app-task-list>
                 </div>
             </div>
 
             <div *ngIf="currentTab == 'All'" class="tab-pane fade show active" id="All">
                 <div *ngIf="userTasksService.userTasks != null">
-                    <app-task-list [taskList]="taskList">
+                    <app-task-list [taskList]="taskList" [currentTab]="currentTab">
                     </app-task-list>
                 </div>
             </div>
 
             <div *ngIf="currentTab == 'Archive'" class="tab-pane fade show active" id="Archive">
                 <div *ngIf="userTasksService.userTasks != null">
-                    <app-task-list [taskList]="taskList">
+                    <app-task-list [taskList]="taskList" [currentTab]="currentTab">
                     </app-task-list>
                 </div>
             </div>
@@ -79,6 +79,6 @@
         </div>
     </div>
 </main>
-<app-add-task *ngIf="this.addTaskPageService.getAddTaskPage()">
+<app-add-task *ngIf="this.addTaskPageService.getAddTaskPage()" [currentTab]="currentTab" [taskList]="taskList">
 
 </app-add-task>

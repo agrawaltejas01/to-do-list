@@ -30,10 +30,7 @@
               <label for="taskpriority">Priority : </label>
               <select formControlName="taskpriority"
                 class="custom-select" id="taskpriority">
-                <option value="1">High</option>
-                <option value="2" selected>Normal</option>
-                <option value="3">Low</option>
-                <!-- <option *ngFor="let label of labels" [value]="label" >{{label}}</option> -->
+                <option *ngFor="let priority of priorities" [value]="priority.value" >{{priority.label}}</option>
               </select>
             </div>
             <div class="form-group">

@@ -34,6 +34,7 @@ export class TaskListComponent implements OnInit
 {
 
   @Input() taskList: taskSchema[] = [];
+  @Input() currentTab : String;
 
   // font awsome
   faCheckSquare = faCheckSquare;

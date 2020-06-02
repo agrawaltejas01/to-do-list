@@ -45,7 +45,7 @@ export class PanelComponent implements OnInit
 
   allDataAvailable: Boolean = false;
 
-  currentTab = 'All';
+  currentTab : String = 'All';
   noLabel = 'none';
 
   // font awsome

@@ -43,3 +43,13 @@
     color: #FF7F00;
     transform: scale(1.5,1.5);
 }
+
+.updateLogo{
+    float: right;
+    transform: scale(1.25,1.25);
+    color: black;
+}
+
+#taskDescriptionCard{
+    display: inline;
+}

@@ -80,16 +80,22 @@
             </div>
 
             <div class="collapse" attr.id="description-{{task?._id}}">
-                <div class="card card-body border-0">
+                <div class="card">
+                    <div class="card-body border-0" id="taskDescriptionCard">
 
-                    <div *ngIf="task?.description; else noDescription">
-                        {{task?.description}}
+                        <div *ngIf="task?.description; else noDescription">
+                            {{task?.description}}
+                        </div>
+
+                        <ng-template #noDescription>
+                            No Description
+                        </ng-template>
+
+                        <a class="updateLogo" data-toggle="modal" href="#updateTaskModal" (click)="selectTaskForUpdate(task)">
+                            <fa-icon  [icon]='faPencilSquare' title="Edit Task">
+                            </fa-icon>
+                        </a>
                     </div>
-
-                    <ng-template #noDescription>
-                        No Descrption
-                    </ng-template>
-
                 </div>
             </div>
         </div>

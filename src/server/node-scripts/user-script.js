@@ -249,41 +249,6 @@ app.post("/deleteTask", function (req, res)
         )
     })
 
-    // let idToBeDeleted  = [];
-
-    // req.body.idToBeDeleted.forEach(id => 
-    // {
-    //     idToBeDeleted.push(mongo.Types.ObjectId(id));
-    // });
-
-    // console.log(idToBeDeleted);
-
-    // userTasks.updateOne(
-    //     {
-    //         _id : req.body.username
-    //     },
-
-    //     {
-    //         $pullAll :
-    //         {
-    //             _id : req.body.idToBeDeleted
-    //         }
-    //     },
-
-    //     function(err, data)
-    //     {
-    //         if (err)
-    //         {
-    //             console.log("Error in To Be Deleted Function");
-    //             console.log(err);
-    //             res.send(false);
-    //         }
-
-    //         else
-    //             res.send(true);
-    //     }
-    // )
-
 })
 
 app.post("/addUserTask", function (req, res)

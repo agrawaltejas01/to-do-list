@@ -1,67 +1,74 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { taskSchema } from 'src/app/store/schema/userTasks-schema';
 import { UserService } from 'src/app/store/service/user.service';
 import { UserTasksService } from 'src/app/store/service/user-tasks-service';
+
 
 @Component({
   selector: 'app-update-task',
   templateUrl: './update-task.component.html',
   styleUrls: ['./update-task.component.css']
 })
-export class UpdateTaskComponent implements OnInit {
+export class UpdateTaskComponent implements OnInit
+{
 
-  @Input() task : taskSchema;
-  @Input() currentTab : String;
+  @ViewChild('closeButton') closeButton;
+
+  @Input() task: taskSchema;
+  @Input() currentTab: String;
   @Input() taskList: taskSchema[];
 
+  labelWillBeDeleted: Boolean = false;
   defaultLabels = ["Personal", "Work", "Shopping", "other"];
   labels = [];
-  priorities = [ { label:"High", value:1 } , { label:"Normal", value:2 } , { label:"Low", value:3 }];
-  
+  priorities = [{ label: "High", value: 1 }, { label: "Normal", value: 2 }, { label: "Low", value: 3 }];
+
   updateTaskForm: FormGroup;
-  isLoading : Boolean =false;
-  
+  isLoading: Boolean = false;
+
   constructor(private fb: FormBuilder,
     private userService: UserService,
-    private userTasksService : UserTasksService) 
+    private userTasksService: UserTasksService) 
   {
-      
+
   }
-  
+
   updateLabels()
-  {
-    this.labels=this.userTasksService.getTaskLabelListArray();
-    
+  {    
+    this.labels = this.userTasksService.getTaskLabelListArray();
+
     //Check whether default labels are already present in Label list for service, only one copy of a label to be present
-    this.defaultLabels.forEach((element)=>{
-      if(this.labels.indexOf(element)==-1)
+    this.defaultLabels.forEach((element) =>
+    {
+      if (this.labels.indexOf(element) == -1)
         this.labels.push(element);
     });
   }
 
-  ngOnChanges(){
+  ngOnChanges()
+  {
     // console.log("update input changes",this.task);
     this.ngOnInit();
   }
 
-  updatePanelTaskList(newTask : taskSchema)
+  updatePanelTaskList(newTask: taskSchema)
   {
-    let indexOfUpdatedTask = this.taskList.findIndex((element)=>(element._id==newTask._id));   
+    let indexOfUpdatedTask = this.taskList.findIndex((element) => (element._id == newTask._id));
     //either its' default tab or it's the same tab
-    if(this.currentTab=="All" || this.currentTab == newTask.label)
+    if (this.currentTab == "All" || this.currentTab == newTask.label)
     {
-      if(indexOfUpdatedTask==-1)
+      if (indexOfUpdatedTask == -1)
         this.taskList.push(newTask);
       else
-        this.taskList[indexOfUpdatedTask]=newTask;
+        this.taskList[indexOfUpdatedTask] = newTask;
     }
     else
     {
       // Remove from the taskList as label has changed
-      this.taskList.splice(indexOfUpdatedTask,1);  
+      this.taskList.splice(indexOfUpdatedTask, 1);
     }
-    if(this.taskList.length==0)
+    if (this.taskList.length == 0)
     {
       // The label is invalid and all the 
     }
@@ -73,27 +80,28 @@ export class UpdateTaskComponent implements OnInit {
     this.isLoading = !this.isLoading;
   }
   ngOnInit(): void
-  {
-    let currentDefaultDate : Date = new Date(this.task.dueDate);
+  {    
+
+    let currentDefaultDate: Date = new Date(this.task.dueDate);
     currentDefaultDate.setDate(currentDefaultDate.getDate());
-    
-    this.isLoading=false;
-    this.updateLabels();  
+
+    this.isLoading = false;
+    this.updateLabels();
     this.updateTaskForm = this.fb.group({
-      tasklabel: [this.task.label] ,
+      tasklabel: [this.task.label],
       tasktitle: [this.task.title, Validators.required],
       taskdescription: this.task.description,
-      
+
       taskduedate: [new Date(currentDefaultDate).toISOString().split('T')[0], Validators.required],
-      
+
       taskpriority: this.task.priority,
-      tasknewlabel: "other",      
+      tasknewlabel: "other",
     });
     // console.log(this.task);
     console.log(new Date(this.task.dueDate).toISOString().split('T')[0]);
   }
   submitTask()
-  {
+  {    
     this.toggleLoading();
     if (!this.updateTaskForm.valid)
     {
@@ -136,18 +144,19 @@ export class UpdateTaskComponent implements OnInit {
       else
       {
         console.log("Success fully updated");
-        this.task=newTask;
-        this.userTasksService.updateTask(newTask);
+        this.task = newTask;
+        this.labelWillBeDeleted =  this.userTasksService.updateTask(newTask);
         console.log("userTaskServ up");
-        this.updatePanelTaskList(newTask);
-        this.ngOnInit();
+        this.updatePanelTaskList(newTask);        
+        // this.ngOnInit();
+        this.closeButton.nativeElement.click();
         // this.task=newTask;
         // this.userTasksService.addTask(newTask);
         // this.addTaskPageService.toggleAddTaskPage();
       }
     },
-      (error) => console.log("er", error));    
-  
+      (error) => console.log("er", error));
+
   }
   cancelUpdates()
   {

@@ -95,8 +95,16 @@ export class UserTasksService
     {
         if (this.userTasksLabelList[label] == 1)
         {
+            console.log("IGI checkUnusedLabel and found label " + label + " With count " + this.userTasksLabelList[label]);
             delete this.userTasksLabelList[label];
             return true;
+        }
+
+        else if (this.userTasksLabelList[label] > 1)
+        {
+            console.log("IGI checkUnusedLabel and found label " + label + " With count " + this.userTasksLabelList[label]);
+            this.userTasksLabelList[label] = this.userTasksLabelList[label] -1;
+            return false;
         }
     }
 
@@ -110,15 +118,21 @@ export class UserTasksService
 
     updateTask(modifiedTask : taskSchema)
     {
+        let labelWillBeDeleted: Boolean = false;
+
         let indexOfUpdatedTask = this.userTasks.task.findIndex((task)=>(task._id==modifiedTask._id));
         console.log("update task user tasks",indexOfUpdatedTask); 
         let oldLabel =  this.userTasks.task[indexOfUpdatedTask].label;
-        // if(modifiedTask.label != oldLabel)
-        // {
-        //     // Label is updated
-        //     this.checkUnusedLabel(oldLabel);
-        //     this.addTaskLabel(modifiedTask);
-        // }
+
+        if(modifiedTask.label != oldLabel)
+        {
+            // Label is updated
+            labelWillBeDeleted =
+                    labelWillBeDeleted ? true : this.checkUnusedLabel(oldLabel);            
+            this.addTaskLabel(modifiedTask);
+        }
+
         this.userTasks.task[indexOfUpdatedTask]=modifiedTask;   
+        return labelWillBeDeleted;
     }
 }

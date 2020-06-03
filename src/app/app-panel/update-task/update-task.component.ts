@@ -68,10 +68,10 @@ export class UpdateTaskComponent implements OnInit
       // Remove from the taskList as label has changed
       this.taskList.splice(indexOfUpdatedTask, 1);
     }
-    if (this.taskList.length == 0)
-    {
-      // The label is invalid and all the 
-    }
+    // if (this.taskList.length == 0)
+    // {
+    //   // The label is invalid and all the 
+    // }
 
   }
 
@@ -152,7 +152,7 @@ export class UpdateTaskComponent implements OnInit
         this.closeButton.nativeElement.click();
 
         if( this.labelWillBeDeleted)
-          this.currentTab = 'All';        
+          location.reload();        
       }
     },
       (error) => console.log("er", error));

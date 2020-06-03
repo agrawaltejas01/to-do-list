@@ -16,7 +16,7 @@ import { UserTasksService } from 'src/app/store/service/user-tasks-service';
 // font awsome
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-solid-svg-icons';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faFlag } from '@fortawesome/free-solid-svg-icons';
@@ -38,7 +38,7 @@ export class TaskListComponent implements OnInit
   // font awsome
   faCheckSquare = faCheckSquare;
   faSquare = faSquare;
-  faSpinner = faSpinner;
+  faHourglassHalf = faHourglassHalf;
   faExclamationCircle = faExclamationCircle;
   faCheckCircle = faCheckCircle;
   faFlag = faFlag;

@@ -29,14 +29,14 @@
                     </div>
                 </div>
 
-                <div class="status-circle">
+                <div class="status-circle" style="cursor: pointer;">
                     <div *ngIf="task?.status == 0">
                         <fa-icon (click)="toggleTaskStatus(i,1)" id="taskInComplete" [icon]='faExclamationCircle'
                             title="Task Pending"></fa-icon>
                     </div>
 
                     <div *ngIf="task?.status == 1 ">
-                        <fa-icon (click)="toggleTaskStatus(i,2)" id="taskInProgress" [icon]='faSpinner'
+                        <fa-icon (click)="toggleTaskStatus(i,2)" id="taskInProgress" [icon]='faHourglassHalf'
                             title="Task In Progress"></fa-icon>
                     </div>
 
@@ -60,7 +60,7 @@
                     {{task?.dueDate | date}}
                 </span>
 
-                <span class="priority">
+                <span class="priority" style="cursor: pointer;">
                     <div *ngIf="task?.priority == 1" class="highPriority" title="High Priority Task"
                         (click)="toggleTaskPriority(i,2)">
                         <fa-icon [icon]='faFlag'></fa-icon>
@@ -91,8 +91,9 @@
                             No Description
                         </ng-template>
 
-                        <a class="updateLogo" data-toggle="modal" href="#updateTaskModal" (click)="selectTaskForUpdate(task)">
-                            <fa-icon  [icon]='faPencilSquare' title="Edit Task">
+                        <a class="updateLogo" data-toggle="modal" href="#updateTaskModal"
+                            (click)="selectTaskForUpdate(task)">
+                            <fa-icon [icon]='faPencilSquare' title="Edit Task">
                             </fa-icon>
                         </a>
                     </div>
@@ -103,12 +104,13 @@
 
 </div>
 
-<div *ngFor = "let task of taskList; let i = index" class="collapse" attr.id="description-{{task?._id}}">
-    
+<div *ngFor="let task of taskList; let i = index" class="collapse" attr.id="description-{{task?._id}}">
+
 </div>
 
- <!-- Modal For Edit Task --> 
-<div class="modal fade show" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalTitle" aria-hidden="true">
+<!-- Modal For Edit Task -->
+<div class="modal fade show" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalTitle"
+    aria-hidden="true">
 
-    <app-update-task *ngIf="selectedTaskForUpdate!=null" [task]="selectedTaskForUpdate" ></app-update-task>
+    <app-update-task *ngIf="selectedTaskForUpdate!=null" [task]="selectedTaskForUpdate"></app-update-task>
 </div>

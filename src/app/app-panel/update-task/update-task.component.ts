@@ -16,7 +16,7 @@ export class UpdateTaskComponent implements OnInit
   @ViewChild('closeButton') closeButton;
 
   @Input() task: taskSchema;
-  @Input() currentTab: String;
+  @Input() currentTab: string;
   @Input() taskList: taskSchema[];
 
   labelWillBeDeleted: Boolean = false;
@@ -150,9 +150,9 @@ export class UpdateTaskComponent implements OnInit
         this.updatePanelTaskList(newTask);        
         // this.ngOnInit();
         this.closeButton.nativeElement.click();
-        // this.task=newTask;
-        // this.userTasksService.addTask(newTask);
-        // this.addTaskPageService.toggleAddTaskPage();
+
+        if( this.labelWillBeDeleted)
+          this.currentTab = 'All';        
       }
     },
       (error) => console.log("er", error));

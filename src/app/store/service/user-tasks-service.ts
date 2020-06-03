@@ -99,4 +99,26 @@ export class UserTasksService
             return true;
         }
     }
+
+    getTaskLabelListArray():string[]
+    {
+        let labelList : string[]=[];
+        for(var i in this.userTasksLabelList)
+            labelList.push(i);
+        return labelList;
+    }
+
+    updateTask(modifiedTask : taskSchema)
+    {
+        let indexOfUpdatedTask = this.userTasks.task.findIndex((task)=>(task._id==modifiedTask._id));
+        console.log("update task user tasks",indexOfUpdatedTask); 
+        let oldLabel =  this.userTasks.task[indexOfUpdatedTask].label;
+        // if(modifiedTask.label != oldLabel)
+        // {
+        //     // Label is updated
+        //     this.checkUnusedLabel(oldLabel);
+        //     this.addTaskLabel(modifiedTask);
+        // }
+        this.userTasks.task[indexOfUpdatedTask]=modifiedTask;   
+    }
 }

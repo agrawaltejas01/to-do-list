@@ -96,8 +96,29 @@ app.post("/registerUser", function(req, res)
 
            else
            {
-            console.log("New user created");
-            res.send(true);
+            console.log("New user created");            
+            // res.send(true);
+            userTasks.create(
+                {
+                    _id : req.body.username,
+                    task : []
+                },
+
+                function(err, data)
+                {
+                    if(err)
+                    {
+                        console.log("Error in creating entry in userTask collection");
+                        res.send(false);
+                    }
+
+                    else
+                    {
+                        console.log("Entry of new user created in userTasks");
+                        res.send(true);
+                    }
+                }
+            )
            }
        }
    )

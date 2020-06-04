@@ -16,6 +16,10 @@ const userTasksSchema = new Schema({
         }
     ]
 
+},
+
+{
+    versionKey : false
 });
 
 const userTasks = mongo.model("userTasks", userTasksSchema, "userTasks");

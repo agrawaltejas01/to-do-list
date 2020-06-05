@@ -1,6 +1,9 @@
 <main *ngIf="!this.addTaskPageService.getAddTaskPage()">
     <div *ngIf="allDataAvailable">
         <div class="search-task mb-3">
+            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal">
+                Launch demo modal
+            </button> -->
             <button class="operations-buttons mr-5">
                 <fa-icon class="search-task-icon" (click)="searchTask()" [icon]='faSearch' title="Search Task">
                 </fa-icon>
@@ -10,12 +13,12 @@
                 <fa-icon [icon]='faPlus' title="Add Task">
                 </fa-icon>
             </button>
-            <button (click)="deleteTasks()" [disabled]="!this.taskSelectedService.appTaskList.length"
+            <button type="button" data-toggle="modal" data-target="#confirmationModal" (click) = "openActionModal('Delete')"  [disabled]="!this.taskSelectedService.appTaskList.length"
                 class="operations-buttons mr-5">
                 <fa-icon [icon]='faTrash' title="Delete Task">
                 </fa-icon>
             </button>
-            <button (click)="archiveTasks()" [disabled]="!this.taskSelectedService.appTaskList.length"
+            <button type="button" data-toggle="modal" data-target="#confirmationModal" (click) = "openActionModal('Archive')" [disabled]="!this.taskSelectedService.appTaskList.length"
                 class="operations-buttons mr-5">
                 <fa-icon [icon]='faArchive' title="Archive Task">
                 </fa-icon>
@@ -28,10 +31,10 @@
 
             <div class="search-task-body" *ngIf="userTasksService.userTasks != null && searchTaskToggle">
                 <app-search-task> </app-search-task>
-            </div>            
+            </div>
 
 
-        </div>        
+        </div>
 
         <ul class="nav nav-tabs mt-5 border" style="cursor: pointer;">
 
@@ -78,6 +81,36 @@
 
         </div>
     </div>
+    
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You want to <b>{{currentAction}}</b> selected tasks ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" #closeButton data-dismiss="modal">Close</button>                    
+                    <div *ngIf="currentAction =='Delete'; else archiveFunction">
+                        <button type="button" (click) = "deleteTasks()" class="btn btn-danger">{{currentAction}}</button>
+                    </div>
+                    <ng-template #archiveFunction>
+                        <button type="button" (click) = "archiveTasks()" class="btn btn-primary">{{currentAction}}</button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+
 </main>
 <app-add-task *ngIf="this.addTaskPageService.getAddTaskPage()" [currentTab]="currentTab" [taskList]="taskList">
 

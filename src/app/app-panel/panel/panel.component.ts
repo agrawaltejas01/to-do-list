@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Service
@@ -58,6 +58,10 @@ export class PanelComponent implements OnInit
   // store  
   appTaskList: taskSchema[] = [];
   taskList: taskSchema[];
+
+  // confirmation action
+  currentAction : string = "Delete";  
+  @ViewChild('closeButton') closeButton;
 
   constructor(private userService: UserService,
     public taskSelectedService: SelectTaskService,
@@ -137,8 +141,13 @@ export class PanelComponent implements OnInit
       status, dueDate, archive, this.userTasksService.userTasks);
   }
 
-  archiveTasks()
+  openActionModal(action : string)
   {
+    this.currentAction = action;
+  }
+
+  archiveTasks()
+  {    
     let idToBeArchived: string[] = [];
 
     // traverse appTaskList$
@@ -159,15 +168,16 @@ export class PanelComponent implements OnInit
       }
     });
 
-    this.taskSelectedService.initAppTaskList()
+    this.taskSelectedService.initAppTaskList();
 
     // un select all tasks after operation
-    this.taskSelectedService.unSelectAllTask()
-
+    this.taskSelectedService.unSelectAllTask();
+    this.closeButton.nativeElement.click();
   }
 
   deleteTasks()
   {
+    // console.log("Inside delete task")
     let idToBeDeleted: string[] = [];
 
     this.taskSelectedService.appTaskList.forEach(task =>
@@ -187,10 +197,11 @@ export class PanelComponent implements OnInit
       }
     });
 
-    this.taskSelectedService.initAppTaskList()
+    this.taskSelectedService.initAppTaskList();
 
     // un select all tasks after operation
-    this.taskSelectedService.unSelectAllTask()
+    this.taskSelectedService.unSelectAllTask();
+    this.closeButton.nativeElement.click();
   }
 
   searchTask()

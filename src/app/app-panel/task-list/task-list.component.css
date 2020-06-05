@@ -53,3 +53,8 @@
 #taskDescriptionCard{
     display: inline;
 }
+
+.taskDescription
+{
+    margin-left: 10%;
+}

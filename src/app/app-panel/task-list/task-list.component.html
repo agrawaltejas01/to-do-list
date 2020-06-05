@@ -80,14 +80,14 @@
             </div>
 
             <div class="collapse" attr.id="description-{{task?._id}}">
-                <div class="card">
+                <!-- <div class="card"> -->
                     <div class="card-body border-0" id="taskDescriptionCard">
-
-                        <div *ngIf="task?.description; else noDescription">
+                        
+                        <div style="margin-left: 8%;" *ngIf="task?.description; else noDescription">
                             {{task?.description}}
                         </div>
 
-                        <ng-template #noDescription>
+                        <ng-template style="margin-left: 8%;" #noDescription>
                             No Description
                         </ng-template>
 
@@ -97,7 +97,7 @@
                             </fa-icon>
                         </a>
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>

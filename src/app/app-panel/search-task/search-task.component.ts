@@ -67,7 +67,7 @@ export class SearchTaskComponent implements OnInit
     if (this.searchTaskForm.value.taskDueDate)
     {
       dueDate = new Date(this.searchTaskForm.value.taskDueDate);
-      dueDate.setDate(dueDate.getDate() + 1);
+      dueDate.setDate(dueDate.getDate());
     }
     // dueDate = this.searchTaskForm.value.taskDueDate;
 

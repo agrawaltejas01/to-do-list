@@ -15,10 +15,10 @@ export class UpdateTaskComponent implements OnInit
 
   @ViewChild('closeButton') closeButton;
 
-  @Input() task: taskSchema;
-  @Input() currentTab: string;
-  @Input() taskList: taskSchema[];
-
+  @Input() task: taskSchema = null;
+  @Input() currentTab: string ;
+  @Input() taskList: taskSchema[] = [];
+  
   labelWillBeDeleted: Boolean = false;
   defaultLabels = ["Personal", "Work", "Shopping", "other"];
   labels = [];
@@ -26,7 +26,7 @@ export class UpdateTaskComponent implements OnInit
 
   updateTaskForm: FormGroup;
   isLoading: Boolean = false;
-
+  taskUpdated: Boolean = false;
   constructor(private fb: FormBuilder,
     private userService: UserService,
     private userTasksService: UserTasksService) 
@@ -51,7 +51,12 @@ export class UpdateTaskComponent implements OnInit
     // console.log("update input changes",this.task);
     this.ngOnInit();
   }
-
+  ngOnDestroy()
+  {
+    console.log("Ng on Destroy");
+    //This is to solve the error when label is updated
+    this.closeModal();
+  }
   updatePanelTaskList(newTask: taskSchema)
   {
     let indexOfUpdatedTask = this.taskList.findIndex((element) => (element._id == newTask._id));
@@ -86,6 +91,8 @@ export class UpdateTaskComponent implements OnInit
     currentDefaultDate.setDate(currentDefaultDate.getDate());
 
     this.isLoading = false;
+    this.taskUpdated = false;
+    // this.labelWillBeDeleted=false;
     this.updateLabels();
     this.updateTaskForm = this.fb.group({
       tasklabel: [this.task.label],
@@ -149,14 +156,18 @@ export class UpdateTaskComponent implements OnInit
         console.log("userTaskServ up");
         this.updatePanelTaskList(newTask);        
         // this.ngOnInit();
-        this.closeButton.nativeElement.click();
-
+        // this.closeButton.nativeElement.click();
+        this.taskUpdated=true;
         if( this.labelWillBeDeleted)
           location.reload();        
       }
     },
       (error) => console.log("er", error));
 
+  }
+  closeModal(){
+    this.taskUpdated=false;
+    this.closeButton.nativeElement.click();
   }
   cancelUpdates()
   {

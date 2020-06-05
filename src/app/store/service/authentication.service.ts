@@ -31,6 +31,7 @@ export class AuthenticationService
             if (result)
             {
                 this.alertService.removeMessage();
+                localStorage.setItem('VALID_LOGIN', username);
                 this.userTasksService.setUserName(username);
                 this.router.navigate(['/'])
             }
@@ -51,6 +52,7 @@ export class AuthenticationService
                 if (result)
                 {
                     this.alertService.removeMessage();
+                    localStorage.setItem('VALID_LOGIN', username);
                     this.userTasksService.setUserName(username);                    
                     this.router.navigate(['/'])
                 }
@@ -67,6 +69,7 @@ export class AuthenticationService
     logout()
     {        
         this.userTasksService.setUserName(null);
+        localStorage.removeItem('VALID_LOGIN');
         this.router.navigate(['login'])
     }
 }

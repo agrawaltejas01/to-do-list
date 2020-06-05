@@ -12,9 +12,16 @@ export class UserTasksService
     // username: string = "Tejas";
 
 
-    username: string = null;
+    // username: string = null;
+    username: string = localStorage.getItem('VALID_LOGIN');
     userTasks: userTasksSchema = null;
     userTasksLabelList = {};
+
+    // constructor()
+    // {
+    //     if(localStorage.getItem('VALID_LOGIN') != null)
+    //         this.username = 
+    // }
 
     setUserName(currentUserName: string)
     {

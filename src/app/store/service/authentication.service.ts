@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 
 // Service
-import { Observable } from 'rxjs';
-import { userSchema } from '../schema/user-schema';
 import { UserService } from './user.service';
 import { UserTasksService } from './user-tasks-service';
 import { Router } from '@angular/router';
@@ -37,8 +35,7 @@ export class AuthenticationService
             }
 
             else
-            {
-                console.log("Error in login");
+            {                
                 this.alertService.putMessage("Invalid Username or password")
                 this.router.navigate(['login'])
             }
@@ -58,8 +55,7 @@ export class AuthenticationService
                 }
     
                 else
-                {
-                    console.log("Error in resgister");
+                {                    
                     this.alertService.putMessage("Username already exists")
                     this.router.navigate(['register'])
                 }

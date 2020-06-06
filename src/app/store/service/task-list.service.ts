@@ -193,9 +193,9 @@ export class TaskListService
                 for (let index = 0; index < this.taskList.length; index++) 
                 {
                     if (
-                        new Date(this.taskList[index].dueDate).getMonth() != month ||
-                        new Date(this.taskList[index].dueDate).getFullYear() != year ||
-                        new Date(this.taskList[index].dueDate).getDate() != date
+                        new Date(this.taskList[index].dueDate).getMonth() != year ||
+                        new Date(this.taskList[index].dueDate).getFullYear() != date ||
+                        new Date(this.taskList[index].dueDate).getDate() != month
                     )
                     {
                         this.taskList.splice(index, 1);

@@ -152,7 +152,7 @@ export class UpdateTaskComponent implements OnInit
         this.labelWillBeDeleted = this.userTasksService.updateTask(newTask);
 
         this.updatePanelTaskList(newTask);
-
+        this.toggleLoading();
         this.taskUpdated = true;
         if (this.labelWillBeDeleted)
           location.reload();
@@ -163,8 +163,8 @@ export class UpdateTaskComponent implements OnInit
   }
   closeModal()
   {
-    this.taskUpdated = false;
     this.closeButton.nativeElement.click();
+    this.taskUpdated = false;
   }
 
 

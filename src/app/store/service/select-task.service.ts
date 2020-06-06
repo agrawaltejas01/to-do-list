@@ -7,8 +7,8 @@ import { taskSchema } from '../schema/userTasks-schema';
 
 export class SelectTaskService
 {
-    taskSelected : Boolean[] = [false];
-    appTaskList : taskSchema[] = [];
+    taskSelected: Boolean[] = [false];
+    appTaskList: taskSchema[] = [];
 
     unSelectAllTask()
     {
@@ -20,7 +20,7 @@ export class SelectTaskService
         this.taskSelected = [true];
     }
 
-    insertInAppTaskList(task : taskSchema)
+    insertInAppTaskList(task: taskSchema)
     {
         this.appTaskList.push(task);
     }
@@ -30,21 +30,17 @@ export class SelectTaskService
         this.appTaskList = [];
     }
 
-    removeFromAppTaskList(id : string)
+    removeFromAppTaskList(id: string)
     {
         for (let index = 0; index < this.appTaskList.length; index++) 
         {
-            if(this.appTaskList[index]._id == id)
+            if (this.appTaskList[index]._id == id)
             {
-                this.appTaskList.splice(index,1);
+                this.appTaskList.splice(index, 1);
                 return;
             }
-            
+
         }
     }
 
-    // archivetask(id : string)
-    // {
-    //     for(let index = 0)
-    // }
 }

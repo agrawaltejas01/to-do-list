@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 // Services
 import { taskSchema } from 'src/app/store/schema/userTasks-schema';
 import { UserTasksService } from 'src/app/store/service/user-tasks-service';
 import { TaskListService } from 'src/app/store/service/task-list.service';
-import { UserService } from 'src/app/store/service/user.service';
 import { SelectTaskService } from 'src/app/store/service/select-task.service';
 
 @Component({
@@ -19,7 +18,7 @@ export class SearchTaskComponent implements OnInit
   userTasksLabelList: string[] = [];
   searchTaskForm: FormGroup;
 
-  constructor(private userService: UserService,
+  constructor(
     public taskSelectedService: SelectTaskService,
     private taskListService: TaskListService,
     public userTasksService: UserTasksService,
@@ -68,18 +67,10 @@ export class SearchTaskComponent implements OnInit
     {
       dueDate = new Date(this.searchTaskForm.value.taskDueDate);
       dueDate.setDate(dueDate.getDate());
-    }
-    // dueDate = this.searchTaskForm.value.taskDueDate;
+    }    
 
     status = this.searchTaskForm.value.taskStatus;
-    archive = this.searchTaskForm.value.taskArchive;
-
-    // console.log(title);
-    // console.log(label);
-    // console.log(priority);
-    // console.log(status);
-    // console.log(dueDate);
-    // console.log(archive);    
+    archive = this.searchTaskForm.value.taskArchive;      
 
     this.taskList = this.taskListService.getTasksOfFilter(title, label, priority,
       status, dueDate, archive, this.userTasksService.userTasks);

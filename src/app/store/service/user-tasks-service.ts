@@ -8,20 +8,11 @@ import { taskSchema, userTasksSchema } from '../schema/userTasks-schema';
 })
 
 export class UserTasksService
-{
-    // username: string = "Tejas";
-
-
-    // username: string = null;
+{    
     username: string = localStorage.getItem('VALID_LOGIN');
     userTasks: userTasksSchema = null;
     userTasksLabelList = {};
-
-    // constructor()
-    // {
-    //     if(localStorage.getItem('VALID_LOGIN') != null)
-    //         this.username = 
-    // }
+    
 
     setUserName(currentUserName: string)
     {
@@ -101,15 +92,13 @@ export class UserTasksService
     checkUnusedLabel(label: string)
     {
         if (this.userTasksLabelList[label] == 1)
-        {
-            console.log("IGI checkUnusedLabel and found label " + label + " With count " + this.userTasksLabelList[label]);
+        {            
             delete this.userTasksLabelList[label];
             return true;
         }
 
         else if (this.userTasksLabelList[label] > 1)
-        {
-            console.log("IGI checkUnusedLabel and found label " + label + " With count " + this.userTasksLabelList[label]);
+        {            
             this.userTasksLabelList[label] = this.userTasksLabelList[label] -1;
             return false;
         }
@@ -127,8 +116,7 @@ export class UserTasksService
     {
         let labelWillBeDeleted: Boolean = false;
 
-        let indexOfUpdatedTask = this.userTasks.task.findIndex((task)=>(task._id==modifiedTask._id));
-        console.log("update task user tasks",indexOfUpdatedTask); 
+        let indexOfUpdatedTask = this.userTasks.task.findIndex((task)=>(task._id==modifiedTask._id));        
         let oldLabel =  this.userTasks.task[indexOfUpdatedTask].label;
 
         if(modifiedTask.label != oldLabel)

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 
-// Service
-import { taskSchema, userTasksSchema } from '../schema/userTasks-schema';
-
 @Injectable({
     providedIn: 'root'
 })

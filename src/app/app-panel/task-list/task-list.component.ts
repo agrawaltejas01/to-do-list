@@ -87,8 +87,7 @@ export class TaskListComponent implements OnInit
       .subscribe(result =>
       {
         if (result)
-        {
-          console.log("chamge task status successful");
+        {          
           this.userTasksService.changeTaskStatus(this.taskList[index]._id, status);
         }
       })
@@ -102,8 +101,7 @@ export class TaskListComponent implements OnInit
       .subscribe(result =>
       {
         if (result)
-        {
-          console.log("chamge task priority successful");
+        {          
           this.userTasksService.changeTaskPriority(this.taskList[index]._id, priority);
         }
       })

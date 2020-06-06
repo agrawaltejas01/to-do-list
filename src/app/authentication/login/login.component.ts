@@ -43,15 +43,13 @@ export class LoginComponent implements OnInit
     if(!this.loginForm.valid)
     {
       if(! this.loginForm.value.username.valid)
-      {
-        // alert("Username cannot be empty");
+      {        
         this.alertService.putMessage("Username and Password cannot be empty");
         return;
       }
       
       if(! this.loginForm.value.password.valid)
-      {
-        // alert("Password cannot be empty");
+      {        
         this.alertService.putMessage("Username and Password cannot be empty");
         return;
       }

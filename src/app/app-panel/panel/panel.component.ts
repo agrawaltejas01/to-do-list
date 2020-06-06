@@ -35,15 +35,15 @@ import { AlertService } from 'src/app/store/service/alert.service';
 export class PanelComponent implements OnInit
 {
 
-  
-  searchTaskToggle : Boolean = false;  
+
+  searchTaskToggle: Boolean = false;
   userTasksLabelList = {};
 
   userTaskDuplicate: userTasksSchema;
 
   allDataAvailable: Boolean = false;
 
-  currentTab : string = 'All';
+  currentTab: string = 'All';
   noLabel = 'none';
 
   // font awsome
@@ -58,7 +58,7 @@ export class PanelComponent implements OnInit
   taskList: taskSchema[];
 
   // confirmation action
-  currentAction : string = "Delete";  
+  currentAction: string = "Delete";
   @ViewChild('closeButton') closeButton;
 
   constructor(private userService: UserService,
@@ -66,20 +66,20 @@ export class PanelComponent implements OnInit
     private taskListService: TaskListService,
     public userTasksService: UserTasksService,
     public addTaskPageService: AddTaskPageService,
-    private router : Router,
+    private router: Router,
     public authenticationService: AuthenticationService,
-    ) 
+  ) 
   {
     this.allDataAvailable = false;
 
-    if(this.userTasksService.username == null)
+    if (this.userTasksService.username == null)
       this.router.navigate(['login'])
   }
 
   ngOnInit(): void
   {
-    if(this.userTasksService.username == null)
-    {      
+    if (this.userTasksService.username == null)
+    {
       this.router.navigate(['login'])
     }
 
@@ -89,7 +89,7 @@ export class PanelComponent implements OnInit
   }
 
 
-  getUserTasks(username : string)
+  getUserTasks(username: string)
   {
     // Get all user tasks at a time
     this.userService.getUserTasks(username).subscribe((data: userTasksSchema) =>
@@ -98,20 +98,20 @@ export class PanelComponent implements OnInit
       // this.userTasksService.userTasks = data;      
       this.userTasksService.userTasks = data;
 
-      this.userTasksService.getTaskLabel();      
+      this.userTasksService.getTaskLabel();
 
-      
-      this.taskList = this.taskListService.getTasksOfFilter('none', 'none', -1, 
-              -1, null, false, data);
-      
-      
+
+      this.taskList = this.taskListService.getTasksOfFilter('none', 'none', -1,
+        -1, null, false, data);
+
+
     });
 
     this.allDataAvailable = true;
 
   }
 
-  changeTab(label : string)
+  changeTab(label: string)
   {
     this.currentTab = label;
 
@@ -135,17 +135,17 @@ export class PanelComponent implements OnInit
     this.taskSelectedService.initAppTaskList()
     this.taskSelectedService.unSelectAllTask()
 
-    this.taskList = this.taskListService.getTasksOfFilter(title, label, priority, 
+    this.taskList = this.taskListService.getTasksOfFilter(title, label, priority,
       status, dueDate, archive, this.userTasksService.userTasks);
   }
 
-  openActionModal(action : string)
+  openActionModal(action: string)
   {
     this.currentAction = action;
   }
 
   archiveTasks()
-  {    
+  {
     let idToBeArchived: string[] = [];
 
     // traverse appTaskList$
@@ -157,7 +157,7 @@ export class PanelComponent implements OnInit
     // call API to archive tasks
     this.userService.archiveTask(this.userTasksService.username, idToBeArchived).subscribe(result =>
     {
-      
+
       if (result)
       {
         this.userTasksService.archiveTask(idToBeArchived);
@@ -175,7 +175,7 @@ export class PanelComponent implements OnInit
 
   deleteTasks()
   {
-    
+
     let idToBeDeleted: string[] = [];
 
     this.taskSelectedService.appTaskList.forEach(task =>
@@ -183,14 +183,14 @@ export class PanelComponent implements OnInit
       idToBeDeleted.push(task._id);
     })
 
-    let labelWillBeDeleted : Boolean = false;
+    let labelWillBeDeleted: Boolean = false;
     this.userService.deleteTask(this.userTasksService.username, idToBeDeleted).subscribe(result =>
     {
-      
+
       if (result)
       {
         labelWillBeDeleted = this.userTasksService.deleteTask(idToBeDeleted);
-        
+
         labelWillBeDeleted ? this.changeTab('All') : this.changeTab(this.currentTab);
       }
     });

@@ -10,18 +10,18 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { AppPanelModule } from "./app-panel/app-panel.module"
 
 @NgModule({
-  declarations: 
-  [
-    AppComponent
-  ],
-  imports: 
-  [
-    BrowserModule,
-    AppRoutingModule,
-    AppPanelModule,  
-    FormsModule,   
-    AuthenticationModule,    
-  ],
+  declarations:
+    [
+      AppComponent
+    ],
+  imports:
+    [
+      BrowserModule,
+      AppRoutingModule,
+      AppPanelModule,
+      FormsModule,
+      AuthenticationModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

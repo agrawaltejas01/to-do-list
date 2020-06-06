@@ -23,40 +23,40 @@ import { AlertService } from '../store/service/alert.service';
 import { UpdateTaskComponent } from './update-task/update-task.component';
 
 @NgModule({
-  declarations: 
-  [
-    PanelComponent,
-    TaskListComponent,
-    AddTaskComponent,
-    SearchTaskComponent,
-    UpdateTaskComponent,
-  ],
+  declarations:
+    [
+      PanelComponent,
+      TaskListComponent,
+      AddTaskComponent,
+      SearchTaskComponent,
+      UpdateTaskComponent,
+    ],
 
-  imports: 
-  [
-    CommonModule,
-    HttpClientModule,  
-    FontAwesomeModule,  
-    FormsModule,
-    ReactiveFormsModule
-  ],
+  imports:
+    [
+      CommonModule,
+      HttpClientModule,
+      FontAwesomeModule,
+      FormsModule,
+      ReactiveFormsModule
+    ],
 
-  exports : 
-  [
-    PanelComponent,
-    TaskListComponent,
-    SearchTaskComponent,
-  ],
+  exports:
+    [
+      PanelComponent,
+      TaskListComponent,
+      SearchTaskComponent,
+    ],
 
-  providers :
-  [
-    UserService,
-    SelectTaskService,
-    TaskListService,
-    UserTasksService,
-    AddTaskPageService,
-    AuthenticationService,
-    AlertService,
-  ]
+  providers:
+    [
+      UserService,
+      SelectTaskService,
+      TaskListService,
+      UserTasksService,
+      AddTaskPageService,
+      AuthenticationService,
+      AlertService,
+    ]
 })
 export class AppPanelModule { }

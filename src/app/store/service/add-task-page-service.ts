@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 export class AddTaskPageService
 {
-    private AddTaskPage : Boolean = false;
+    private AddTaskPage: Boolean = false;
 
     getAddTaskPage()
     {

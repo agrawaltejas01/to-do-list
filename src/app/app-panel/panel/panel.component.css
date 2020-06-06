@@ -1,28 +1,23 @@
-.nav-tabs
-{
+.nav-tabs {
     color: blue;
     background-color: whitesmoke;
 }
 
-.search-task-icon
-{
+.search-task-icon {
     margin-left: -2%;
 }
 
-
-.operations-buttons
-{
+.operations-buttons {
     border: 0px;
     background: transparent;
 }
 
-#disabledOperationButton
-{
+#disabledOperationButton {
     cursor: not-allowed;
     color: grey;
 }
 
-.search-task, hr
-{
+.search-task,
+hr {
     color: blue;
 }

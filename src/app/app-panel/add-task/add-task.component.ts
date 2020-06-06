@@ -13,16 +13,16 @@ import { UserTasksService } from 'src/app/store/service/user-tasks-service';
 })
 export class AddTaskComponent implements OnInit
 {
-  @Input() currentTab : String;
+  @Input() currentTab: String;
   @Input() taskList: taskSchema[];
 
   defaultLabels = ["Personal", "Work", "Shopping", "other"];
-  labels = [];  
-  priorities = [ { label:"High", value:1 } , { label:"Normal", value:2 } , { label:"Low", value:3 }];
+  labels = [];
+  priorities = [{ label: "High", value: 1 }, { label: "Normal", value: 2 }, { label: "Low", value: 3 }];
 
-  
+
   addTaskForm: FormGroup;
-  
+
   constructor(private fb: FormBuilder,
     private userService: UserService,
     public addTaskPageService: AddTaskPageService,
@@ -32,11 +32,12 @@ export class AddTaskComponent implements OnInit
   }
   updateLabels()
   {
-    this.labels=this.userTasksService.getTaskLabelListArray();
-    
+    this.labels = this.userTasksService.getTaskLabelListArray();
+
     //Check whether default labels are already present in Label list for service, only one copy of a label to be present
-    this.defaultLabels.forEach((element)=>{
-      if(this.labels.indexOf(element)==-1)
+    this.defaultLabels.forEach((element) =>
+    {
+      if (this.labels.indexOf(element) == -1)
         this.labels.push(element);
     });
   }
@@ -53,12 +54,13 @@ export class AddTaskComponent implements OnInit
     });
   }
 
-  addToPanelTaskList(newTask : taskSchema){
+  addToPanelTaskList(newTask: taskSchema)
+  {
     //either its' default tab or it's the same tab
-    if(this.currentTab=="All" || this.currentTab == newTask.label)
+    if (this.currentTab == "All" || this.currentTab == newTask.label)
       this.taskList.push(newTask);
   }
-  
+
   submitTask()
   {
     if (!this.addTaskForm.valid)
@@ -87,13 +89,13 @@ export class AddTaskComponent implements OnInit
     newTask.archive = false;
     newTask.status = 0;
     userTaskBody.task = newTask;
-    
+
     if (this.addTaskForm.value.tasklabel === "other") 
     {
       userTaskBody.task.label = this.addTaskForm.value.tasknewlabel;
     }
     this.userService.addUserTask(userTaskBody).subscribe((data) =>
-    {      
+    {
       if (data == false)
         console.log("errror");
       else
@@ -105,6 +107,6 @@ export class AddTaskComponent implements OnInit
       }
     },
       (error) => console.log("er", error));
-    
+
   }
 }

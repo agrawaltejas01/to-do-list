@@ -23,7 +23,7 @@ export class SearchTaskComponent implements OnInit
     private taskListService: TaskListService,
     public userTasksService: UserTasksService,
     private formBuilder: FormBuilder) 
-  {    
+  {
   }
 
   ngOnInit(): void 
@@ -62,15 +62,15 @@ export class SearchTaskComponent implements OnInit
       label = this.searchTaskForm.value.taskLabel;
 
     priority = this.searchTaskForm.value.taskPriority;
-    
+
     if (this.searchTaskForm.value.taskDueDate)
     {
       dueDate = new Date(this.searchTaskForm.value.taskDueDate);
       dueDate.setDate(dueDate.getDate());
-    }    
+    }
 
     status = this.searchTaskForm.value.taskStatus;
-    archive = this.searchTaskForm.value.taskArchive;      
+    archive = this.searchTaskForm.value.taskArchive;
 
     this.taskList = this.taskListService.getTasksOfFilter(title, label, priority,
       status, dueDate, archive, this.userTasksService.userTasks);

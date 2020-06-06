@@ -8,11 +8,11 @@ import { taskSchema, userTasksSchema } from '../schema/userTasks-schema';
 })
 
 export class UserTasksService
-{    
+{
     username: string = localStorage.getItem('VALID_LOGIN');
     userTasks: userTasksSchema = null;
     userTasksLabelList = {};
-    
+
 
     setUserName(currentUserName: string)
     {
@@ -92,42 +92,42 @@ export class UserTasksService
     checkUnusedLabel(label: string)
     {
         if (this.userTasksLabelList[label] == 1)
-        {            
+        {
             delete this.userTasksLabelList[label];
             return true;
         }
 
         else if (this.userTasksLabelList[label] > 1)
-        {            
-            this.userTasksLabelList[label] = this.userTasksLabelList[label] -1;
+        {
+            this.userTasksLabelList[label] = this.userTasksLabelList[label] - 1;
             return false;
         }
     }
 
-    getTaskLabelListArray():string[]
+    getTaskLabelListArray(): string[]
     {
-        let labelList : string[]=[];
-        for(var i in this.userTasksLabelList)
+        let labelList: string[] = [];
+        for (var i in this.userTasksLabelList)
             labelList.push(i);
         return labelList;
     }
 
-    updateTask(modifiedTask : taskSchema)
+    updateTask(modifiedTask: taskSchema)
     {
         let labelWillBeDeleted: Boolean = false;
 
-        let indexOfUpdatedTask = this.userTasks.task.findIndex((task)=>(task._id==modifiedTask._id));        
-        let oldLabel =  this.userTasks.task[indexOfUpdatedTask].label;
+        let indexOfUpdatedTask = this.userTasks.task.findIndex((task) => (task._id == modifiedTask._id));
+        let oldLabel = this.userTasks.task[indexOfUpdatedTask].label;
 
-        if(modifiedTask.label != oldLabel)
+        if (modifiedTask.label != oldLabel)
         {
             // Label is updated
             labelWillBeDeleted =
-                    labelWillBeDeleted ? true : this.checkUnusedLabel(oldLabel);            
+                labelWillBeDeleted ? true : this.checkUnusedLabel(oldLabel);
             this.addTaskLabel(modifiedTask);
         }
 
-        this.userTasks.task[indexOfUpdatedTask]=modifiedTask;   
+        this.userTasks.task[indexOfUpdatedTask] = modifiedTask;
         return labelWillBeDeleted;
     }
 }

@@ -1,55 +1,47 @@
 <div class="card">
-    <div  class="card-header">  
-      <h5>Add New Task</h5>
-      <button type="button" class="close" aria-label="Close" (click)="this.addTaskPageService.toggleAddTaskPage()">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="card-header">
+        <h5>Add New Task</h5>
+        <button type="button" class="close" aria-label="Close" (click)="this.addTaskPageService.toggleAddTaskPage()">
+      <span aria-hidden="true">&times;</span>
+    </button>
     </div>
     <div class="card-body">
-        
-          <form [formGroup]="addTaskForm" (ngSubmit)="submitTask()">
-            
+
+        <form [formGroup]="addTaskForm" (ngSubmit)="submitTask()">
+
             <div class="form-group">
-              <label for="tasktitle">Title : </label>
-              <input formControlName="tasktitle" 
-                class="form-control form-control-lg" id="tasktitle" type="text" placeholder="Enter Title">
+                <label for="tasktitle">Title : </label>
+                <input formControlName="tasktitle" class="form-control form-control-lg" id="tasktitle" type="text" placeholder="Enter Title">
             </div>
             <div class="form-group">
-              <label for="taskdescription">Description : </label>
-              <textarea formControlName="taskdescription"
-                class="form-control" id="taskdescription" placeholder="Enter Description" rows="3" ></textarea>
+                <label for="taskdescription">Description : </label>
+                <textarea formControlName="taskdescription" class="form-control" id="taskdescription" placeholder="Enter Description" rows="3"></textarea>
             </div>
             <div class="form-group">
-              <label for="taskduedate">Due Date : </label>
-              <input formControlName="taskduedate" 
-                class="form-control" id="taskduedate" type="date">
+                <label for="taskduedate">Due Date : </label>
+                <input formControlName="taskduedate" class="form-control" id="taskduedate" type="date">
             </div>
             <div class="form-group">
-              <label for="taskpriority">Priority : </label>
-              <select formControlName="taskpriority"
-                class="custom-select" id="taskpriority">
-                <option *ngFor="let priority of priorities" [value]="priority.value" >{{priority.label}}</option>
-              </select>
+                <label for="taskpriority">Priority : </label>
+                <select formControlName="taskpriority" class="custom-select" id="taskpriority">
+          <option *ngFor="let priority of priorities" [value]="priority.value">{{priority.label}}</option>
+        </select>
             </div>
             <div class="form-group">
                 <label for="tasklabel">Label : </label>
-                <select formControlName="tasklabel" 
-                  class="custom-select" id="tasklabel">
-                  <option *ngFor="let label of labels" [value]="label" >{{label}}</option>
-                </select>
-                &nbsp;
-                <div *ngIf="addTaskForm.get('tasklabel').value=='other'" 
-                  class="input-group mb-3" id="newtaskdiv">
+                <select formControlName="tasklabel" class="custom-select" id="tasklabel">
+          <option *ngFor="let label of labels" [value]="label">{{label}}</option>
+        </select> &nbsp;
+                <div *ngIf="addTaskForm.get('tasklabel').value=='other'" class="input-group mb-3" id="newtaskdiv">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon3">Add New Label</span>
+                        <span class="input-group-text" id="basic-addon3">Add New Label</span>
                     </div>
-                    <input formControlName="tasknewlabel"  
-                      type="text" class="form-control" id="tasknewlabel" aria-describedby="basic-addon3" placeholder="If left blank Label 'other' will be kept">
+                    <input formControlName="tasknewlabel" type="text" class="form-control" id="tasknewlabel" aria-describedby="basic-addon3" placeholder="If left blank Label 'other' will be kept">
                 </div>
 
             </div>
-            
+
             <button type="submit" class="btn btn-primary">Add New Task</button>
-          </form>
+        </form>
     </div>
 </div>

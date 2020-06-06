@@ -11,8 +11,7 @@
 
 <div *ngFor="let task of taskList; let i = index">
     <div class="card">
-        <div class="card-body" data-toggle="collapse" attr.data-target="#description-{{task?._id}}"
-            attr.aria-controls="description-{{task?._id}}">
+        <div class="card-body" data-toggle="collapse" attr.data-target="#description-{{task?._id}}" attr.aria-controls="description-{{task?._id}}">
 
 
 
@@ -31,18 +30,15 @@
 
                 <div class="status-circle" style="cursor: pointer;">
                     <div *ngIf="task?.status == 0">
-                        <fa-icon (click)="toggleTaskStatus(i,1)" id="taskInComplete" [icon]='faExclamationCircle'
-                            title="Task Pending"></fa-icon>
+                        <fa-icon (click)="toggleTaskStatus(i,1)" id="taskInComplete" [icon]='faExclamationCircle' title="Task Pending"></fa-icon>
                     </div>
 
                     <div *ngIf="task?.status == 1 ">
-                        <fa-icon (click)="toggleTaskStatus(i,2)" id="taskInProgress" [icon]='faHourglassHalf'
-                            title="Task In Progress"></fa-icon>
+                        <fa-icon (click)="toggleTaskStatus(i,2)" id="taskInProgress" [icon]='faHourglassHalf' title="Task In Progress"></fa-icon>
                     </div>
 
                     <div *ngIf="task?.status == 2">
-                        <fa-icon (click)="toggleTaskStatus(i,0)" id="taskComplete" [icon]='faCheckCircle'
-                            title="Task Completed"></fa-icon>
+                        <fa-icon (click)="toggleTaskStatus(i,0)" id="taskComplete" [icon]='faCheckCircle' title="Task Completed"></fa-icon>
                     </div>
                 </div>
 
@@ -79,23 +75,22 @@
 
             </div>
 
-            <div class="collapse" attr.id="description-{{task?._id}}">                
-                    <div class="card-body border-0" id="taskDescriptionCard">
-                        
-                        <div style="margin-left: 8%;" *ngIf="task?.description; else noDescription">
-                            {{task?.description}}
-                        </div>
+            <div class="collapse" attr.id="description-{{task?._id}}">
+                <div class="card-body border-0" id="taskDescriptionCard">
 
-                        <ng-template style="margin-left: 8%;" #noDescription>
-                            No Description
-                        </ng-template>
+                    <div style="margin-left: 8%;" *ngIf="task?.description; else noDescription">
+                        {{task?.description}}
+                    </div>
 
-                        <a class="updateLogo" data-toggle="modal" href="#updateTaskModal"
-                            (click)="selectTaskForUpdate(task)">
-                            <fa-icon [icon]='faPencilSquare' title="Edit Task">
-                            </fa-icon>
-                        </a>
-                    </div>                
+                    <ng-template style="margin-left: 8%;" #noDescription>
+                        No Description
+                    </ng-template>
+
+                    <a class="updateLogo" data-toggle="modal" href="#updateTaskModal" (click)="selectTaskForUpdate(task)">
+                        <fa-icon [icon]='faPencilSquare' title="Edit Task">
+                        </fa-icon>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -106,12 +101,9 @@
 
 </div>
 
- <!-- Modal For Edit Task --> 
+<!-- Modal For Edit Task -->
 <div *ngIf="selectedTaskForUpdate!=null" class="modal fade show" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalTitle" aria-hidden="true">
 
-    <app-update-task *ngIf="selectedTaskForUpdate!=null"
-        [task]="selectedTaskForUpdate"
-        [taskList]="taskList"
-        [currentTab]="currentTab" >
+    <app-update-task *ngIf="selectedTaskForUpdate!=null" [task]="selectedTaskForUpdate" [taskList]="taskList" [currentTab]="currentTab">
     </app-update-task>
 </div>

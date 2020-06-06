@@ -1,6 +1,7 @@
-.card-header>h5{
+.card-header>h5 {
     display: inline;
 }
-.card-header>h5>button{
+
+.card-header>h5>button {
     float: right;
 }

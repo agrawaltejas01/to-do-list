@@ -11,13 +11,13 @@ import { AlertService } from './alert.service';
 })
 
 export class AuthenticationService
-{    
+{
 
     constructor(
         private userService: UserService,
         private userTasksService: UserTasksService,
         private router: Router,
-        private alertService : AlertService )
+        private alertService: AlertService)
     {
         // this.currentUser = null;
     }
@@ -35,7 +35,7 @@ export class AuthenticationService
             }
 
             else
-            {                
+            {
                 this.alertService.putMessage("Invalid Username or password")
                 this.router.navigate(['login'])
             }
@@ -45,25 +45,25 @@ export class AuthenticationService
     register(username: string, password: string)
     {
         this.userService.registerUser(username, password).subscribe(result =>
+        {
+            if (result)
             {
-                if (result)
-                {
-                    this.alertService.removeMessage();
-                    localStorage.setItem('VALID_LOGIN', username);
-                    this.userTasksService.setUserName(username);                    
-                    this.router.navigate(['/'])
-                }
-    
-                else
-                {                    
-                    this.alertService.putMessage("Username already exists")
-                    this.router.navigate(['register'])
-                }
-            });
+                this.alertService.removeMessage();
+                localStorage.setItem('VALID_LOGIN', username);
+                this.userTasksService.setUserName(username);
+                this.router.navigate(['/'])
+            }
+
+            else
+            {
+                this.alertService.putMessage("Username already exists")
+                this.router.navigate(['register'])
+            }
+        });
     }
 
     logout()
-    {        
+    {
         this.userTasksService.setUserName(null);
         localStorage.removeItem('VALID_LOGIN');
         this.router.navigate(['login'])

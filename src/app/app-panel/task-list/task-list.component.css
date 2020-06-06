@@ -1,60 +1,54 @@
-.status-circle
-{
-    transform: scale(1.5,1.5);
+.status-circle {
+    transform: scale(1.5, 1.5);
     margin-right: 3%;
 }
 
-
-#taskInComplete, .highPriority
-{
-    color:red
+#taskInComplete,
+.highPriority {
+    color: red
 }
 
-#taskInProgress, .mediumPriority
-{
+#taskInProgress,
+.mediumPriority {
     color: orange;
 }
 
-#taskComplete, .lowPriority
-{
+#taskComplete,
+.lowPriority {
     color: lightgreen;
 }
 
-#checkedSquared, #unCheckedSquared, .checkSquare
-{
-    transform: scale(1.5,1.5);
+#checkedSquared,
+#unCheckedSquared,
+.checkSquare {
+    transform: scale(1.5, 1.5);
     margin-right: 3%;
     color: lightgrey;
 }
 
-.title
-{
+.title {
     width: 30%;
 }
 
-.dueDate
-{
+.dueDate {
     width: 20%;
 }
 
-
-#nothingHereIcon
-{
+#nothingHereIcon {
     color: #FF7F00;
-    transform: scale(1.5,1.5);
+    transform: scale(1.5, 1.5);
 }
 
-.updateLogo{
+.updateLogo {
     float: right;
-    transform: scale(1.25,1.25);
+    transform: scale(1.25, 1.25);
     color: black;
 }
 
-#taskDescriptionCard{
+#taskDescriptionCard {
     display: inline;
 }
 
-.taskDescription
-{
+.taskDescription {
     margin-left: 10%;
 }

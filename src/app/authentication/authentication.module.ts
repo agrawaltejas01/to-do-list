@@ -27,7 +27,7 @@ import { RegisterationComponent } from './registeration/registeration.component'
       CommonModule,
       BrowserModule,
       FormsModule,
-      ReactiveFormsModule,    
+      ReactiveFormsModule,
     ],
   exports:
     [

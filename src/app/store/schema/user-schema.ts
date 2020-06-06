@@ -1,5 +1,5 @@
 export class userSchema
 {
-    _id : string;
-    password : string
+    _id: string;
+    password: string
 }

@@ -31,7 +31,7 @@ export class TaskListComponent implements OnInit
 {
 
   @Input() taskList: taskSchema[] = [];
-  @Input() currentTab : String;
+  @Input() currentTab: String;
 
   // font awsome
   faCheckSquare = faCheckSquare;
@@ -47,14 +47,14 @@ export class TaskListComponent implements OnInit
   taskStatus: number = 0;
   taskPriority: number = 2;
 
-  isExpanded : Boolean = false;
-  selectedTaskForUpdate : taskSchema = null;
+  isExpanded: Boolean = false;
+  selectedTaskForUpdate: taskSchema = null;
 
   // store
   appTaskList$: Observable<taskSchema[]>;
 
   constructor(private userService: UserService,
-    public taskSelectedService: SelectTaskService,    
+    public taskSelectedService: SelectTaskService,
     public userTasksService: UserTasksService) 
   {
   }
@@ -72,10 +72,10 @@ export class TaskListComponent implements OnInit
   {
     this.taskSelectedService.taskSelected[index] = !this.taskSelectedService.taskSelected[index];
 
-    if (this.taskSelectedService.taskSelected[index])      
+    if (this.taskSelectedService.taskSelected[index])
       this.taskSelectedService.insertInAppTaskList(this.taskList[index]);
 
-    else      
+    else
       this.taskSelectedService.removeFromAppTaskList(this.taskList[index]._id);
   }
 
@@ -87,7 +87,7 @@ export class TaskListComponent implements OnInit
       .subscribe(result =>
       {
         if (result)
-        {          
+        {
           this.userTasksService.changeTaskStatus(this.taskList[index]._id, status);
         }
       })
@@ -101,7 +101,7 @@ export class TaskListComponent implements OnInit
       .subscribe(result =>
       {
         if (result)
-        {          
+        {
           this.userTasksService.changeTaskPriority(this.taskList[index]._id, priority);
         }
       })

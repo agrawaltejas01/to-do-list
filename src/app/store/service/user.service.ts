@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
-import {  HttpClient  } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { userSchema } from '../schema/user-schema' 
+import { userSchema } from '../schema/user-schema'
 import { userTasksSchema } from '../schema/userTasks-schema';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 export class UserService
 {
-    baseUrl : string;
+    baseUrl: string;
 
-    constructor(private http : HttpClient)
+    constructor(private http: HttpClient)
     {
         this.baseUrl = "http://localhost:8080/";
     }
 
-    authenticateUser(username : string, password : string)
+    authenticateUser(username: string, password: string)
     {
         // return username as string if successful or null
         return this.http.post<Boolean>(this.baseUrl + 'authenticateUser', {
@@ -26,7 +26,7 @@ export class UserService
         })
     }
 
-    registerUser(username : string, password : string)
+    registerUser(username: string, password: string)
     {
         // return username as string if successful or null
         return this.http.post<Boolean>(this.baseUrl + 'registerUser', {
@@ -49,7 +49,7 @@ export class UserService
         })
     }
 
-    archiveTask(username : string, idToBeArchived : string[])
+    archiveTask(username: string, idToBeArchived: string[])
     {
         return this.http.post<Boolean>(this.baseUrl + 'archiveTask', {
             username,
@@ -57,14 +57,14 @@ export class UserService
         })
     }
 
-    deleteTask(username : string, idToBeDeleted : string[])
-    {        
+    deleteTask(username: string, idToBeDeleted: string[])
+    {
         return this.http.post<Boolean>(this.baseUrl + 'deleteTask', {
             username,
             idToBeDeleted
         })
     }
-    
+
     addUserTask(userTaskBody)
     {
         return this.http.post<any>(this.baseUrl + 'addUserTask',
@@ -72,7 +72,7 @@ export class UserService
         )
     }
 
-    changeTaskStatus(username : string, taskId : string, status : number)
+    changeTaskStatus(username: string, taskId: string, status: number)
     {
         return this.http.post<Boolean>(this.baseUrl + 'changeTaskStatus', {
             username,
@@ -81,7 +81,7 @@ export class UserService
         })
     }
 
-    changeTaskPriority(username : string, taskId : string, priority : number)
+    changeTaskPriority(username: string, taskId: string, priority: number)
     {
         return this.http.post<Boolean>(this.baseUrl + 'changeTaskPriority', {
             username,
@@ -91,7 +91,7 @@ export class UserService
     }
 
     updateUserTask(userTaskBody)
-    {        
+    {
         return this.http.post<Boolean>(this.baseUrl + 'updateUserTask',
             userTaskBody
         )

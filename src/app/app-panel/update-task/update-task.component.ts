@@ -53,7 +53,7 @@ export class UpdateTaskComponent implements OnInit
   }
   ngOnDestroy()
   {
-    
+
     //This is to solve the error when label is updated
     this.closeModal();
   }
@@ -102,7 +102,7 @@ export class UpdateTaskComponent implements OnInit
       tasknewlabel: "other",
     });
 
-    
+
   }
   submitTask()
   {
@@ -142,15 +142,15 @@ export class UpdateTaskComponent implements OnInit
     }
     this.userService.updateUserTask(userTaskBody).subscribe((data) =>
     {
-      
+
       if (data == false)
         console.log("errror");
       else
       {
-        
+
         this.task = newTask;
         this.labelWillBeDeleted = this.userTasksService.updateTask(newTask);
-        
+
         this.updatePanelTaskList(newTask);
 
         this.taskUpdated = true;

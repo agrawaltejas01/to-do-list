@@ -1,80 +1,70 @@
-
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateTaskModalTitle">Modify Task</h5>
-        <button type="button" #closeButton class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form [formGroup]="updateTaskForm" (ngSubmit)="submitTask()" *ngIf="!isLoading && !taskUpdated && task!=null">
+        <div class="modal-header">
+            <h5 class="modal-title" id="updateTaskModalTitle">Modify Task</h5>
+            <button type="button" #closeButton class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        </div>
+        <form [formGroup]="updateTaskForm" (ngSubmit)="submitTask()" *ngIf="!isLoading && !taskUpdated && task!=null">
 
-        <div class="modal-body">
-          <!--Form--> 
-            <div class="form-group" >
-              <label for="tasktitle">Title : </label>
-              <input formControlName="tasktitle" 
-                class="form-control form-control-lg" id="tasktitle" type="text" placeholder="Enter Title">
-            </div>
-            <div class="form-group">
-              <label for="taskdescription">Description : </label>
-              <textarea formControlName="taskdescription"
-                class="form-control" id="taskdescription" placeholder="Enter Description" rows="3" ></textarea>
-            </div>
-            <div class="form-group">
-              <label for="taskduedate">Due Date : </label>
-              <input formControlName="taskduedate" 
-                class="form-control" id="taskduedate" type="date" >
-            </div>
-            <div class="form-group">
-              <label for="taskpriority">Priority : </label>
-              <select formControlName="taskpriority"
-                class="custom-select" id="taskpriority">
-                <option *ngFor="let priority of priorities" [value]="priority.value" >{{priority.label}}</option>
-              </select>
-            </div>
-            <div class="form-group">
-                <label for="tasklabel">Label : </label>
-                <select formControlName="tasklabel" 
-                  class="custom-select" id="tasklabel">
-                  <option *ngFor="let label of labels" [value]="label" >{{label}}</option>
-                </select>
-                &nbsp;
-                <div *ngIf="updateTaskForm.get('tasklabel').value=='other'" 
-                  class="input-group mb-3" id="newtaskdiv">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon3">Add New Label</span>
-                    </div>
-                    <input formControlName="tasknewlabel"  
-                      type="text" class="form-control" id="tasknewlabel" aria-describedby="basic-addon3" placeholder="If left blank Label 'other' will be kept">
+            <div class="modal-body">
+                <!--Form-->
+                <div class="form-group">
+                    <label for="tasktitle">Title : </label>
+                    <input formControlName="tasktitle" class="form-control form-control-lg" id="tasktitle" type="text" placeholder="Enter Title">
                 </div>
+                <div class="form-group">
+                    <label for="taskdescription">Description : </label>
+                    <textarea formControlName="taskdescription" class="form-control" id="taskdescription" placeholder="Enter Description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="taskduedate">Due Date : </label>
+                    <input formControlName="taskduedate" class="form-control" id="taskduedate" type="date">
+                </div>
+                <div class="form-group">
+                    <label for="taskpriority">Priority : </label>
+                    <select formControlName="taskpriority" class="custom-select" id="taskpriority">
+            <option *ngFor="let priority of priorities" [value]="priority.value">{{priority.label}}</option>
+          </select>
+                </div>
+                <div class="form-group">
+                    <label for="tasklabel">Label : </label>
+                    <select formControlName="tasklabel" class="custom-select" id="tasklabel">
+            <option *ngFor="let label of labels" [value]="label">{{label}}</option>
+          </select> &nbsp;
+                    <div *ngIf="updateTaskForm.get('tasklabel').value=='other'" class="input-group mb-3" id="newtaskdiv">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">Add New Label</span>
+                        </div>
+                        <input formControlName="tasknewlabel" type="text" class="form-control" id="tasknewlabel" aria-describedby="basic-addon3" placeholder="If left blank Label 'other' will be kept">
+                    </div>
+                </div>
+                <!--Form ends here-->
             </div>
-          <!--Form ends here-->
-        </div>
 
-        <div class="modal-footer" >
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
-          <button type="button" class="btn btn-primary" type="submit" >Save changes</button>
-        </div>
-     
-      </form>
-
-      <!-- Message Modal Starts here -->
-      <div *ngIf="isLoading || taskUpdated">
-        <div class="modal-body">
-          <div class="d-flex justify-content-center" *ngIf="isLoading && !taskUpdated">
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+                <button type="button" class="btn btn-primary" type="submit">Save changes</button>
             </div>
-          </div>
-          <h4 *ngIf="taskUpdated" id="taskUpdatedMessage">Task Updated</h4>
+
+        </form>
+
+        <!-- Message Modal Starts here -->
+        <div *ngIf="isLoading || taskUpdated">
+            <div class="modal-body">
+                <div class="d-flex justify-content-center" *ngIf="isLoading && !taskUpdated">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <h4 *ngIf="taskUpdated" id="taskUpdatedMessage">Task Updated</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" *ngIf="isLoading && !taskUpdated">Cancel</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal" *ngIf="isLoading && !taskUpdated">Cancel</button>
-        </div>
-      </div>
-      <!-- Message Modal Ends Here -->
-  </div>  
+        <!-- Message Modal Ends Here -->
+    </div>
 </div>
-

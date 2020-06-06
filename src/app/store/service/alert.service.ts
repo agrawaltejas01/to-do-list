@@ -6,14 +6,14 @@ import { Injectable } from '@angular/core';
 
 export class AlertService
 {
-    message : string = null;
+    message: string = null;
 
     constructor()
     {
 
     }
 
-    putMessage(message : string)
+    putMessage(message: string)
     {
         this.removeMessage();
         this.message = message;

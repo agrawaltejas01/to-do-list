@@ -8,20 +8,20 @@ import { RegisterationComponent } from './authentication/registeration/registera
 
 
 
-const routes: Routes = [  
-  
+const routes: Routes = [
+
   {
-    path : "register",
-    component : RegisterationComponent
+    path: "register",
+    component: RegisterationComponent
   },
 
   {
-    path : "login",
-    component : LoginComponent
+    path: "login",
+    component: LoginComponent
   },
   {
-    path : "**",
-    component : PanelComponent
+    path: "**",
+    component: PanelComponent
   }
 ];
 

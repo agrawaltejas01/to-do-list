@@ -79,8 +79,7 @@
 
             </div>
 
-            <div class="collapse" attr.id="description-{{task?._id}}">
-                <!-- <div class="card"> -->
+            <div class="collapse" attr.id="description-{{task?._id}}">                
                     <div class="card-body border-0" id="taskDescriptionCard">
                         
                         <div style="margin-left: 8%;" *ngIf="task?.description; else noDescription">
@@ -96,8 +95,7 @@
                             <fa-icon [icon]='faPencilSquare' title="Edit Task">
                             </fa-icon>
                         </a>
-                    </div>
-                <!-- </div> -->
+                    </div>                
             </div>
         </div>
     </div>

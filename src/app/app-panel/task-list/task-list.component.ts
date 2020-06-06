@@ -2,13 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 
 // Store
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
 
 // Service
-import { userTasksSchema } from 'src/app/store/schema/userTasks-schema';
 import { taskSchema } from 'src/app/store/schema/userTasks-schema';
 import { SelectTaskService } from 'src/app/store/service/select-task.service';
-import { TaskListService } from 'src/app/store/service/task-list.service';
 import { UserService } from 'src/app/store/service/user.service';
 import { UserTasksService } from 'src/app/store/service/user-tasks-service';
 
@@ -57,8 +54,7 @@ export class TaskListComponent implements OnInit
   appTaskList$: Observable<taskSchema[]>;
 
   constructor(private userService: UserService,
-    public taskSelectedService: SelectTaskService,
-    private taskListService: TaskListService,
+    public taskSelectedService: SelectTaskService,    
     public userTasksService: UserTasksService) 
   {
   }
@@ -76,12 +72,10 @@ export class TaskListComponent implements OnInit
   {
     this.taskSelectedService.taskSelected[index] = !this.taskSelectedService.taskSelected[index];
 
-    if (this.taskSelectedService.taskSelected[index])
-      // this.store.dispatch(new TaskActions.AddTask(this.taskList[index]));
+    if (this.taskSelectedService.taskSelected[index])      
       this.taskSelectedService.insertInAppTaskList(this.taskList[index]);
 
-    else
-      // this.store.dispatch(new TaskActions.RemoveTask(this.taskList[index]._id));
+    else      
       this.taskSelectedService.removeFromAppTaskList(this.taskList[index]._id);
   }
 

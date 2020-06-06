@@ -96,8 +96,7 @@ app.post("/registerUser", function(req, res)
 
            else
            {
-            console.log("New user created");            
-            // res.send(true);
+            console.log("New user created");                        
             userTasks.create(
                 {
                     _id : req.body.username,
@@ -174,8 +173,7 @@ app.post("/getUserTasks", function (req, res)
 })
 
 app.post("/archiveTask", function (req, res)
-{
-    console.log("Inside To Be Archived Function");
+{    
     userTasks.findById(req.body.username).then(result =>
     {
         task = result.task;
@@ -183,8 +181,7 @@ app.post("/archiveTask", function (req, res)
         for (let i = 0; i < task.length; i++)
         {
             if (req.body.idToBeArchived.includes(String(task[i]._id)))
-            {
-                console.log("Found at " + i);
+            {                
                 dataToBeUpdated['task.' + i + '.archive'] = !task[i].archive;
                 console.log(dataToBeUpdated);
             }
@@ -226,14 +223,11 @@ app.post("/deleteTask", function (req, res)
         for (let i = 0; i < task.length; i++)
         {
             if (req.body.idToBeDeleted.includes(String(task[i]._id)))
-            {
-                // console.log("Found at " + i);
-                // dataToBeDeleted['task.' + i] = 1;
-                // console.log(dataToBeDeleted);
+            {                
                 dataToBeDeleted.push(task[i]._id);
             }
         }
-        console.log("Value of dataToBeDeleted : \n" + dataToBeDeleted);
+        
         userTasks.updateMany(
             {
                 _id: req.body.username
@@ -274,11 +268,11 @@ app.post("/deleteTask", function (req, res)
 
 app.post("/addUserTask", function (req, res)
 {
-    //  console.log("Requested to add USer task");
+    
     var id = new ObjectId();
     req.body.task._id = id;
 
-    //  console.log(req.body);
+    
     userTasks.updateOne(
         {
             _id: req.body.username
@@ -298,9 +292,7 @@ app.post("/addUserTask", function (req, res)
                 res.send(err);
             }
             else
-            {
-                // console.log("task added in addUserTask \n" + data);
-                // console.log(req.body.task);
+            {                
                 res.send(req.body.task._id);
             }
         }
@@ -310,8 +302,7 @@ app.post("/addUserTask", function (req, res)
 app.post("/changeTaskStatus", function (req, res)
 {
     userTasks.findById(req.body.username).then(result =>
-    {
-        console.log("Inside Changing status")
+    {        
         task = result.task;
         dataToBeUpdated = {};
 
@@ -319,8 +310,7 @@ app.post("/changeTaskStatus", function (req, res)
         {
             const element = task[index];
             if (element._id == req.body.taskId)
-            {
-                console.log("Found at " + index);
+            {                
                 dataToBeUpdated['task.' + index + '.status'] = req.body.status;
                 console.log(dataToBeUpdated);
             }
@@ -354,8 +344,7 @@ app.post("/changeTaskStatus", function (req, res)
 app.post("/changeTaskPriority", function (req, res)
 {
     userTasks.findById(req.body.username).then(result =>
-    {
-        console.log("Inside Changing priority")
+    {        
         task = result.task;
         dataToBeUpdated = {};
 
@@ -363,8 +352,7 @@ app.post("/changeTaskPriority", function (req, res)
         {
             const element = task[index];
             if (element._id == req.body.taskId)
-            {
-                console.log("Found at " + index);
+            {                
                 dataToBeUpdated['task.' + index + '.priority'] = req.body.priority;
                 console.log(dataToBeUpdated);
             }
@@ -417,10 +405,7 @@ app.post("/updateUserTask", function (req, res)
                 res.send(err);
             }
             else
-            {
-                // console.log("task updated in updateUserTask \n" + data);
-                // console.log(data);
-                // console.log(req.body.task);
+            {                
                 res.send(true);
             }
         }

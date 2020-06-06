@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 // Service
 import { UserService } from 'src/app/store/service/user.service';
-import { userSchema } from 'src/app/store/schema/user-schema';
 import { userTasksSchema, taskSchema } from 'src/app/store/schema/userTasks-schema';
 import { SelectTaskService } from 'src/app/store/service/select-task.service';
 import { UserTasksService } from 'src/app/store/service/user-tasks-service';
@@ -19,7 +18,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-import { retry } from 'rxjs/operators';
 import { AlertService } from 'src/app/store/service/alert.service';
 
 
@@ -70,7 +68,7 @@ export class PanelComponent implements OnInit
     public addTaskPageService: AddTaskPageService,
     private router : Router,
     public authenticationService: AuthenticationService,
-    private alertService : AlertService) 
+    ) 
   {
     this.allDataAvailable = false;
 
@@ -91,7 +89,7 @@ export class PanelComponent implements OnInit
   }
 
 
-  getUserTasks(username)
+  getUserTasks(username : string)
   {
     // Get all user tasks at a time
     this.userService.getUserTasks(username).subscribe((data: userTasksSchema) =>
@@ -102,18 +100,18 @@ export class PanelComponent implements OnInit
 
       this.userTasksService.getTaskLabel();      
 
-      console.log(data);
+      
       this.taskList = this.taskListService.getTasksOfFilter('none', 'none', -1, 
               -1, null, false, data);
-      console.log(this.taskList);
-      // console.log(this.userTasksService.userTasks.task);
+      
+      
     });
 
     this.allDataAvailable = true;
 
   }
 
-  changeTab(label)
+  changeTab(label : string)
   {
     this.currentTab = label;
 
@@ -159,7 +157,7 @@ export class PanelComponent implements OnInit
     // call API to archive tasks
     this.userService.archiveTask(this.userTasksService.username, idToBeArchived).subscribe(result =>
     {
-      // console.log(result);
+      
       if (result)
       {
         this.userTasksService.archiveTask(idToBeArchived);
@@ -177,7 +175,7 @@ export class PanelComponent implements OnInit
 
   deleteTasks()
   {
-    // console.log("Inside delete task")
+    
     let idToBeDeleted: string[] = [];
 
     this.taskSelectedService.appTaskList.forEach(task =>
@@ -188,7 +186,7 @@ export class PanelComponent implements OnInit
     let labelWillBeDeleted : Boolean = false;
     this.userService.deleteTask(this.userTasksService.username, idToBeDeleted).subscribe(result =>
     {
-      // console.log(result);
+      
       if (result)
       {
         labelWillBeDeleted = this.userTasksService.deleteTask(idToBeDeleted);

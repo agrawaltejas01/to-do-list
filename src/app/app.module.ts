@@ -8,7 +8,6 @@ import { AuthenticationModule } from './authentication/authentication.module';
 
 // Modules
 import { AppPanelModule } from "./app-panel/app-panel.module"
-import { from } from 'rxjs';
 
 @NgModule({
   declarations: 

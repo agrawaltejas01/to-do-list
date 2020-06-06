@@ -10,13 +10,13 @@ import { AlertService } from 'src/app/store/service/alert.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit 
-{  
-  loginForm : FormGroup;
+{
+  loginForm: FormGroup;
 
   constructor(
-    private authenticationService: AuthenticationService,    
-    private formBuilder : FormBuilder,
-    public alertService : AlertService) 
+    private authenticationService: AuthenticationService,
+    private formBuilder: FormBuilder,
+    public alertService: AlertService) 
   {
 
   }
@@ -30,36 +30,36 @@ export class LoginComponent implements OnInit
   {
     this.loginForm = this.formBuilder.group(
       {
-        username : ["", Validators.required],
-        password : ["", Validators.required]
+        username: ["", Validators.required],
+        password: ["", Validators.required]
       }
     );
   }
 
-  
-  login()
-  {        
 
-    if(!this.loginForm.valid)
+  login()
+  {
+
+    if (!this.loginForm.valid)
     {
-      if(! this.loginForm.value.username.valid)
-      {        
+      if (!this.loginForm.value.username.valid)
+      {
         this.alertService.putMessage("Username and Password cannot be empty");
         return;
       }
-      
-      if(! this.loginForm.value.password.valid)
-      {        
+
+      if (!this.loginForm.value.password.valid)
+      {
         this.alertService.putMessage("Username and Password cannot be empty");
         return;
       }
-            
+
     }
 
     else
-      {        
-        this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password);
-      }
+    {
+      this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password);
+    }
   }
 
   logout()

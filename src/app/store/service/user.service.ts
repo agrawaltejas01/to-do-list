@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import {  HttpClientModule, HttpClient  } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {  HttpClient  } from '@angular/common/http';
 
 import { userSchema } from '../schema/user-schema' 
-import { userTasksSchema, taskSchema } from '../schema/userTasks-schema';
+import { userTasksSchema } from '../schema/userTasks-schema';
 
 @Injectable({
   providedIn: 'root'
@@ -60,8 +58,7 @@ export class UserService
     }
 
     deleteTask(username : string, idToBeDeleted : string[])
-    {
-        // console.log(idToBeDeleted);
+    {        
         return this.http.post<Boolean>(this.baseUrl + 'deleteTask', {
             username,
             idToBeDeleted
@@ -94,8 +91,7 @@ export class UserService
     }
 
     updateUserTask(userTaskBody)
-    {
-        console.log("In update user user-service");
+    {        
         return this.http.post<Boolean>(this.baseUrl + 'updateUserTask',
             userTaskBody
         )

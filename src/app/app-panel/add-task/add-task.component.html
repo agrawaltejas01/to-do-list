@@ -6,11 +6,9 @@
       </button>
     </div>
     <div class="card-body">
-        <!-- <form #formObject="ngForm" (ngSubmit)="submitTask(formObject)" > -->
+        
           <form [formGroup]="addTaskForm" (ngSubmit)="submitTask()">
-            <!-- <select formControlName="tasklabel" (change)="log(addTaskForm.get('tasklabel').value)">
-              <option *ngFor="let label of labels" [value]="label" >{{label}}</option>
-            </select> -->
+            
             <div class="form-group">
               <label for="tasktitle">Title : </label>
               <input formControlName="tasktitle" 
@@ -50,7 +48,7 @@
                 </div>
 
             </div>
-            <!-- {{ formObject.value | json}} -->
+            
             <button type="submit" class="btn btn-primary">Add New Task</button>
           </form>
     </div>

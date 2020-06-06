@@ -17,8 +17,9 @@ export class AddTaskComponent implements OnInit
   @Input() taskList: taskSchema[];
 
   defaultLabels = ["Personal", "Work", "Shopping", "other"];
-  labels = [];
+  labels = [];  
   priorities = [ { label:"High", value:1 } , { label:"Normal", value:2 } , { label:"Low", value:3 }];
+
   
   addTaskForm: FormGroup;
   
@@ -86,14 +87,13 @@ export class AddTaskComponent implements OnInit
     newTask.archive = false;
     newTask.status = 0;
     userTaskBody.task = newTask;
-    // if task label is other then custom label will be added
+    
     if (this.addTaskForm.value.tasklabel === "other") 
     {
       userTaskBody.task.label = this.addTaskForm.value.tasknewlabel;
     }
     this.userService.addUserTask(userTaskBody).subscribe((data) =>
-    {
-      console.log("data from getUserTasks", data);
+    {      
       if (data == false)
         console.log("errror");
       else
@@ -105,7 +105,6 @@ export class AddTaskComponent implements OnInit
       }
     },
       (error) => console.log("er", error));
-    // console.log(userTaskBody);
-    // console.log(this.addTaskForm.value);
+    
   }
 }
